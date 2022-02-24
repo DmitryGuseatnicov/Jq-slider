@@ -5,7 +5,7 @@ import { ViewEvent, ViewEventCallBack } from '../../types/types';
 import EventCreator from './EventCreator';
 
 describe('test EventCreator', () => {
-  let eventCreator: EventCreator;
+  let eventCreator: EventCreator<ViewEvent, ViewEventCallBack>;
 
   beforeEach(() => {
     eventCreator = new EventCreator();
@@ -16,18 +16,18 @@ describe('test EventCreator', () => {
   });
 
   test('Should be cant register event', () => {
-    eventCreator.registerEvent<ViewEvent>('someEvent');
+    eventCreator.registerEvent('someEvent');
     expect(eventCreator.events.someEvent).toEqual({ name: 'someEvent', callbacks: [] });
   });
 
   test('Should be cant dispatch event ', () => {
     let eventArgs = {};
 
-    eventCreator.registerEvent<ViewEvent>('someEvent');
-    eventCreator.addEventListener<ViewEventCallBack>('someEvent', (e: ViewEvent) => {
+    eventCreator.registerEvent('someEvent');
+    eventCreator.addEventListener('someEvent', (e: ViewEvent) => {
       eventArgs = { ...e };
     });
-    eventCreator.dispatchEvent<ViewEvent>('someEvent', { target: 'handle', args: { x: 10, y: 20 } });
+    eventCreator.dispatchEvent('someEvent', { target: 'handle', args: { x: 10, y: 20 } });
 
     expect(eventArgs).toEqual({ target: 'handle', args: { x: 10, y: 20 } });
   });

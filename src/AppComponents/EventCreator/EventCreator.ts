@@ -16,27 +16,27 @@ class MyEvent<T> {
   }
 }
 
-class EventCreator {
+class EventCreator<T, R> {
   events: {
-    [key: string]: MyEvent<any>
+    [key: string]: MyEvent<R>
   };
 
   constructor() {
     this.events = {};
   }
 
-  public registerEvent<T>(eventName: string) {
-    const event = new MyEvent<T>(eventName);
+  public registerEvent(eventName: string) {
+    const event = new MyEvent<R>(eventName);
     this.events[eventName] = event;
   }
 
-  public dispatchEvent<T>(eventName: string, eventArgs: T) {
-    this.events[eventName].callbacks.forEach((callback) => {
+  public dispatchEvent(eventName: string, eventArgs: T) {
+    this.events[eventName].callbacks.forEach((callback: any) => {
       callback(eventArgs);
     });
   }
 
-  public addEventListener<T>(eventName: string, callback: T) {
+  public addEventListener(eventName: string, callback: R) {
     this.events[eventName].registerCallback(callback);
   }
 }
