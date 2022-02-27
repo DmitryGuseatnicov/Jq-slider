@@ -1,11 +1,11 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-undef */
-import { ViewEvent, ViewEventCallBack } from '../../types/types';
+import { SubViewEvent, SubViewEventCallBack } from '../../types/types';
 import EventCreator from './EventCreator';
 
 describe('test EventCreator', () => {
-  let eventCreator: EventCreator<ViewEvent, ViewEventCallBack>;
+  let eventCreator: EventCreator<SubViewEvent, SubViewEventCallBack>;
 
   beforeEach(() => {
     eventCreator = new EventCreator();
@@ -24,11 +24,11 @@ describe('test EventCreator', () => {
     let eventArgs = {};
 
     eventCreator.registerEvent('someEvent');
-    eventCreator.addEventListener('someEvent', (e: ViewEvent) => {
+    eventCreator.addEventListener('someEvent', (e: SubViewEvent) => {
       eventArgs = { ...e };
     });
-    eventCreator.dispatchEvent('someEvent', { target: 'handle', args: { x: 10, y: 20 } });
+    eventCreator.dispatchEvent('someEvent', { target: 'handle', position: 10 });
 
-    expect(eventArgs).toEqual({ target: 'handle', args: { x: 10, y: 20 } });
+    expect(eventArgs).toEqual({ target: 'handle', position: 10 });
   });
 });
