@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 type State = {
   min?: number
   max?: number
@@ -13,24 +14,32 @@ type State = {
   color?: string
 }
 
-type ViewEvent = {
+type SubViewEvent = {
   target: 'track' | 'handle' | 'secondHandle' | 'scale' | 'tip'
-  args?:{
-    x: number
-    y: number
-  }
+  position?: number
+}
+
+type ModelEvent = {
+  state: State
+}
+
+type ViewEvent = {
+  state: State
 }
 
 type PresenterEventCallBack = {
-  // eslint-disable-next-line no-unused-vars
   (eventArgs: State) : void
 }
 
+type SubViewEventCallBack = {
+  (eventArgs: SubViewEvent) : void
+}
+
 type ViewEventCallBack = {
-  // eslint-disable-next-line no-unused-vars
   (eventArgs: ViewEvent) : void
 }
 
 export {
-  State, ViewEvent, ViewEventCallBack, PresenterEventCallBack,
+  State, ModelEvent, SubViewEvent, ViewEvent,
+  SubViewEventCallBack, PresenterEventCallBack, ViewEventCallBack,
 };
