@@ -4,19 +4,22 @@
 import Handle from './SubViewComponents/Handle/Handle';
 import EventCreator from '../EventCreator/EventCreator';
 
-import { ISubView } from '../../interfaces/interfaces';
 import {
   State, SubViewEvent, ViewEvent, ViewEventCallBack,
 } from '../../types/types';
+import SubView from './abstractSubView/abstractSubView';
+import SecondHandel from './SubViewComponents/Handle/SecondHandle';
+import Tip from './SubViewComponents/Tip/Tip';
+import SecondTip from './SubViewComponents/Tip/SecondTip';
 
 class View extends EventCreator<ViewEvent, ViewEventCallBack> {
-  private nodeElem: HTMLElement;
+  public nodeElem: HTMLElement;
+
+  public slider!: HTMLElement;
 
   private state: State;
 
-  private components: Array<ISubView>;
-
-  public slider!: HTMLElement;
+  private components: Array<SubView>;
 
   constructor(nodeElem: HTMLElement) {
     super();
@@ -26,35 +29,55 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     this.init();
   }
 
-  init() {
+  setState(state: State) {
+    this.state = { ...this.state, ...state };
+    this.update(this.state);
+  }
+
+  private init() {
     this.createSlider();
     this.createComponents();
     this.bindEventListener();
+    this.registerEvent('ViewEvent');
   }
 
-  createSlider() {
+  private createSlider() {
     this.slider = document.createElement('div');
     this.slider.classList.add('jq-slider');
     this.nodeElem.appendChild(this.slider);
   }
 
-  createComponents() {
+  private createComponents() {
     this.components.push(new Handle(this.slider));
+    this.components.push(new SecondHandel(this.slider));
+    this.components.push(new Tip(this.slider));
+    this.components.push(new SecondTip(this.slider));
   }
 
-  bindEventListener() {
-    this.components.forEach((component) => component.addEventListener('SubViewEvent', this.subViewEventHandler));
+  private bindEventListener() {
+    this.subViewEventHandler = this.subViewEventHandler.bind(this);
+    this.components.forEach((component) => {
+      if (component.events.SubViewEvent) {
+        component.addEventListener('SubViewEvent', this.subViewEventHandler);
+      }
+    });
   }
 
-  subViewEventHandler(e: SubViewEvent) {
-    console.log(e)
+  private subViewEventHandler(e: SubViewEvent) {
+    if (e.target === 'handle') {
+      this.dispatchEvent('ViewEvent', { from: e.position });
+    }
+
+    if (e.target === 'secondHandle') {
+      this.dispatchEvent('ViewEvent', { to: e.position });
+    }
   }
 
-  update(state: State) {
+  private update(state: State) {
     this.components.forEach((component) => component.setState(state));
   }
 
-  getArrOfConcreteSubView(instance: Function): Array<ISubView> {
+  private getArrOfConcreteSubView(instance: Function): Array<SubView> {
     return this.components.filter((component) => component instanceof instance ?? component);
   }
 }

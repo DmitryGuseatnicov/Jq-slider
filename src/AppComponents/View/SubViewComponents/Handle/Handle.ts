@@ -2,34 +2,25 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 
-import { ISubView } from '../../../../interfaces/interfaces';
-import { State, SubViewEvent, SubViewEventCallBack } from '../../../../types/types';
+import { State } from '../../../../types/types';
 import { convertValueInPercent } from '../../../../utils/calcUtils';
-import EventCreator from '../../../EventCreator/EventCreator';
+import SubView from '../../abstractSubView/abstractSubView';
 
-const initialState: State = {
-  min: 0,
-  max: 100,
-  from: 0,
-  horizontal: false,
-};
-
-class Handle extends EventCreator<SubViewEvent, SubViewEventCallBack> implements ISubView {
+class Handle extends SubView {
   public slider: HTMLElement;
 
-  private state: State;
+  public subView!: HTMLElement;
 
-  public subView: HTMLElement;
+  protected state: State;
 
   constructor(slider: HTMLElement) {
-    super();
+    super(slider);
     this.slider = slider;
-    this.subView = slider;
-    this.state = initialState;
+    this.state = {};
     this.init();
   }
 
-  public setState(state: State) {
+  public setState(state: State): void {
     const {
       min = this.state.min,
       max = this.state.max,
@@ -56,13 +47,13 @@ class Handle extends EventCreator<SubViewEvent, SubViewEventCallBack> implements
     return subViewLeft - sliderLeft + this.subView.offsetWidth / 2;
   }
 
-  private init() {
-    this.createHandle();
+  protected init() {
+    this.createSubView();
     this.registerEvent('SubViewEvent');
     this.bindEventListener();
   }
 
-  private createHandle(): void {
+  protected createSubView(): void {
     this.subView = document.createElement('div');
     this.subView.classList.add('jq-slider__handle');
     this.slider.appendChild(this.subView);
@@ -82,7 +73,7 @@ class Handle extends EventCreator<SubViewEvent, SubViewEventCallBack> implements
     });
   }
 
-  private pointerHandler(e: PointerEvent): void {
+  protected pointerHandler(e: PointerEvent): void {
     this.dispatchEvent('SubViewEvent', {
       target: 'handle',
       position: this.state.horizontal
@@ -91,13 +82,12 @@ class Handle extends EventCreator<SubViewEvent, SubViewEventCallBack> implements
     });
   }
 
-  private update(): void {
+  protected update(): void {
     const {
       min, max, from, horizontal,
     } = this.state;
 
     const isNumbers = typeof min === 'number' && typeof max === 'number' && typeof from === 'number';
-
     if (isNumbers) {
       if (horizontal) {
         this.subView.style.top = `${convertValueInPercent(min, max, from)}%`;
