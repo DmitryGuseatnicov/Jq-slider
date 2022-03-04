@@ -5,10 +5,10 @@ import Handle from './SubViewComponents/Handle/Handle';
 import EventCreator from '../EventCreator/EventCreator';
 
 import {
-  State, SubViewEvent, ViewEvent, ViewEventCallBack,
+  SubViewEvent, Data, ViewEvent, ViewEventCallBack,
 } from '../../types/types';
 import SubView from './abstractSubView/abstractSubView';
-import SecondHandel from './SubViewComponents/Handle/SecondHandle';
+import SecondHandle from './SubViewComponents/Handle/SecondHandle';
 import Tip from './SubViewComponents/Tip/Tip';
 import SecondTip from './SubViewComponents/Tip/SecondTip';
 
@@ -17,7 +17,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
   public slider!: HTMLElement;
 
-  private state: State;
+  private state: Data;
 
   private components: Array<SubView>;
 
@@ -29,15 +29,14 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     this.init();
   }
 
-  setState(state: State) {
+  setState(state: Data) {
+    this.checkSettings(state);
     this.state = { ...this.state, ...state };
     this.update(this.state);
   }
 
   private init() {
     this.createSlider();
-    this.createComponents();
-    this.bindEventListener();
     this.registerEvent('ViewEvent');
   }
 
@@ -47,15 +46,23 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     this.nodeElem.appendChild(this.slider);
   }
 
-  private createComponents() {
+  private createComponents(state: Data) {
+    const { range, tip } = state;
     this.components.push(new Handle(this.slider));
-    this.components.push(new SecondHandel(this.slider));
-    this.components.push(new Tip(this.slider));
-    this.components.push(new SecondTip(this.slider));
+    if (range) {
+      this.components.push(new SecondHandle(this.slider));
+      if (tip) {
+        this.components.push(new SecondTip(this.slider));
+      }
+    }
+    if (tip) {
+      this.components.push(new Tip(this.slider));
+    }
   }
 
   private bindEventListener() {
     this.subViewEventHandler = this.subViewEventHandler.bind(this);
+
     this.components.forEach((component) => {
       if (component.events.SubViewEvent) {
         component.addEventListener('SubViewEvent', this.subViewEventHandler);
@@ -73,7 +80,20 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     }
   }
 
-  private update(state: State) {
+  private checkSettings(state: Data) {
+    const {
+      range, tip, scale, horizontal,
+    } = state;
+    const isUpdateSettings = range !== this.state.range || tip !== this.state.tip
+                            || scale !== this.state.scale || horizontal !== this.state.horizontal;
+    if (isUpdateSettings) {
+      this.components.forEach((component) => component.subView.remove());
+      this.createComponents(state);
+      this.bindEventListener();
+    }
+  }
+
+  private update(state: Data) {
     this.components.forEach((component) => component.setState(state));
   }
 

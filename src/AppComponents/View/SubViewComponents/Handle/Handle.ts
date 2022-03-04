@@ -1,9 +1,10 @@
+/* eslint-disable max-len */
 /* eslint-disable no-mixed-operators */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 
-import { State } from '../../../../types/types';
-import { convertValueInPercent } from '../../../../utils/calcUtils';
+import { Data } from '../../../../types/types';
+import { convertPixelInPercent, convertValueInPercent } from '../../../../utils/calcUtils';
 import SubView from '../../abstractSubView/abstractSubView';
 
 class Handle extends SubView {
@@ -11,7 +12,7 @@ class Handle extends SubView {
 
   public subView!: HTMLElement;
 
-  protected state: State;
+  protected state: Data;
 
   constructor(slider: HTMLElement) {
     super(slider);
@@ -20,7 +21,7 @@ class Handle extends SubView {
     this.init();
   }
 
-  public setState(state: State): void {
+  public setState(state: Data): void {
     const {
       min = this.state.min,
       max = this.state.max,
@@ -53,7 +54,7 @@ class Handle extends SubView {
     this.bindEventListener();
   }
 
-  protected createSubView(): void {
+  public createSubView(): void {
     this.subView = document.createElement('div');
     this.subView.classList.add('jq-slider__handle');
     this.slider.appendChild(this.subView);
@@ -77,8 +78,8 @@ class Handle extends SubView {
     this.dispatchEvent('SubViewEvent', {
       target: 'handle',
       position: this.state.horizontal
-        ? e.clientY - this.slider.getBoundingClientRect().top
-        : e.clientX - this.slider.getBoundingClientRect().left,
+        ? convertPixelInPercent(this.slider.clientHeight, e.clientY - this.slider.getBoundingClientRect().top)
+        : convertPixelInPercent(this.slider.clientWidth, e.clientX - this.slider.getBoundingClientRect().left),
     });
   }
 

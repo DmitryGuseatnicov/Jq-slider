@@ -1,13 +1,13 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
-import { State } from '../../../../types/types';
+import { Data } from '../../../../types/types';
 import { convertValueInPercent } from '../../../../utils/calcUtils';
 import SubView from '../../abstractSubView/abstractSubView';
 
 class Tip extends SubView {
   public subView!: HTMLElement;
 
-  protected state: State;
+  protected state: Data;
 
   constructor(slider: HTMLElement) {
     super(slider);
@@ -15,7 +15,7 @@ class Tip extends SubView {
     this.init();
   }
 
-  public setState(state: State): void {
+  public setState(state: Data): void {
     const {
       min = this.state.min,
       max = this.state.max,

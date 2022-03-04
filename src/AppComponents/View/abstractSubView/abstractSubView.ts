@@ -1,20 +1,22 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
-import { SubViewEventCallBack, SubViewEvent, State } from '../../../types/types';
+import { SubViewEventCallBack, SubViewEvent, Data } from '../../../types/types';
 import EventCreator from '../../EventCreator/EventCreator';
 
 abstract class SubView extends EventCreator<SubViewEvent, SubViewEventCallBack> {
-  slider: HTMLElement;
+  public slider: HTMLElement;
 
-  protected abstract state: State;
+  public subView!: HTMLElement;
+
+  protected abstract state: Data;
 
   constructor(slider: HTMLElement) {
     super();
     this.slider = slider;
   }
 
-  public abstract setState(state: State): void
+  public abstract setState(state: Data): void
 
   protected abstract init(): void
 

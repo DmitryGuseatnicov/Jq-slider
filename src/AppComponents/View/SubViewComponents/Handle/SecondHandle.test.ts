@@ -6,35 +6,36 @@
 /* eslint-disable import/no-unresolved */
 
 import { Data } from '../../../../types/types';
-import Handle from './Handle';
+import SecondHandel from './SecondHandle';
 
 describe('Test Handle', () => {
   let slider: HTMLElement;
-  let handle: Handle;
+  let handle: SecondHandel;
 
   beforeEach(() => {
     slider = document.createElement('div');
     slider.style.width = '1000';
-    handle = new Handle(slider);
+    handle = new SecondHandel(slider);
   });
 
   test('Should be instance of Handle', () => {
-    expect(handle).toBeInstanceOf(Handle);
+    expect(handle).toBeInstanceOf(SecondHandel);
   });
 
   test('Should be correct position on slider aria', () => {
-    let newState: Data = { min: 0, max: 200, from: 20 };
+    let newState: Data = { min: 0, max: 200, to: 20 };
     handle.setState(newState);
     expect(handle.subView.style.left).toBe('10%');
-    newState = { min: 0, max: 200, from: 10 };
+
+    newState = { min: 0, max: 200, to: 10 };
     handle.setState(newState);
     expect(handle.subView.style.left).toBe('5%');
 
-    newState = { min: -100, max: 100, from: -90 };
+    newState = { min: -100, max: 100, to: -90 };
     handle.setState(newState);
     expect(handle.subView.style.left).toBe('5%');
 
-    newState = { min: -100, max: 100, from: 0 };
+    newState = { min: -100, max: 100, to: 0 };
     handle.setState(newState);
     expect(handle.subView.style.left).toBe('50%');
   });
