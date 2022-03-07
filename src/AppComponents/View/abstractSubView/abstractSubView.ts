@@ -9,14 +9,22 @@ abstract class SubView extends EventCreator<SubViewEvent, SubViewEventCallBack> 
 
   public subView!: HTMLElement;
 
-  protected abstract state: Data;
+  protected state: Data;
 
   constructor(slider: HTMLElement) {
     super();
     this.slider = slider;
+    this.state = {};
   }
 
   public abstract setState(state: Data): void
+
+  public getPosition(): number {
+    if (this.state.horizontal) {
+      return this.subView.getBoundingClientRect().top;
+    }
+    return this.subView.getBoundingClientRect().left;
+  }
 
   protected abstract init(): void
 
