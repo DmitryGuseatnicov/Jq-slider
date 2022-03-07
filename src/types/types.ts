@@ -1,5 +1,19 @@
 /* eslint-disable no-unused-vars */
 type State = {
+  min: number
+  max: number
+  from: number
+  to: number
+  step: number
+  tip: boolean
+  range: boolean
+  progress: boolean
+  scale: boolean
+  scaleDestiny: number
+  horizontal: boolean
+}
+
+type Data = {
   min?: number
   max?: number
   from?: number
@@ -9,23 +23,18 @@ type State = {
   range?: boolean
   progress?: boolean
   scale?: boolean
-  destiny? : number
+  scaleDestiny?: number
   horizontal?: boolean
-  color?: string
 }
 
 type SubViewEvent = {
   target: 'track' | 'handle' | 'secondHandle' | 'scale' | 'tip'
-  position?: number
+  position: number
 }
 
-type ModelEvent = {
-  state: State
-}
+type ModelEvent = State
 
-type ViewEvent = {
-  state: State
-}
+type ViewEvent = Data
 
 type PresenterEventCallBack = {
   (eventArgs: State) : void
@@ -39,7 +48,11 @@ type ViewEventCallBack = {
   (eventArgs: ViewEvent) : void
 }
 
+type ModelEventCallBack = {
+  (eventArgs: State) : void
+}
+
 export {
-  State, ModelEvent, SubViewEvent, ViewEvent,
-  SubViewEventCallBack, PresenterEventCallBack, ViewEventCallBack,
+  State, ModelEvent, SubViewEvent, ViewEvent, Data,
+  SubViewEventCallBack, PresenterEventCallBack, ViewEventCallBack, ModelEventCallBack,
 };
