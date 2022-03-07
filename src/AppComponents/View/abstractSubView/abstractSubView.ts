@@ -17,14 +17,14 @@ abstract class SubView extends EventCreator<SubViewEvent, SubViewEventCallBack> 
     this.state = {};
   }
 
-  public abstract setState(state: Data): void
-
   public getPosition(): number {
     if (this.state.horizontal) {
       return this.subView.getBoundingClientRect().top;
     }
     return this.subView.getBoundingClientRect().left;
   }
+
+  public abstract setState(state: Data): void
 
   protected abstract init(): void
 

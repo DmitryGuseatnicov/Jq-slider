@@ -51,8 +51,12 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
   private createComponents(state: Data) {
     const {
-      range, tip, progress, scale,
+      range, tip, progress, scale, horizontal,
     } = state;
+
+    if (horizontal) {
+      this.slider.classList.add('jq-slider--horizontal');
+    }
 
     this.components.push(new Handle(this.slider));
     if (range) {
@@ -97,7 +101,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       this.dispatchEvent('ViewEvent', { to });
     }
 
-    if (e.target === 'track') {
+    if (e.target === 'track' || e.target === 'scale') {
       const handles = this.getArrOfConcreteSubView(Handle);
 
       const from = handles[0].getPosition();
