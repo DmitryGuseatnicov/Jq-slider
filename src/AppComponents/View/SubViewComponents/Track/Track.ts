@@ -68,9 +68,14 @@ class Track extends SubView {
       const start = convertValueInPercent(min, max, from);
       const end = convertValueInPercent(min, max, to);
       if (horizontal) {
-        const height = end - start;
-        this.progress.style.height = `${height}%`;
-        this.progress.style.marginTop = `${start}%`;
+        if (range) {
+          const height = end - start;
+          this.progress.style.height = `${height}%`;
+          // eslint-disable-next-line no-mixed-operators
+          this.progress.style.marginTop = `${this.slider.clientHeight / 100 * start}px`;
+        } else {
+          this.progress.style.height = `${start}%`;
+        }
         return;
       }
       if (range) {
