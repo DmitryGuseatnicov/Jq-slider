@@ -7,7 +7,7 @@ import Model from '../Model/Model';
 import View from '../View/View';
 
 class Presenter extends EventCreator<State, any> {
-  private model: Model;
+  public model: Model;
 
   private view: View;
 

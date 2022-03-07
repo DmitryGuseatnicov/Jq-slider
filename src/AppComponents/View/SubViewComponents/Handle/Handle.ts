@@ -3,30 +3,21 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 
-import { Data } from '../../../../types/types';
-import { convertPixelInPercent, convertValueInPercent } from '../../../../utils/calcUtils';
+import { State } from '../../../../types/types';
+import { convertValueInPercent } from '../../../../utils/calcUtils';
 import SubView from '../../abstractSubView/abstractSubView';
 
 class Handle extends SubView {
-  public slider: HTMLElement;
-
   public subView!: HTMLElement;
-
-  protected state: Data;
 
   constructor(slider: HTMLElement) {
     super(slider);
-    this.slider = slider;
-    this.state = {};
     this.init();
   }
 
-  public setState(state: Data): void {
+  public setState(state: State): void {
     const {
-      min = this.state.min,
-      max = this.state.max,
-      from = this.state.from,
-      horizontal = this.state.horizontal,
+      min, max, from, horizontal,
     } = state;
 
     this.state = {
@@ -48,7 +39,7 @@ class Handle extends SubView {
     return subViewLeft - sliderLeft + this.subView.offsetWidth / 2;
   }
 
-  protected init() {
+  protected init(): void {
     this.createSubView();
     this.registerEvent('SubViewEvent');
     this.bindEventListener();
@@ -78,8 +69,8 @@ class Handle extends SubView {
     this.dispatchEvent('SubViewEvent', {
       target: 'handle',
       position: this.state.horizontal
-        ? convertPixelInPercent(this.slider.clientHeight, e.clientY - this.slider.getBoundingClientRect().top)
-        : convertPixelInPercent(this.slider.clientWidth, e.clientX - this.slider.getBoundingClientRect().left),
+        ? e.clientY - this.slider.getBoundingClientRect().top
+        : e.clientX - this.slider.getBoundingClientRect().left,
     });
   }
 

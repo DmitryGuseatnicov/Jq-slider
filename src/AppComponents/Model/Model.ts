@@ -20,6 +20,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
       range: true,
       progress: true,
       scale: true,
+      scaleDestiny: 1,
       horizontal: false,
     };
     this.init(state);
@@ -51,6 +52,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     if ('step' in data) settings.step = data.step;
     if ('min' in data) settings.min = data.min;
     if ('max' in data) settings.max = data.max;
+    if ('scaleDestiny' in data) settings.scaleDestiny = data.scaleDestiny;
     if ('range' in data) settings.range = data.range;
     if ('tip' in data) settings.tip = data.tip;
     if ('horizontal' in data) settings.horizontal = data.horizontal;
