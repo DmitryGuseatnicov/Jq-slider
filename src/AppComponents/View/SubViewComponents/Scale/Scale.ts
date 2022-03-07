@@ -1,7 +1,8 @@
+/* eslint-disable no-mixed-operators */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 import { Data } from '../../../../types/types';
-import { convertValueInPercent } from '../../../../utils/calcUtils';
+import { convertPercentInValue, convertValueInPercent } from '../../../../utils/calcUtils';
 import SubView from '../../abstractSubView/abstractSubView';
 
 class Scale extends SubView {
@@ -43,36 +44,37 @@ class Scale extends SubView {
 
     const isCorrectParams = typeof min === 'number' && typeof max === 'number' && typeof scaleDestiny === 'number'
                             && typeof step === 'number' && typeof horizontal === 'boolean';
+
     if (isCorrectParams) {
-      let pips = '';
-
-      pips += `
-        <div class="jq-slider__scale-pip" style="left:${convertValueInPercent(min, max, min)}%">
-          <div class="jq-slider__scale-label">${min}</div>
-        </div>`;
-
-      for (let pip = min + step; pip < max; pip += step) {
+      let pips = this.createPipFragment(min, max, min);
+      for (let pip = min + 1; pip < max; pip += 1) {
         if (pip % scaleDestiny === 0) {
-          pips += `
-            <div class="jq-slider__scale-pip" style="left:${convertValueInPercent(min, max, pip)}%">
-              <div class="jq-slider__scale-label">${pip}</div>
-            </div>`;
+          pips += this.createPipFragment(min, max, pip);
         }
       }
-
-      pips += `
-        <div class="jq-slider__scale-pip" style="left:${convertValueInPercent(min, max, max)}%">
-          <div class="jq-slider__scale-label">${max}</div>
-        </div>`;
+      pips += this.createPipFragment(min, max, max);
 
       this.subView.innerHTML = pips;
       this.bindEventListener();
     }
   }
 
+  private createPipFragment(min: number, max: number, value: number) {
+    if (this.state.horizontal) {
+      return `
+      <div class="jq-slider__scale-pip" style="top:${convertPercentInValue(0, this.slider.clientHeight, convertValueInPercent(min, max, value))}px">
+        <div class="jq-slider__scale-label">${value}</div>
+      </div>`;
+    }
+    return `
+      <div class="jq-slider__scale-pip" style="left:${convertValueInPercent(min, max, value)}%">
+        <div class="jq-slider__scale-label">${value}</div>
+      </div>`;
+  }
+
   private bindEventListener() {
     this.clickHandler = this.clickHandler.bind(this);
-    this.subView.querySelectorAll('.jq-slider__scale-pip').forEach((pip) => {
+    this.subView.querySelectorAll('.jq-slider__scale-label').forEach((pip) => {
       if (pip instanceof HTMLElement) {
         pip.addEventListener('click', this.clickHandler);
       }
@@ -80,12 +82,14 @@ class Scale extends SubView {
   }
 
   private clickHandler(e: MouseEvent) {
-    this.dispatchEvent('SubViewEvent', {
-      target: 'track',
-      position: this.state.horizontal
-        ? e.clientY - this.slider.getBoundingClientRect().top
-        : e.clientX - this.slider.getBoundingClientRect().left,
-    });
+    if (e.target instanceof HTMLElement) {
+      const { min, max } = this.state;
+      const position = this.state.horizontal
+        ? this.slider.clientHeight / 100 * convertValueInPercent(min!, max!, +e.target.innerHTML)
+        : this.slider.clientWidth / 100 * convertValueInPercent(min!, max!, +e.target.innerHTML);
+
+      this.dispatchEvent('SubViewEvent', { target: 'track', position });
+    }
   }
 }
 
