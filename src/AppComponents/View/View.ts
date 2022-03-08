@@ -36,6 +36,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     this.checkSettings(state);
     this.state = { ...this.state, ...state };
     this.update(this.state);
+    this.checkTips();
   }
 
   private init() {
@@ -59,16 +60,17 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     }
 
     this.components.push(new Handle(this.slider));
+
+    if (tip) {
+      this.components.push(new Tip(this.slider));
+    }
+
     if (range) {
       this.components.push(new SecondHandle(this.slider));
       if (tip) {
         this.components.push(new SecondTip(this.slider));
       }
     }
-    if (tip) {
-      this.components.push(new Tip(this.slider));
-    }
-
     if (progress) {
       this.components.push(new Track(this.slider));
     }
@@ -121,18 +123,37 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
   private checkSettings(state: Data) {
     const {
-      range, tip, scale, horizontal, progress,
+      range, tip, scale, horizontal, progress, scaleDestiny,
     } = state;
 
     const isUpdateSettings = range !== this.state.range || tip !== this.state.tip
-                            || scale !== this.state.scale || horizontal !== this.state.horizontal
-                            || progress !== this.state.progress;
+                  || scale !== this.state.scale || horizontal !== this.state.horizontal
+                  || progress !== this.state.progress || scaleDestiny !== this.state.scaleDestiny;
 
     if (isUpdateSettings) {
       this.components = [];
       this.slider.innerHTML = '';
       this.createComponents(state);
       this.bindEventListener();
+    }
+  }
+
+  private checkTips() {
+    const { tip, range } = this.state;
+    if (tip && range) {
+      const tips = this.getArrOfConcreteSubView(Tip);
+      const firstPosition = tips[0].getPosition();
+      const secondPosition = tips[1].getPosition() - tips[1].subView.clientWidth;
+      if (firstPosition > secondPosition) {
+        tips.forEach((t: any) => {
+          t.changeIsDouble(true);
+          t.setState(this.state);
+        });
+      } else {
+        tips.forEach((t: any) => {
+          t.changeIsDouble(false);
+        });
+      }
     }
   }
 

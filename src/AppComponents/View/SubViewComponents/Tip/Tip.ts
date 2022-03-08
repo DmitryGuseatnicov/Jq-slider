@@ -7,21 +7,28 @@ import SubView from '../../abstractSubView/abstractSubView';
 class Tip extends SubView {
   public subView!: HTMLElement;
 
+  public isDouble: boolean;
+
   constructor(slider: HTMLElement) {
     super(slider);
+    this.isDouble = false;
     this.init();
   }
 
   public setState(state: State): void {
     const {
-      min, max, from, horizontal,
+      min, max, from, to, horizontal,
     } = state;
 
     this.state = {
-      min, max, from, horizontal,
+      min, max, from, to, horizontal,
     };
 
     this.update();
+  }
+
+  public changeIsDouble(val: boolean) {
+    this.isDouble = val;
   }
 
   protected init(): void {
@@ -36,13 +43,14 @@ class Tip extends SubView {
 
   protected update(): void {
     const {
-      min, max, from, horizontal,
+      min, max, from, horizontal, to,
     } = this.state;
 
-    const isNumbers = typeof min === 'number' && typeof max === 'number' && typeof from === 'number';
+    const isNumbers = typeof min === 'number' && typeof max === 'number'
+    && typeof from === 'number' && typeof from === 'number';
 
     if (isNumbers) {
-      this.subView.textContent = from.toString();
+      this.subView.textContent = this.isDouble ? `${from} - ${to}` : from.toString();
       if (horizontal) {
         this.subView.style.top = `${convertValueInPercent(min, max, from)}%`;
         return;

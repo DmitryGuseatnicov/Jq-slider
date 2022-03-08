@@ -28,6 +28,8 @@ class SecondTip extends Tip {
     const isNumbers = typeof min === 'number' && typeof max === 'number' && typeof to === 'number';
 
     if (isNumbers) {
+      // eslint-disable-next-line no-unused-expressions
+      this.isDouble ? this.subView.style.opacity = '0' : this.subView.style.opacity = '1';
       this.subView.textContent = to.toString();
       if (horizontal) {
         this.subView.style.top = `${convertValueInPercent(min, max, to)}%`;
