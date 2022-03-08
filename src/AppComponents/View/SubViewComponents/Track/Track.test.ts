@@ -53,13 +53,13 @@ describe('Test Track', () => {
     state = { ...state, from: 30, to: 90 };
     track.setState(state);
     progress = track.subView.querySelector('.jq-slider__progress')!;
-    expect(progress.style.width).toBe('50%');
+    expect(progress.style.width).toBe('60%');
 
     state = {
       ...state, min: -20, from: 30, to: 90,
     };
     track.setState(state);
     progress = track.subView.querySelector('.jq-slider__progress')!;
-    expect(progress.style.width).toBe('60%');
+    expect(progress.style.width).toBe('50%');
   });
 });

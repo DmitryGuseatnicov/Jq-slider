@@ -8,13 +8,13 @@ const state = {
   max: 100,
   from: 1,
   to: 900,
-  step: 5,
+  step: 0.1,
   tip: true,
   range: true,
   progress: true,
   scale: true,
-  scaleDestiny: 10,
-  horizontal: true,
+  scaleDestiny: 20,
+  horizontal: false,
 };
 
 const slider = document.querySelector('.demo-slider');
