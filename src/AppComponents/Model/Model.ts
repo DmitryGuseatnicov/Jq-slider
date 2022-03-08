@@ -53,6 +53,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     if ('min' in data) settings.min = data.min;
     if ('max' in data) settings.max = data.max;
     if ('scaleDestiny' in data) settings.scaleDestiny = data.scaleDestiny;
+    if ('scale' in data) settings.scale = data.scale;
     if ('range' in data) settings.range = data.range;
     if ('tip' in data) settings.tip = data.tip;
     if ('horizontal' in data) settings.horizontal = data.horizontal;
