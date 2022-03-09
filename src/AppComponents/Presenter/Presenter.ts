@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
-import { State, ViewEvent } from '../../types/types';
+import { Data, State, ViewEvent } from '../../types/types';
 import { convertPercentInValue } from '../../utils/calcUtils';
 import EventCreator from '../EventCreator/EventCreator';
 import Model from '../Model/Model';
@@ -11,7 +11,7 @@ class Presenter extends EventCreator<State, any> {
 
   private view: View;
 
-  constructor(nodeElem: HTMLElement, state: State) {
+  constructor(nodeElem: HTMLElement, state: Data) {
     super();
     this.view = new View(nodeElem);
     this.model = new Model(state);

@@ -8,7 +8,7 @@ import EventCreator from '../EventCreator/EventCreator';
 class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
   private state: State;
 
-  constructor(state: State) {
+  constructor(state: Data) {
     super();
     this.state = {
       min: 0,
@@ -37,7 +37,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     return this.state;
   }
 
-  private init(state: State) {
+  private init(state: Data) {
     this.registerEvent('ModelEvent');
     this.setState(state);
   }
