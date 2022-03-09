@@ -42,7 +42,7 @@ import { Data } from './types/types';
     const isBindEventListener = args.length >= 2 && args[0] === 'onChange' && typeof args[1] === 'function';
 
     if (isEmptyArgs) {
-      const state = args[0] ? args[0] : {};
+      const state: Data = args[0] ? args[0] : {};
       return methods.init.call(this, state);
     }
 
@@ -52,7 +52,7 @@ import { Data } from './types/types';
     }
 
     if (isBindEventListener) {
-      const callback = args[1];
+      const callback: (event: CustomEvent) => void = args[1];
       return methods.onChange.call(this, callback);
     }
   };
@@ -60,7 +60,7 @@ import { Data } from './types/types';
 
 declare global {
   interface JQuery {
-    jqSlider(...args: string[] | Object[] | any): void;
+    jqSlider(...args: string[] | Data[] | any): void;
     jqSlider(method: 'update', data: Data): void;
     jqSlider(method: 'onChange', func: (event: CustomEvent) => void): void;
   }

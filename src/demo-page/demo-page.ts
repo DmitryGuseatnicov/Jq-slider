@@ -36,9 +36,9 @@ const arrOfStates = [
     max: 100,
     from: 0,
     to: 90,
-    step: 1,
+    step: 0.1,
     tip: true,
-    range: false,
+    range: true,
     progress: true,
     scale: true,
     scaleDestiny: 50,
@@ -48,7 +48,7 @@ const arrOfStates = [
   {
     min: 500,
     max: 10000,
-    from: 0,
+    from: 1000,
     to: 90,
     step: 1,
     tip: true,
@@ -106,6 +106,7 @@ class ControlPanel {
         if (el.type === 'number') {
           $(el).val(+e[el.name as keyof State]);
         }
+
         if (el.type === 'checkbox') {
           $(el).prop('checked', e[el.name as keyof State]);
         }
