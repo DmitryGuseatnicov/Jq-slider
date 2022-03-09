@@ -12,7 +12,7 @@ let mode = 'development';
 let templatePath = path.resolve(__dirname, 'demo');
 
 let entryPoints = {
-  app: './app.ts',
+  jqSlider: './app.ts',
   demoPage: './demo-page/demo-page.ts',
 };
 
@@ -34,11 +34,11 @@ if (process.env.NODE_ENV === 'production') {
   templatePath = path.resolve(__dirname, 'dist');
 
   entryPoints = {
-    app: './app.ts',
+    jqSlider: './app.ts',
   };
 
   plugins = [new MiniCssExtractPlugin({
-    filename: '[name].[contenthash].css',
+    filename: '[name].css',
   })];
 }
 
@@ -48,7 +48,7 @@ const common = merge([
     context: path.resolve(__dirname, 'src'),
     entry: entryPoints,
     output: {
-      filename: '[name].[contenthash].js',
+      filename: '[name].js',
       path: templatePath,
       clean: true,
     },
