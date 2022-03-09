@@ -20,7 +20,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
       range: true,
       progress: true,
       scale: true,
-      scaleDestiny: 1,
+      scaleDestiny: 10,
       horizontal: false,
     };
     this.init(state);
@@ -69,13 +69,13 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
       return +(Math.round(value / step) * step).toFixed(2);
     }
 
-    if (copyOfData.from) {
+    if (typeof copyOfData.from === 'number') {
       copyOfData.from = checkStep(copyOfData.from, this.state.step);
       if (copyOfData.from <= this.state.min) copyOfData.from = this.state.min;
       else if (copyOfData.from >= this.state.max) copyOfData.from = this.state.max;
     }
 
-    if (copyOfData.to) {
+    if (typeof copyOfData.to === 'number') {
       copyOfData.to = checkStep(copyOfData.to, this.state.step);
       if (copyOfData.to <= this.state.min) copyOfData.to = this.state.min;
       else if (copyOfData.to >= this.state.max) copyOfData.to = this.state.max;
@@ -92,6 +92,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     const isFromNotValidly = copyOfSData.from && this.state.to - copyOfSData.from <= 0;
     const isToNotValidly = copyOfSData.to && copyOfSData.to - this.state.from <= 0;
 
+    if (this.state.from > this.state.to) this.state.from = this.state.to;
     if (isFromNotValidly) copyOfSData.from = this.state.to;
     if (isToNotValidly) copyOfSData.to = this.state.from;
 

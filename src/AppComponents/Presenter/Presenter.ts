@@ -6,7 +6,7 @@ import EventCreator from '../EventCreator/EventCreator';
 import Model from '../Model/Model';
 import View from '../View/View';
 
-class Presenter extends EventCreator<State, any> {
+class Presenter extends EventCreator<State, State> {
   public model: Model;
 
   private view: View;
@@ -15,6 +15,7 @@ class Presenter extends EventCreator<State, any> {
     super();
     this.view = new View(nodeElem);
     this.model = new Model(state);
+    this.registerEvent('onChange');
     this.init();
   }
 
@@ -40,6 +41,7 @@ class Presenter extends EventCreator<State, any> {
   }
 
   private modelEventHandler(e: State) {
+    this.dispatchEvent('onChange', e);
     this.view.setState(e);
   }
 }

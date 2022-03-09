@@ -7,11 +7,11 @@
 /* eslint-disable import/extensions */
 import './slider.scss';
 import Presenter from './AppComponents/Presenter/Presenter';
-import { Data, State } from './types/types';
+import { Data } from './types/types';
 
 (function ($) {
   const methods = {
-    init(this: JQuery, state: Data) {
+    init(this: JQuery, state?: Data) {
       if (typeof state === 'object') {
         return this.each(function () {
           if (!$(this).data('jqSlider')) {
@@ -21,41 +21,47 @@ import { Data, State } from './types/types';
       }
     },
 
-    update(state : Data) {
-      const jqSlider = $(this).data('jqSlider');
-      jqSlider.update({ type: 'updatePlugin', payload: state });
+    update(this: JQuery, state : Data) {
+      this.each(function () {
+        const jqSlider = $(this).data('jqSlider');
+        jqSlider.model.setState(state);
+      });
     },
 
     onChange(this: JQuery, callback: (e: CustomEvent) => void) {
-      const jqSlider = $(this).data('jqSlider');
-      jqSlider.addEventListener('onChange', (e: CustomEvent) => callback(e));
+      this.each(function () {
+        const jqSlider = $(this).data('jqSlider');
+        jqSlider.addEventListener('onChange', (e: CustomEvent) => callback(e));
+      });
     },
   };
 
   $.fn.jqSlider = function (...args) {
     const isEmptyArgs = args.length === 0 || typeof args[0] === 'object';
-    const isUpdate = args.length >= 2 && args[0] === 'update';
-    const isBindEventListener = args.length >= 2 && args[0] === 'onChange';
+    const isUpdate = args.length >= 2 && args[0] === 'update' && typeof args[1] === 'object';
+    const isBindEventListener = args.length >= 2 && args[0] === 'onChange' && typeof args[1] === 'function';
 
     if (isEmptyArgs) {
       const state = args[0] ? args[0] : {};
       return methods.init.call(this, state);
     }
 
-    if (isUpdate && typeof args[1] === 'object') {
-      const state = args[1];
+    if (isUpdate) {
+      const state: Object = args[1];
       return methods.update.call(this, state);
     }
 
-    if (isBindEventListener && typeof args[1] === 'function') {
+    if (isBindEventListener) {
       const callback = args[1];
-      return methods.onChange.call(this, (e: CustomEvent) => callback);
+      return methods.onChange.call(this, callback);
     }
   };
 }(jQuery));
 
 declare global {
   interface JQuery {
-    jqSlider(...args: string[] | Object[]): void;
+    jqSlider(...args: string[] | Object[] | any): void;
+    jqSlider(method: 'update', data: Data): void;
+    jqSlider(method: 'onChange', func: (event: CustomEvent) => void): void;
   }
 }

@@ -55,10 +55,6 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       range, tip, scale, horizontal,
     } = state;
 
-    if (horizontal) {
-      this.slider.classList.add('jq-slider--horizontal');
-    }
-
     this.components.push(new Handle(this.slider));
     this.components.push(new Track(this.slider));
 
@@ -75,6 +71,12 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
     if (scale) {
       this.components.push(new Scale(this.slider));
+    }
+
+    if (horizontal) {
+      this.slider.classList.add('jq-slider--horizontal');
+    } else {
+      this.slider.classList.remove('jq-slider--horizontal');
     }
   }
 
