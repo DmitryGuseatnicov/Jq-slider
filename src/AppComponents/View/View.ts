@@ -20,9 +20,9 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
   public slider!: HTMLElement;
 
-  private state: Data;
+  public components: Array<SubView>;
 
-  private components: Array<SubView>;
+  private state: Data;
 
   constructor(nodeElem: HTMLElement) {
     super();
@@ -52,7 +52,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
   private createComponents(state: Data) {
     const {
-      range, tip, progress, scale, horizontal,
+      range, tip, scale, horizontal,
     } = state;
 
     if (horizontal) {
@@ -60,6 +60,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     }
 
     this.components.push(new Handle(this.slider));
+    this.components.push(new Track(this.slider));
 
     if (tip) {
       this.components.push(new Tip(this.slider));
@@ -70,9 +71,6 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       if (tip) {
         this.components.push(new SecondTip(this.slider));
       }
-    }
-    if (progress) {
-      this.components.push(new Track(this.slider));
     }
 
     if (scale) {
@@ -139,11 +137,13 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   }
 
   private checkTips() {
-    const { tip, range } = this.state;
+    const { tip, range, horizontal } = this.state;
     if (tip && range) {
       const tips = this.getArrOfConcreteSubView(Tip);
+      const size = horizontal ? tips[1].subView.clientHeight : tips[1].subView.offsetWidth;
       const firstPosition = tips[0].getPosition();
-      const secondPosition = tips[1].getPosition() - tips[1].subView.clientWidth;
+      const secondPosition = tips[1].getPosition() - size;
+
       if (firstPosition > secondPosition) {
         tips.forEach((t: any) => {
           t.changeIsDouble(true);
