@@ -33,7 +33,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   }
 
   setState(state: Data) {
-    this.checkSettings(state);
+    this.checkIsChangeSettings(state);
     this.state = { ...this.state, ...state };
     this.update(this.state);
     this.checkTips();
@@ -121,7 +121,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     }
   }
 
-  private checkSettings(state: Data) {
+  private checkIsChangeSettings(state: Data) {
     const {
       range, tip, scale, horizontal, progress, scaleDestiny,
     } = state;
