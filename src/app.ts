@@ -4,16 +4,16 @@ import './slider.scss';
 import Presenter from './AppComponents/Presenter/Presenter';
 
 const state = {
-  min: 0,
-  max: 100,
+  min: -10,
+  max: 1000,
   from: 1,
   to: 900,
-  step: 0.1,
+  step: 1,
   tip: true,
   range: true,
   progress: true,
   scale: true,
-  scaleDestiny: 20,
+  scaleDestiny: 50,
   horizontal: false,
 };
 

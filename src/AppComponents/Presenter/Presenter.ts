@@ -18,19 +18,19 @@ class Presenter extends EventCreator<State, any> {
     this.init();
   }
 
-  init() {
+  private init() {
     this.view.setState(this.model.getState());
     this.bindEventListeners();
   }
 
-  bindEventListeners() {
+  private bindEventListeners() {
     this.viewEventHandler = this.viewEventHandler.bind(this);
     this.modelEventHandler = this.modelEventHandler.bind(this);
     this.view.addEventListener('ViewEvent', this.viewEventHandler);
     this.model.addEventListener('ModelEvent', this.modelEventHandler);
   }
 
-  viewEventHandler(e: ViewEvent) {
+  private viewEventHandler(e: ViewEvent) {
     const { min, max } = this.model.getState();
     if (typeof min === 'number' && typeof max === 'number') {
       if (e.from) e.from = +convertPercentInValue(min, max, e.from).toFixed(3);
@@ -39,7 +39,7 @@ class Presenter extends EventCreator<State, any> {
     this.model.setState(e);
   }
 
-  modelEventHandler(e: State) {
+  private modelEventHandler(e: State) {
     this.view.setState(e);
   }
 }
