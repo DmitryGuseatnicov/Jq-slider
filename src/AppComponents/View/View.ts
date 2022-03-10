@@ -32,7 +32,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     this.init();
   }
 
-  setState(state: Data) {
+  public setState(state: Data) {
     this.checkIsChangeSettings(state);
     this.state = { ...this.state, ...state };
     this.update(this.state);
