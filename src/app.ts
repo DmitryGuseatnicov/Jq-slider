@@ -7,7 +7,7 @@
 /* eslint-disable import/extensions */
 import './slider.scss';
 import Presenter from './AppComponents/Presenter/Presenter';
-import { Data } from './types/types';
+import { Data, State } from './types/types';
 
 (function ($) {
   const methods = {
@@ -28,6 +28,12 @@ import { Data } from './types/types';
       });
     },
 
+    getState(this: JQuery): State {
+      const jqSlider = $(this).data('jqSlider');
+      const state: State = jqSlider.model.getState();
+      return state;
+    },
+
     onChange(this: JQuery, callback: (e: CustomEvent) => void) {
       this.each(function () {
         const jqSlider = $(this).data('jqSlider');
@@ -39,6 +45,7 @@ import { Data } from './types/types';
   $.fn.jqSlider = function (...args) {
     const isEmptyArgs = args.length === 0 || typeof args[0] === 'object';
     const isUpdate = args.length >= 2 && args[0] === 'update' && typeof args[1] === 'object';
+    const isGetState = args.length === 1 && args[0] === 'getState';
     const isBindEventListener = args.length >= 2 && args[0] === 'onChange' && typeof args[1] === 'function';
 
     if (isEmptyArgs) {
@@ -49,6 +56,10 @@ import { Data } from './types/types';
     if (isUpdate) {
       const state: Object = args[1];
       return methods.update.call(this, state);
+    }
+
+    if (isGetState) {
+      return methods.getState.call(this);
     }
 
     if (isBindEventListener) {

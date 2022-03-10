@@ -52,4 +52,9 @@ describe('Test Model', () => {
     model.setState({ to: 87 });
     expect(model.getState().to).toBe(87);
   });
+
+  test('Should be correct params with not valid min and max', () => {
+    model.setState({ min: 100, max: 10 });
+    expect(model.getState().min).toBe(10);
+  });
 });

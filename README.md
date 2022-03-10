@@ -44,7 +44,7 @@ https://cdn.jsdelivr.net/gh/DmitryGuseatnicov/Jq-slider/dist/jqSlider.js
 https://cdn.jsdelivr.net/gh/DmitryGuseatnicov/Jq-slider/dist/jqSlider.css
 ```
 
-#####html :
+##### html :
 
 ```
 <body>
@@ -53,7 +53,7 @@ https://cdn.jsdelivr.net/gh/DmitryGuseatnicov/Jq-slider/dist/jqSlider.css
     ...
   </body>
 ```
-#####JavaScript:
+##### JavaScript:
 ```
 $(#slider).jqSlider()
 ```
@@ -100,7 +100,13 @@ data = {
 
 ### Api
 ```
+// обновление параметров
 $('#slider').jqSlider('update', data)
+
+// получить состояние 
+$('#slider').jqSlider('getState') 
+
+// подписаться на события сладера 
 $('#slider').jqSlider('onChange', (e) => {
   // где е это Состояние плагина
 })

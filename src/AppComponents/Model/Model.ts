@@ -28,7 +28,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
 
   public setState(state: Data) {
     const [values, settings] = this.splitParams(state);
-    this.state = { ...this.state, ...settings };
+    this.state = { ...this.state, ...this.checkMinMax(settings) };
     this.state = { ...this.state, ...this.rangeFromToValidator(this.stepValidator(values)) };
     this.dispatchEvent('ModelEvent', this.state);
   }
@@ -46,10 +46,20 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
   private splitParams(data: Data): Array<Data> {
     const values: Data = {};
     const settings: Data = {};
-    if ('from' in data) values.from = data.from;
-    if ('to' in data) values.to = data.to;
 
-    if ('step' in data) settings.step = data.step;
+    if ('from' in data) {
+      values.from = data.from;
+    } else {
+      values.from = this.state.from;
+    }
+
+    if ('to' in data) {
+      values.to = data.to;
+    } else {
+      values.to = this.state.to;
+    }
+
+    if ('step' in data && data.step! > 0) settings.step = data.step;
     if ('min' in data) settings.min = data.min;
     if ('max' in data) settings.max = data.max;
     if ('scaleDestiny' in data) settings.scaleDestiny = data.scaleDestiny;
@@ -60,6 +70,15 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     if ('progress' in data) settings.progress = data.progress;
 
     return [values, settings];
+  }
+
+  private checkMinMax(data: Data): Data {
+    // eslint-disable-next-line prefer-const
+    let { min = this.state.min, max = this.state.max } = data;
+
+    if (min > max) min = max;
+
+    return { ...data, min, max };
   }
 
   private stepValidator(data: Data): Data {
