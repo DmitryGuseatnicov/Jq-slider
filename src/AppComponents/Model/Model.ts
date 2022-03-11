@@ -28,7 +28,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
 
   public setState(state: Data) {
     const [values, settings] = this.splitParams(state);
-    this.state = { ...this.state, ...this.checkMinMax(settings) };
+    this.state = { ...this.state, ...this.minMaxValidator(settings) };
     this.state = { ...this.state, ...this.rangeFromToValidator(this.stepValidator(values)) };
     this.dispatchEvent('ModelEvent', this.state);
   }
@@ -59,20 +59,20 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
       values.to = this.state.to;
     }
 
-    if ('step' in data && data.step! > 0) settings.step = data.step;
-    if ('min' in data) settings.min = data.min;
-    if ('max' in data) settings.max = data.max;
-    if ('scaleDestiny' in data) settings.scaleDestiny = data.scaleDestiny;
-    if ('scale' in data) settings.scale = data.scale;
-    if ('range' in data) settings.range = data.range;
-    if ('tip' in data) settings.tip = data.tip;
-    if ('horizontal' in data) settings.horizontal = data.horizontal;
-    if ('progress' in data) settings.progress = data.progress;
+    if (typeof data.step && data.step! > 0) settings.step = data.step;
+    if (typeof data.min === 'number') settings.min = data.min;
+    if (typeof data.max === 'number') settings.max = data.max;
+    if (typeof data.scaleDestiny === 'number') settings.scaleDestiny = data.scaleDestiny;
+    if (typeof data.scale === 'boolean') settings.scale = data.scale;
+    if (typeof data.range === 'boolean') settings.range = data.range;
+    if (typeof data.tip === 'boolean') settings.tip = data.tip;
+    if (typeof data.progress === 'boolean') settings.horizontal = data.horizontal;
+    if (typeof data.progress === 'boolean') settings.progress = data.progress;
 
     return [values, settings];
   }
 
-  private checkMinMax(data: Data): Data {
+  private minMaxValidator(data: Data): Data {
     // eslint-disable-next-line prefer-const
     let { min = this.state.min, max = this.state.max } = data;
 
