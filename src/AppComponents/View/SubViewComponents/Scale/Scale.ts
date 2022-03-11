@@ -84,11 +84,14 @@ class Scale extends SubView {
   private clickHandler(e: MouseEvent) {
     if (e.target instanceof HTMLElement) {
       const { min, max } = this.state;
-      const position = this.state.horizontal
-        ? this.slider.clientHeight / 100 * convertValueInPercent(min!, max!, +e.target.innerHTML)
-        : this.slider.clientWidth / 100 * convertValueInPercent(min!, max!, +e.target.innerHTML);
 
-      this.dispatchEvent('SubViewEvent', { target: 'track', position });
+      if (typeof min === 'number' && typeof max === 'number') {
+        let position = this.state.horizontal
+          ? this.slider.clientHeight / 100 * convertValueInPercent(min!, max!, +e.target.innerHTML)
+          : this.slider.clientWidth / 100 * convertValueInPercent(min!, max!, +e.target.innerHTML);
+        if (position === 0) position = min;
+        this.dispatchEvent('SubViewEvent', { target: 'track', position });
+      }
     }
   }
 }
