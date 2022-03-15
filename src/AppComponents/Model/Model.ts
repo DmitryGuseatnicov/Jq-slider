@@ -66,7 +66,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     if (typeof data.scale === 'boolean') settings.scale = data.scale;
     if (typeof data.range === 'boolean') settings.range = data.range;
     if (typeof data.tip === 'boolean') settings.tip = data.tip;
-    if (typeof data.progress === 'boolean') settings.horizontal = data.horizontal;
+    if (typeof data.horizontal === 'boolean') settings.horizontal = data.horizontal;
     if (typeof data.progress === 'boolean') settings.progress = data.progress;
 
     return [values, settings];
