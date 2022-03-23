@@ -1,20 +1,4 @@
-/* eslint-disable max-classes-per-file */
-// eslint-disable-next-line max-classes-per-file
-
-class MyEvent<T> {
-  public name: string;
-
-  public callbacks: Array<T>;
-
-  constructor(name: string) {
-    this.name = name;
-    this.callbacks = [];
-  }
-
-  public registerCallback(callback: T) {
-    this.callbacks.push(callback);
-  }
-}
+import MyEvent from './MyEvent';
 
 class EventCreator<T, R> {
   events: {

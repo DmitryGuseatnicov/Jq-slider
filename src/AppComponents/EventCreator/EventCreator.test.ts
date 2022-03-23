@@ -1,8 +1,6 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-undef */
-import { SubViewEvent, SubViewEventCallBack } from '../../types/types';
 import EventCreator from './EventCreator';
+
+import { SubViewEvent, SubViewEventCallBack } from '../../types/types';
 
 describe('test EventCreator', () => {
   let eventCreator: EventCreator<SubViewEvent, SubViewEventCallBack>;
@@ -22,11 +20,12 @@ describe('test EventCreator', () => {
 
   test('Should be cant dispatch event ', () => {
     let eventArgs = {};
+    function saveEventArgs(e: SubViewEvent) {
+      eventArgs = { ...e };
+    }
 
     eventCreator.registerEvent('someEvent');
-    eventCreator.addEventListener('someEvent', (e: SubViewEvent) => {
-      eventArgs = { ...e };
-    });
+    eventCreator.addEventListener('someEvent', saveEventArgs);
     eventCreator.dispatchEvent('someEvent', { target: 'handle', position: 10 });
 
     expect(eventArgs).toEqual({ target: 'handle', position: 10 });

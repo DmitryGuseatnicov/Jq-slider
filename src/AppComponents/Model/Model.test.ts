@@ -1,4 +1,5 @@
 import Model from './Model';
+
 import { State } from '../../types/types';
 
 describe('Test Model', () => {
@@ -19,6 +20,7 @@ describe('Test Model', () => {
       scaleDestiny: 1,
       horizontal: false,
     };
+
     model = new Model(state);
   });
 

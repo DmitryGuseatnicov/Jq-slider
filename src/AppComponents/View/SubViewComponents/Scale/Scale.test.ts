@@ -1,16 +1,15 @@
 /**
  *  @jest-environment jsdom
  */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-undef */
-import { State } from '../../../../types/types';
 import Scale from './Scale';
+
+import { State } from '../../../../types/types';
 
 describe('Test scale', () => {
   let scale: Scale;
   let state: State;
   let slider: HTMLElement;
+
   beforeEach(() => {
     slider = document.createElement('div');
     slider.style.width = '1000';

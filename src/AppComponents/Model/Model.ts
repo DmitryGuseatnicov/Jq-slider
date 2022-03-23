@@ -1,9 +1,7 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
+import EventCreator from '../EventCreator/EventCreator';
 import {
   ModelEvent, ModelEventCallBack, State, Data,
 } from '../../types/types';
-import EventCreator from '../EventCreator/EventCreator';
 
 class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
   private state: State;

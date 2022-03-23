@@ -1,12 +1,9 @@
 /**
  *  @jest-environment jsdom
  */
-/* eslint-disable no-undef */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
+import Handle from './Handle';
 
 import { State } from '../../../../types/types';
-import Handle from './Handle';
 
 describe('Test Handle', () => {
   let slider: HTMLElement;

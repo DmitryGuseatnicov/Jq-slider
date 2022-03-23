@@ -1,9 +1,6 @@
-/* eslint-disable max-len */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-import { State } from '../../../../types/types';
-import { convertValueInPercent } from '../../../../utils/calcUtils';
 import SubView from '../../abstractSubView/abstractSubView';
+import { convertValueInPercent } from '../../../../utils/calcUtils';
+import { State } from '../../../../types/types';
 
 class Track extends SubView {
   public subView!: HTMLElement;
@@ -75,9 +72,10 @@ class Track extends SubView {
       if (horizontal) {
         if (range) {
           const height = end - start;
+          const onePercent = this.slider.clientHeight / 100;
+
           this.progress.style.height = `${height}%`;
-          // eslint-disable-next-line no-mixed-operators
-          this.progress.style.marginTop = `${this.slider.clientHeight / 100 * start}px`;
+          this.progress.style.marginTop = `${onePercent * start}px`;
         } else {
           this.progress.style.height = `${start}%`;
         }

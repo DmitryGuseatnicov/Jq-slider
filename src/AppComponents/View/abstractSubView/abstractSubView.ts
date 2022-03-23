@@ -1,8 +1,5 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-unused-vars */
-import { SubViewEventCallBack, SubViewEvent, Data } from '../../../types/types';
 import EventCreator from '../../EventCreator/EventCreator';
+import { SubViewEventCallBack, SubViewEvent, Data } from '../../../types/types';
 
 abstract class SubView extends EventCreator<SubViewEvent, SubViewEventCallBack> {
   public slider: HTMLElement;
@@ -24,6 +21,7 @@ abstract class SubView extends EventCreator<SubViewEvent, SubViewEventCallBack> 
     return this.subView.getBoundingClientRect().left;
   }
 
+  // eslint-disable-next-line no-unused-vars
   public abstract setState(state: Data): void
 
   protected abstract init(): void

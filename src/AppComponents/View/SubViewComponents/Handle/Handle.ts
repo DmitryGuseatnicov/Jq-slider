@@ -1,11 +1,6 @@
-/* eslint-disable max-len */
-/* eslint-disable no-mixed-operators */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-
+import SubView from '../../abstractSubView/abstractSubView';
 import { State } from '../../../../types/types';
 import { convertValueInPercent } from '../../../../utils/calcUtils';
-import SubView from '../../abstractSubView/abstractSubView';
 
 class Handle extends SubView {
   public subView!: HTMLElement;
@@ -58,11 +53,14 @@ class Handle extends SubView {
 
   private pointerStart(): void {
     this.pointerHandler = this.pointerHandler.bind(this);
+    this.removePointStart = this.removePointStart.bind(this);
     window.addEventListener('pointermove', this.pointerHandler);
-    window.addEventListener('pointerup', () => {
-      window.removeEventListener('pointermove', this.pointerHandler);
-      window.removeEventListener('pointermove', this.pointerHandler);
-    });
+    window.addEventListener('pointerup', this.removePointStart);
+  }
+
+  private removePointStart() {
+    window.removeEventListener('pointermove', this.pointerHandler);
+    window.removeEventListener('pointermove', this.pointerHandler);
   }
 
   protected pointerHandler(e: PointerEvent): void {

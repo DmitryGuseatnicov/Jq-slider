@@ -1,16 +1,15 @@
 /**
  *  @jest-environment jsdom
  */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-undef */
-import { State } from '../../types/types';
 import View from './View';
+
+import { State } from '../../types/types';
 
 describe('Test View', () => {
   let view: View;
   let state: State;
   let nodeElem : HTMLElement;
+
   beforeEach(() => {
     nodeElem = document.createElement('div');
     view = new View(nodeElem);

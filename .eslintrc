@@ -13,7 +13,7 @@
     "sourceType": "module",
     "allowImportExportEverywhere": true
   },
-  "plugins": ["@typescript-eslint", "fsd"],
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "import/extensions": "off"
   },

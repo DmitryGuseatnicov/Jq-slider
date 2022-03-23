@@ -1,17 +1,15 @@
 /**
  *  @jest-environment jsdom
  */
-/* eslint-disable no-undef */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
+import SecondHandel from './SecondHandle';
 
 import { State } from '../../../../types/types';
-import SecondHandel from './SecondHandle';
 
 describe('Test Handle', () => {
   let slider: HTMLElement;
   let handle: SecondHandel;
   let newState: State;
+
   beforeEach(() => {
     slider = document.createElement('div');
     slider.style.width = '1000';

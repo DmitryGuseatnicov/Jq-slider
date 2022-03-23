@@ -1,19 +1,16 @@
-/* eslint-disable no-mixed-operators */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import Handle from './SubViewComponents/Handle/Handle';
-import EventCreator from '../EventCreator/EventCreator';
-
-import {
-  SubViewEvent, Data, ViewEvent, ViewEventCallBack,
-} from '../../types/types';
-import SubView from './abstractSubView/abstractSubView';
 import SecondHandle from './SubViewComponents/Handle/SecondHandle';
+import Scale from './SubViewComponents/Scale/Scale';
 import Tip from './SubViewComponents/Tip/Tip';
 import SecondTip from './SubViewComponents/Tip/SecondTip';
 import Track from './SubViewComponents/Track/Track';
+import SubView from './abstractSubView/abstractSubView';
+
+import EventCreator from '../EventCreator/EventCreator';
 import { convertPixelInPercent } from '../../utils/calcUtils';
-import Scale from './SubViewComponents/Scale/Scale';
+import {
+  SubViewEvent, Data, ViewEvent, ViewEventCallBack,
+} from '../../types/types';
 
 class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   public nodeElem: HTMLElement;

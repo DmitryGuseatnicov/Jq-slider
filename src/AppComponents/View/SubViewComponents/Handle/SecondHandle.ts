@@ -1,9 +1,7 @@
-/* eslint-disable max-len */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
+import Handle from './Handle';
+
 import { State } from '../../../../types/types';
 import { convertValueInPercent } from '../../../../utils/calcUtils';
-import Handle from './Handle';
 
 class SecondHandle extends Handle {
   public setState(state: State): void {

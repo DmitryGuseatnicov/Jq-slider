@@ -1,9 +1,6 @@
-/* eslint-disable no-mixed-operators */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
+import SubView from '../../abstractSubView/abstractSubView';
 import { Data } from '../../../../types/types';
 import { convertPercentInValue, convertValueInPercent } from '../../../../utils/calcUtils';
-import SubView from '../../abstractSubView/abstractSubView';
 
 class Scale extends SubView {
   constructor(slider: HTMLElement) {
@@ -86,9 +83,15 @@ class Scale extends SubView {
       const { min, max } = this.state;
 
       if (typeof min === 'number' && typeof max === 'number') {
-        const position = this.state.horizontal
-          ? this.slider.clientHeight / 100 * convertValueInPercent(min!, max!, +e.target.innerHTML)
-          : this.slider.clientWidth / 100 * convertValueInPercent(min!, max!, +e.target.innerHTML);
+        const onePercent = this.state.horizontal
+          ? this.slider.clientHeight / 100
+          : this.slider.clientWidth / 100;
+
+        const percents = this.state.horizontal
+          ? convertValueInPercent(min, max, +e.target.innerHTML)
+          : convertValueInPercent(min, max, +e.target.innerHTML);
+
+        const position = onePercent * percents;
         this.dispatchEvent('SubViewEvent', { target: 'track', position });
       }
     }

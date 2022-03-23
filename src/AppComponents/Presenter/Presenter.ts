@@ -1,10 +1,8 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-import { Data, State, ViewEvent } from '../../types/types';
-import { convertPercentInValue } from '../../utils/calcUtils';
-import EventCreator from '../EventCreator/EventCreator';
 import Model from '../Model/Model';
 import View from '../View/View';
+import EventCreator from '../EventCreator/EventCreator';
+import { Data, State, ViewEvent } from '../../types/types';
+import { convertPercentInValue } from '../../utils/calcUtils';
 
 class Presenter extends EventCreator<State, State> {
   public model: Model;

@@ -2,9 +2,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable func-names */
 /* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
+
 import './slider.scss';
 import Presenter from './AppComponents/Presenter/Presenter';
 import { Data, State } from './types/types';

@@ -1,11 +1,8 @@
 /**
  *  @jest-environment jsdom
  */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-undef */
-import { State } from '../../../../types/types';
 import Track from './Track';
+import { State } from '../../../../types/types';
 
 describe('Test Track', () => {
   let track: Track;
