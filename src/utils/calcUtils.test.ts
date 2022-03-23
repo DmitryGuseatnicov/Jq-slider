@@ -1,6 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-undef */
 import { convertPercentInValue, convertPixelInPercent, convertValueInPercent } from './calcUtils';
 
 describe('test calcUtils', () => {

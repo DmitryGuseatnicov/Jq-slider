@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 /* eslint-disable no-undef */
 import { Data, State } from '../types/types';
 import './demo-page.scss';
@@ -115,7 +113,7 @@ class ControlPanel {
   }
 }
 
-$('.demo').each((i, el) => {
+$('.js-demo').each((i, el) => {
   // eslint-disable-next-line no-unused-vars
   const panel = new ControlPanel(el, arrOfStates[i]);
 });
