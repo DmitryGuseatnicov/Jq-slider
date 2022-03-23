@@ -1,8 +1,5 @@
-/* eslint-disable no-undef */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-import { State } from '../../types/types';
 import Model from './Model';
+import { State } from '../../types/types';
 
 describe('Test Model', () => {
   let model: Model;

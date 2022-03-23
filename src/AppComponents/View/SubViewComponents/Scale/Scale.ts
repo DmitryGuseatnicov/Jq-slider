@@ -86,10 +86,9 @@ class Scale extends SubView {
       const { min, max } = this.state;
 
       if (typeof min === 'number' && typeof max === 'number') {
-        let position = this.state.horizontal
+        const position = this.state.horizontal
           ? this.slider.clientHeight / 100 * convertValueInPercent(min!, max!, +e.target.innerHTML)
           : this.slider.clientWidth / 100 * convertValueInPercent(min!, max!, +e.target.innerHTML);
-        if (position === 0) position = min;
         this.dispatchEvent('SubViewEvent', { target: 'track', position });
       }
     }
