@@ -6,6 +6,7 @@ const styles = require('./webpack/style');
 const typeScript = require('./webpack/typeScript');
 const devServer = require('./webpack/devServer');
 const devtool = require('./webpack/devtool');
+const pug = require('./webpack/pug');
 
 let mode = 'development';
 
@@ -22,7 +23,7 @@ let plugins = [
   }),
   new HtmlWebpackPlugin({
     filename: 'index.html',
-    template: './demo-page/demo-page.html',
+    template: './demo-page/demo-page.pug',
     chunks: 'app.ts',
     inject: 'body',
   }),
@@ -59,6 +60,7 @@ const common = merge([
   },
   devServer(),
   styles(),
+  pug(),
   devtool(),
   typeScript(),
 ]);
