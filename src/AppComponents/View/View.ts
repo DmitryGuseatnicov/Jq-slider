@@ -137,6 +137,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
   private checkTips() {
     const { tip, range, horizontal } = this.state;
+
     if (tip && range) {
       const tips = this.getArrOfConcreteSubView(Tip);
       const size = horizontal ? tips[1].subView.clientHeight : tips[1].subView.offsetWidth;

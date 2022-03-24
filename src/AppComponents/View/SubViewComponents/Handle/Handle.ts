@@ -76,7 +76,9 @@ class Handle extends SubView {
     const {
       min, max, from, horizontal,
     } = this.state;
+
     const isNumbers = typeof min === 'number' && typeof max === 'number' && typeof from === 'number';
+
     if (isNumbers) {
       if (horizontal) {
         this.subView.style.top = `${convertValueInPercent(min, max, from)}%`;

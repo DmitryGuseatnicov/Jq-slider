@@ -40,7 +40,6 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     this.setState(state);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private splitParams(data: Data): Array<Data> {
     const values: Data = {};
     const settings: Data = {};
@@ -71,8 +70,8 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
   }
 
   private minMaxValidator(data: Data): Data {
-    // eslint-disable-next-line prefer-const
-    let { min = this.state.min, max = this.state.max } = data;
+    let { min = this.state.min } = data;
+    const { max = this.state.max } = data;
 
     if (min > max) min = max;
 

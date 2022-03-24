@@ -1,4 +1,4 @@
-.jq-slider{
+.jq-slider {
   width: 100%;
   height: 10px;
   border: 1px solid rgba(#000000, 0.7);
@@ -8,7 +8,7 @@
   touch-action: none;
   user-select: none;
 
-  &__handle{
+  &__handle {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -23,7 +23,7 @@
     z-index: 1;
   }
 
-  &__tip{
+  &__tip {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -150%);
@@ -36,7 +36,7 @@
     user-select: none;
   }
 
-  &__track{
+  &__track {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -47,7 +47,7 @@
     user-select: none;
   }
 
-  &__progress{
+  &__progress {
     background: rgba(#19A819, 0.5);
     height: 100%;
     width: 100%;
@@ -56,7 +56,7 @@
     user-select: none;
   }
 
-  &__scale{
+  &__scale {
     display: flex;
     position: absolute;
     top: 15px;
@@ -69,7 +69,7 @@
   }
 
   
-  &__scale-pip{
+  &__scale-pip {
     position: absolute;
     height: 7px;
     width: 1px;
@@ -80,7 +80,7 @@
     cursor: pointer;
   }
 
-  &__scale-label{
+  &__scale-label {
     position: absolute;
     top: 10px;
     right: 50%;
@@ -93,7 +93,7 @@
   }
 }
 
-.jq-slider--horizontal{
+.jq-slider--horizontal {
     width: 10px;
     height: 100%; 
   .jq-slider {
@@ -103,16 +103,16 @@
       transform: translate(-30%, -50%);
     }
 
-    &__tip{
+    &__tip {
       transform: translate(0%, -50%);
       left: 20px;
     }
 
-    &__track{
+    &__track {
       height: 100%;
     }
 
-    &__scale{
+    &__scale {
       top: 0;
       right: 15px;
       height: 100%;
@@ -120,14 +120,14 @@
     }
 
     
-    &__scale-pip{
+    &__scale-pip {
       height: 1px;
       width: 7px;
       cursor: pointer;
       right: 0px;
     }
 
-    &__scale-label{
+    &__scale-label {
       position: absolute;
       top: 50%;
       right: 15px;
