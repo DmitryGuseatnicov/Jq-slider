@@ -78,10 +78,6 @@
     touch-action: none;
     user-select: none;
     cursor: pointer;
-    &:last-child,
-    &:first-child{
-      height: 10px;
-    }
   }
 
   &__scale-label{
@@ -129,10 +125,6 @@
       width: 7px;
       cursor: pointer;
       right: 0px;
-      &:last-child,
-      &:first-child{
-        height: 1px;
-      }
     }
 
     &__scale-label{
