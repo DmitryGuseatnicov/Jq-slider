@@ -81,9 +81,6 @@
     &:last-child,
     &:first-child{
       height: 10px;
-      .jq-slider__scale-label{
-        font-size: 14px;
-      }
     }
   }
 
@@ -135,9 +132,6 @@
       &:last-child,
       &:first-child{
         height: 1px;
-        .jq-slider__scale-label{
-          font-size: 14px;
-        }
       }
     }
 
