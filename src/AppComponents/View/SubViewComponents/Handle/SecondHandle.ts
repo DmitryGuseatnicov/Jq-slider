@@ -23,6 +23,7 @@ class SecondHandle extends Handle {
         ? e.clientY - this.slider.getBoundingClientRect().top
         : e.clientX - this.slider.getBoundingClientRect().left,
     });
+    this.subView.style.zIndex = '3';
   }
 
   protected update(): void {

@@ -70,6 +70,7 @@ class Handle extends SubView {
         ? e.clientY - this.slider.getBoundingClientRect().top
         : e.clientX - this.slider.getBoundingClientRect().left,
     });
+    this.subView.style.zIndex = '3';
   }
 
   protected update(): void {
@@ -84,9 +85,9 @@ class Handle extends SubView {
     if (isNumbers) {
       if (horizontal) {
         this.subView.style.top = `${convertValueInPercent(min, max, from)}%`;
-        return;
+      } else {
+        this.subView.style.left = `${convertValueInPercent(min, max, from)}%`;
       }
-      this.subView.style.left = `${convertValueInPercent(min, max, from)}%`;
     }
   }
 }
