@@ -115,12 +115,15 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     }
 
     const copyOfSData = { ...data };
-    const isFromNotValidly = copyOfSData.from && this.state.to - copyOfSData.from <= 0;
-    const isToNotValidly = copyOfSData.to && copyOfSData.to - this.state.from <= 0;
 
-    if (this.state.from > this.state.to) this.state.from = this.state.to;
-    if (isFromNotValidly) copyOfSData.from = this.state.to;
-    if (isToNotValidly) copyOfSData.to = this.state.from;
+    if (typeof copyOfSData.from === 'number' && typeof copyOfSData.to === 'number') {
+      const isFromNotValidly = this.state.to - copyOfSData.from <= 0;
+      const isToNotValidly = copyOfSData.to - this.state.from <= 0;
+
+      if (this.state.from > this.state.to) this.state.from = this.state.to;
+      if (isFromNotValidly) copyOfSData.from = this.state.to;
+      if (isToNotValidly) copyOfSData.to = this.state.from;
+    }
 
     return copyOfSData;
   }

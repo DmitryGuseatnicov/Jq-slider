@@ -120,7 +120,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
           this.dispatchEvent('ViewEvent', {
             from: convertPixelInPercent(size, e.position),
           });
-          return
+          return;
         }
 
         this.dispatchEvent('ViewEvent', {
@@ -172,7 +172,6 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       } else {
         tips.forEach((t: any) => {
           t.changeIsDouble(false);
-          t.setState({});
         });
       }
     }
