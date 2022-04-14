@@ -63,8 +63,10 @@ class Track extends SubView {
       return;
     }
 
-    const isNumbers = typeof min === 'number' && typeof max === 'number'
-                      && typeof from === 'number' && typeof to === 'number';
+    const isNumbers = typeof min === 'number'
+      && typeof max === 'number'
+      && typeof from === 'number'
+      && typeof to === 'number';
 
     if (isNumbers) {
       const start = convertValueInPercent(min, max, from);

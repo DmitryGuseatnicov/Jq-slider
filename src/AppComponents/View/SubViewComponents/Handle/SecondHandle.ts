@@ -30,7 +30,9 @@ class SecondHandle extends Handle {
       min, max, to, horizontal,
     } = this.state;
 
-    const isNumbers = typeof min === 'number' && typeof max === 'number' && typeof to === 'number';
+    const isNumbers = typeof min === 'number'
+    && typeof max === 'number'
+    && typeof to === 'number';
 
     if (isNumbers) {
       if (horizontal) {

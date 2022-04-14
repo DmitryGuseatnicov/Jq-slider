@@ -39,8 +39,11 @@ class Scale extends SubView {
       min, max, step, horizontal, scaleDestiny,
     } = this.state;
 
-    const isCorrectParams = typeof min === 'number' && typeof max === 'number' && typeof scaleDestiny === 'number'
-                            && typeof step === 'number' && typeof horizontal === 'boolean';
+    const isCorrectParams = typeof min === 'number'
+      && typeof max === 'number'
+      && typeof scaleDestiny === 'number'
+      && typeof step === 'number'
+      && typeof horizontal === 'boolean';
 
     if (isCorrectParams) {
       let pips = this.createPipFragment(min, max, min);
@@ -59,7 +62,9 @@ class Scale extends SubView {
   private createPipFragment(min: number, max: number, value: number) {
     if (this.state.horizontal) {
       return `
-      <div class="jq-slider__scale-pip" style="top:${convertPercentInValue(0, this.slider.clientHeight, convertValueInPercent(min, max, value))}px">
+      <div class="jq-slider__scale-pip" style="top:
+        ${convertPercentInValue(0, this.slider.clientHeight, convertValueInPercent(min, max, value))}px"
+      >
         <div class="jq-slider__scale-label">${value}</div>
       </div>`;
     }

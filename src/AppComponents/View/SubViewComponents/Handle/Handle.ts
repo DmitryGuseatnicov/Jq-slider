@@ -77,7 +77,9 @@ class Handle extends SubView {
       min, max, from, horizontal,
     } = this.state;
 
-    const isNumbers = typeof min === 'number' && typeof max === 'number' && typeof from === 'number';
+    const isNumbers = typeof min === 'number'
+      && typeof max === 'number'
+      && typeof from === 'number';
 
     if (isNumbers) {
       if (horizontal) {

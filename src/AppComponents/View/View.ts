@@ -91,13 +91,15 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     const size = this.state.horizontal ? this.slider.clientHeight : this.slider.clientWidth;
 
     if (e.target === 'handle') {
-      const from = convertPixelInPercent(size, e.position);
-      this.dispatchEvent('ViewEvent', { from });
+      this.dispatchEvent('ViewEvent', {
+        from: convertPixelInPercent(size, e.position),
+      });
     }
 
     if (e.target === 'secondHandle') {
-      const to = convertPixelInPercent(size, e.position);
-      this.dispatchEvent('ViewEvent', { to });
+      this.dispatchEvent('ViewEvent', {
+        to: convertPixelInPercent(size, e.position),
+      });
     }
 
     if (e.target === 'track' || e.target === 'scale') {
@@ -108,13 +110,21 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
         const to = handles[1].getPosition();
 
         if (Math.abs(from - e.position) < to - e.position) {
-          this.dispatchEvent('ViewEvent', { from: convertPixelInPercent(size, e.position) });
+          this.dispatchEvent('ViewEvent', {
+            from: convertPixelInPercent(size, e.position),
+          });
           return;
         }
-        this.dispatchEvent('ViewEvent', { to: convertPixelInPercent(size, e.position) });
+
+        this.dispatchEvent('ViewEvent', {
+          to: convertPixelInPercent(size, e.position),
+        });
         return;
       }
-      this.dispatchEvent('ViewEvent', { from: convertPixelInPercent(size, e.position) });
+
+      this.dispatchEvent('ViewEvent', {
+        from: convertPixelInPercent(size, e.position),
+      });
     }
   }
 
@@ -123,9 +133,12 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       range, tip, scale, horizontal, progress, scaleDestiny,
     } = state;
 
-    const isUpdateSettings = range !== this.state.range || tip !== this.state.tip
-                  || scale !== this.state.scale || horizontal !== this.state.horizontal
-                  || progress !== this.state.progress || scaleDestiny !== this.state.scaleDestiny;
+    const isUpdateSettings = range !== this.state.range
+      || tip !== this.state.tip
+      || scale !== this.state.scale
+      || horizontal !== this.state.horizontal
+      || progress !== this.state.progress
+      || scaleDestiny !== this.state.scaleDestiny;
 
     if (isUpdateSettings) {
       this.components = [];
@@ -152,6 +165,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       } else {
         tips.forEach((t: any) => {
           t.changeIsDouble(false);
+          t.setState(this.state);
         });
       }
     }

@@ -26,8 +26,18 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
 
   public setState(state: Data) {
     const [values, settings] = this.splitParams(state);
-    this.state = { ...this.state, ...this.minMaxValidator(settings) };
-    this.state = { ...this.state, ...this.rangeFromToValidator(this.stepValidator(values)) };
+
+    this.state = {
+      ...this.state,
+      ...this.minMaxValidator(settings),
+    };
+    this.state = {
+      ...this.state,
+      ...this.rangeFromToValidator(
+        this.stepValidator(values),
+      ),
+    };
+
     this.dispatchEvent('ModelEvent', this.state);
   }
 

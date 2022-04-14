@@ -44,8 +44,10 @@ class Tip extends SubView {
       min, max, from, horizontal, to,
     } = this.state;
 
-    const isNumbers = typeof min === 'number' && typeof max === 'number'
-    && typeof from === 'number' && typeof from === 'number';
+    const isNumbers = typeof min === 'number'
+      && typeof max === 'number'
+      && typeof from === 'number'
+      && typeof from === 'number';
 
     if (isNumbers) {
       this.subView.textContent = this.isDouble ? `${from} - ${to}` : from.toString();
