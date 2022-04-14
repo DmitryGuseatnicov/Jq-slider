@@ -116,6 +116,13 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
           return;
         }
 
+        if (Math.abs(from - e.position) === to - e.position) {
+          this.dispatchEvent('ViewEvent', {
+            from: convertPixelInPercent(size, e.position),
+          });
+          return
+        }
+
         this.dispatchEvent('ViewEvent', {
           to: convertPixelInPercent(size, e.position),
         });
@@ -165,7 +172,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       } else {
         tips.forEach((t: any) => {
           t.changeIsDouble(false);
-          t.setState(this.state);
+          t.setState({});
         });
       }
     }
