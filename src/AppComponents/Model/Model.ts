@@ -95,15 +95,22 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
 
     if (typeof copyOfData.from === 'number') {
       copyOfData.from = checkStep(copyOfData.from, this.state.step);
-      if (copyOfData.from <= this.state.min) copyOfData.from = this.state.min;
-      else if (copyOfData.from >= this.state.max)
+
+      if (copyOfData.from <= this.state.min) {
+        copyOfData.from = this.state.min;
+      } else if (copyOfData.from >= this.state.max) {
         copyOfData.from = this.state.max;
+      }
     }
 
     if (typeof copyOfData.to === 'number') {
       copyOfData.to = checkStep(copyOfData.to, this.state.step);
-      if (copyOfData.to <= this.state.min) copyOfData.to = this.state.min;
-      else if (copyOfData.to >= this.state.max) copyOfData.to = this.state.max;
+
+      if (copyOfData.to <= this.state.min) {
+        copyOfData.to = this.state.min;
+      } else if (copyOfData.to >= this.state.max) {
+        copyOfData.to = this.state.max;
+      }
     }
     return copyOfData;
   }

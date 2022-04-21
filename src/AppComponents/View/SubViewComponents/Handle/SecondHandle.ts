@@ -25,7 +25,6 @@ class SecondHandle extends Handle {
         ? e.clientY - this.slider.getBoundingClientRect().top
         : e.clientX - this.slider.getBoundingClientRect().left,
     });
-    this.subView.style.zIndex = '3';
   }
 
   protected update(): void {
@@ -35,6 +34,16 @@ class SecondHandle extends Handle {
       typeof min === 'number' &&
       typeof max === 'number' &&
       typeof to === 'number';
+
+    const size = horizontal
+      ? this.slider.clientHeight
+      : this.slider.clientWidth;
+
+    if (this.getPosition() > size / 2) {
+      this.subView.style.zIndex = '1';
+    } else {
+      this.subView.style.zIndex = '3';
+    }
 
     if (isNumbers) {
       if (horizontal) {
