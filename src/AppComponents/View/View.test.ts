@@ -8,7 +8,7 @@ import { State } from '../../types/types';
 describe('Test View', () => {
   let view: View;
   let state: State;
-  let nodeElem : HTMLElement;
+  let nodeElem: HTMLElement;
 
   beforeEach(() => {
     nodeElem = document.createElement('div');
@@ -50,7 +50,10 @@ describe('Test View', () => {
     expect(view.components.length).toBe(4);
 
     state = {
-      ...state, range: false, tip: false, scale: false,
+      ...state,
+      range: false,
+      tip: false,
+      scale: false,
     };
     view.setState(state);
     expect(view.components.length).toBe(2);

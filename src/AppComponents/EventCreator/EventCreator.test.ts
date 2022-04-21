@@ -15,7 +15,10 @@ describe('test EventCreator', () => {
 
   test('Should be cant register event', () => {
     eventCreator.registerEvent('someEvent');
-    expect(eventCreator.events.someEvent).toEqual({ name: 'someEvent', callbacks: [] });
+    expect(eventCreator.events.someEvent).toEqual({
+      name: 'someEvent',
+      callbacks: [],
+    });
   });
 
   test('Should be cant dispatch event ', () => {

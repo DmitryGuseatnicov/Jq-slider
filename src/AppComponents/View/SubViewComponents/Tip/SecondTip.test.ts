@@ -34,25 +34,37 @@ describe('Test Tip', () => {
 
   test('Should be correct position on slider aria', () => {
     newState = {
-      ...newState, min: 0, max: 200, to: 20,
+      ...newState,
+      min: 0,
+      max: 200,
+      to: 20,
     };
     tip.setState(newState);
     expect(tip.subView.style.left).toBe('10%');
 
     newState = {
-      ...newState, min: 0, max: 200, to: 10,
+      ...newState,
+      min: 0,
+      max: 200,
+      to: 10,
     };
     tip.setState(newState);
     expect(tip.subView.style.left).toBe('5%');
 
     newState = {
-      ...newState, min: -100, max: 100, to: -90,
+      ...newState,
+      min: -100,
+      max: 100,
+      to: -90,
     };
     tip.setState(newState);
     expect(tip.subView.style.left).toBe('5%');
 
     newState = {
-      ...newState, min: -100, max: 100, to: 0,
+      ...newState,
+      min: -100,
+      max: 100,
+      to: 0,
     };
     tip.setState(newState);
     expect(tip.subView.style.left).toBe('50%');

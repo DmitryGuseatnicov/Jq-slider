@@ -8,7 +8,7 @@ import { State } from '../../../../types/types';
 describe('Test Handle', () => {
   let slider: HTMLElement;
   let handle: Handle;
-  let newState : State;
+  let newState: State;
 
   beforeEach(() => {
     slider = document.createElement('div');
@@ -39,19 +39,28 @@ describe('Test Handle', () => {
     expect(handle.subView.style.left).toBe('10%');
 
     newState = {
-      ...newState, min: 0, max: 200, from: 10,
+      ...newState,
+      min: 0,
+      max: 200,
+      from: 10,
     };
     handle.setState(newState);
     expect(handle.subView.style.left).toBe('5%');
 
     newState = {
-      ...newState, min: -100, max: 100, from: -90,
+      ...newState,
+      min: -100,
+      max: 100,
+      from: -90,
     };
     handle.setState(newState);
     expect(handle.subView.style.left).toBe('5%');
 
     newState = {
-      ...newState, min: -100, max: 100, from: 0,
+      ...newState,
+      min: -100,
+      max: 100,
+      from: 0,
     };
     handle.setState(newState);
     expect(handle.subView.style.left).toBe('50%');

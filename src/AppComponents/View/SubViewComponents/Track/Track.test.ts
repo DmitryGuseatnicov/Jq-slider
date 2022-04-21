@@ -34,12 +34,16 @@ describe('Test Track', () => {
   test('should be created Track width progress', () => {
     track.setState(state);
     expect(track.subView).toBeInstanceOf(HTMLElement);
-    expect(track.subView.querySelector('.jq-slider__progress')).toBeInstanceOf(HTMLElement);
+    expect(track.subView.querySelector('.jq-slider__progress')).toBeInstanceOf(
+      HTMLElement,
+    );
   });
 
   test('should be correct size of progress', () => {
     track.setState(state);
-    let progress: HTMLElement = track.subView.querySelector('.jq-slider__progress')!;
+    let progress: HTMLElement = track.subView.querySelector(
+      '.jq-slider__progress',
+    )!;
     expect(progress.style.width).toBe('100%');
 
     state = { ...state, from: 25, to: 100 };
@@ -53,7 +57,10 @@ describe('Test Track', () => {
     expect(progress.style.width).toBe('60%');
 
     state = {
-      ...state, min: -20, from: 30, to: 90,
+      ...state,
+      min: -20,
+      from: 30,
+      to: 90,
     };
     track.setState(state);
     progress = track.subView.querySelector('.jq-slider__progress')!;

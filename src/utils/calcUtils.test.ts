@@ -1,4 +1,8 @@
-import { convertPercentInValue, convertPixelInPercent, convertValueInPercent } from './calcUtils';
+import {
+  convertPercentInValue,
+  convertPixelInPercent,
+  convertValueInPercent,
+} from './calcUtils';
 
 describe('test calcUtils', () => {
   test('Should be correct convert value in percent', () => {

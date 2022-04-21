@@ -38,19 +38,28 @@ describe('Test Handle', () => {
     expect(handle.subView.style.left).toBe('90%');
 
     newState = {
-      ...newState, min: 0, max: 200, to: 10,
+      ...newState,
+      min: 0,
+      max: 200,
+      to: 10,
     };
     handle.setState(newState);
     expect(handle.subView.style.left).toBe('5%');
 
     newState = {
-      ...newState, min: -100, max: 100, to: -90,
+      ...newState,
+      min: -100,
+      max: 100,
+      to: -90,
     };
     handle.setState(newState);
     expect(handle.subView.style.left).toBe('5%');
 
     newState = {
-      ...newState, min: -100, max: 100, to: 0,
+      ...newState,
+      min: -100,
+      max: 100,
+      to: 0,
     };
     handle.setState(newState);
     expect(handle.subView.style.left).toBe('50%');

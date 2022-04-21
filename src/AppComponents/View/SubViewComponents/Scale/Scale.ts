@@ -1,6 +1,9 @@
 import SubView from '../../abstractSubView/abstractSubView';
 import { Data } from '../../../../types/types';
-import { convertPercentInValue, convertValueInPercent } from '../../../../utils/calcUtils';
+import {
+  convertPercentInValue,
+  convertValueInPercent,
+} from '../../../../utils/calcUtils';
 
 class Scale extends SubView {
   constructor(slider: HTMLElement) {
@@ -9,14 +12,17 @@ class Scale extends SubView {
   }
 
   public setState(state: Data): void {
-    const {
-      min, max, step, horizontal, scaleDestiny,
-    } = state;
+    const { min, max, step, horizontal, scaleDestiny } = state;
 
     const oldState = JSON.stringify(this.state);
 
     this.state = {
-      ...this.state, min, max, step, horizontal, scaleDestiny,
+      ...this.state,
+      min,
+      max,
+      step,
+      horizontal,
+      scaleDestiny,
     };
     if (oldState !== JSON.stringify(this.state)) {
       this.update();
@@ -35,15 +41,14 @@ class Scale extends SubView {
   }
 
   protected update(): void {
-    const {
-      min, max, step, horizontal, scaleDestiny,
-    } = this.state;
+    const { min, max, step, horizontal, scaleDestiny } = this.state;
 
-    const isCorrectParams = typeof min === 'number'
-      && typeof max === 'number'
-      && typeof scaleDestiny === 'number'
-      && typeof step === 'number'
-      && typeof horizontal === 'boolean';
+    const isCorrectParams =
+      typeof min === 'number' &&
+      typeof max === 'number' &&
+      typeof scaleDestiny === 'number' &&
+      typeof step === 'number' &&
+      typeof horizontal === 'boolean';
 
     if (isCorrectParams) {
       let pips = this.createPipFragment(min, max, min);
@@ -63,13 +68,21 @@ class Scale extends SubView {
     if (this.state.horizontal) {
       return `
       <div class="jq-slider__scale-pip" style="top:
-        ${convertPercentInValue(0, this.slider.clientHeight, convertValueInPercent(min, max, value))}px"
+        ${convertPercentInValue(
+          0,
+          this.slider.clientHeight,
+          convertValueInPercent(min, max, value),
+        )}px"
       >
         <div class="jq-slider__scale-label">${value}</div>
       </div>`;
     }
     return `
-      <div class="jq-slider__scale-pip" style="left:${convertValueInPercent(min, max, value)}%">
+      <div class="jq-slider__scale-pip" style="left:${convertValueInPercent(
+        min,
+        max,
+        value,
+      )}%">
         <div class="jq-slider__scale-label">${value}</div>
       </div>`;
   }
@@ -98,7 +111,9 @@ class Scale extends SubView {
 
         let position = onePercent * percents;
         if (position === 0) {
-          const sliderSize = horizontal ? this.slider.clientHeight : this.slider.clientWidth;
+          const sliderSize = horizontal
+            ? this.slider.clientHeight
+            : this.slider.clientWidth;
           position = this.getPosition() - sliderSize;
         }
         this.dispatchEvent('SubViewEvent', { target: 'scale', position });

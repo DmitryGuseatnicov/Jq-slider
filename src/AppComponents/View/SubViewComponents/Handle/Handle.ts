@@ -11,12 +11,14 @@ class Handle extends SubView {
   }
 
   public setState(state: State): void {
-    const {
-      min, max, from, horizontal,
-    } = state;
+    const { min, max, from, horizontal } = state;
 
     this.state = {
-      ...this.state, min, max, from, horizontal,
+      ...this.state,
+      min,
+      max,
+      from,
+      horizontal,
     };
 
     this.update();
@@ -44,6 +46,7 @@ class Handle extends SubView {
     this.subView = document.createElement('div');
     this.subView.classList.add('jq-slider__handle');
     this.slider.appendChild(this.subView);
+    this.subView.style.zIndex = '2';
   }
 
   private bindEventListener(): void {
@@ -70,17 +73,15 @@ class Handle extends SubView {
         ? e.clientY - this.slider.getBoundingClientRect().top
         : e.clientX - this.slider.getBoundingClientRect().left,
     });
-    this.subView.style.zIndex = '3';
   }
 
   protected update(): void {
-    const {
-      min, max, from, horizontal,
-    } = this.state;
+    const { min, max, from, horizontal } = this.state;
 
-    const isNumbers = typeof min === 'number'
-      && typeof max === 'number'
-      && typeof from === 'number';
+    const isNumbers =
+      typeof min === 'number' &&
+      typeof max === 'number' &&
+      typeof from === 'number';
 
     if (isNumbers) {
       if (horizontal) {

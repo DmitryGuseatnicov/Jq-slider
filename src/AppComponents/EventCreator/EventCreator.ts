@@ -2,7 +2,7 @@ import MyEvent from './MyEvent';
 
 class EventCreator<T, R> {
   events: {
-    [key: string]: MyEvent<R>
+    [key: string]: MyEvent<R>;
   };
 
   constructor() {

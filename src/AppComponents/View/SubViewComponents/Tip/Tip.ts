@@ -14,12 +14,14 @@ class Tip extends SubView {
   }
 
   public setState(state: State): void {
-    const {
-      min, max, from, to, horizontal,
-    } = state;
+    const { min, max, from, to, horizontal } = state;
 
     this.state = {
-      min, max, from, to, horizontal,
+      min,
+      max,
+      from,
+      to,
+      horizontal,
     };
 
     this.update();
@@ -40,17 +42,18 @@ class Tip extends SubView {
   }
 
   protected update(): void {
-    const {
-      min, max, from, horizontal, to,
-    } = this.state;
+    const { min, max, from, horizontal, to } = this.state;
 
-    const isNumbers = typeof min === 'number'
-      && typeof max === 'number'
-      && typeof from === 'number'
-      && typeof from === 'number';
+    const isNumbers =
+      typeof min === 'number' &&
+      typeof max === 'number' &&
+      typeof from === 'number' &&
+      typeof from === 'number';
 
     if (isNumbers) {
-      this.subView.textContent = this.isDouble ? `${from} - ${to}` : from.toString();
+      this.subView.textContent = this.isDouble
+        ? `${from} - ${to}`
+        : from.toString();
       if (horizontal) {
         this.subView.style.top = `${convertValueInPercent(min, max, from)}%`;
         return;

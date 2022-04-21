@@ -13,12 +13,17 @@ class Track extends SubView {
   }
 
   public setState(state: State): void {
-    const {
-      min, max, from, to, horizontal, range, progress,
-    } = state;
+    const { min, max, from, to, horizontal, range, progress } = state;
 
     this.state = {
-      ...this.state, min, max, from, to, horizontal, range, progress,
+      ...this.state,
+      min,
+      max,
+      from,
+      to,
+      horizontal,
+      range,
+      progress,
     };
 
     this.update();
@@ -54,19 +59,18 @@ class Track extends SubView {
   }
 
   protected update(): void {
-    const {
-      min, max, from, to, horizontal, range, progress,
-    } = this.state;
+    const { min, max, from, to, horizontal, range, progress } = this.state;
 
     if (!progress) {
       this.progress.remove();
       return;
     }
 
-    const isNumbers = typeof min === 'number'
-      && typeof max === 'number'
-      && typeof from === 'number'
-      && typeof to === 'number';
+    const isNumbers =
+      typeof min === 'number' &&
+      typeof max === 'number' &&
+      typeof from === 'number' &&
+      typeof to === 'number';
 
     if (isNumbers) {
       const start = convertValueInPercent(min, max, from);

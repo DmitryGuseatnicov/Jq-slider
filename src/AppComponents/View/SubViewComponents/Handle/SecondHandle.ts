@@ -5,12 +5,14 @@ import { convertValueInPercent } from '../../../../utils/calcUtils';
 
 class SecondHandle extends Handle {
   public setState(state: State): void {
-    const {
-      min, max, to, horizontal,
-    } = state;
+    const { min, max, to, horizontal } = state;
 
     this.state = {
-      ...this.state, min, max, to, horizontal,
+      ...this.state,
+      min,
+      max,
+      to,
+      horizontal,
     };
 
     this.update();
@@ -27,13 +29,12 @@ class SecondHandle extends Handle {
   }
 
   protected update(): void {
-    const {
-      min, max, to, horizontal,
-    } = this.state;
+    const { min, max, to, horizontal } = this.state;
 
-    const isNumbers = typeof min === 'number'
-    && typeof max === 'number'
-    && typeof to === 'number';
+    const isNumbers =
+      typeof min === 'number' &&
+      typeof max === 'number' &&
+      typeof to === 'number';
 
     if (isNumbers) {
       if (horizontal) {

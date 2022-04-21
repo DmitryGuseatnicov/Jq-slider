@@ -1,7 +1,5 @@
 import EventCreator from '../EventCreator/EventCreator';
-import {
-  ModelEvent, ModelEventCallBack, State, Data,
-} from '../../types/types';
+import { ModelEvent, ModelEventCallBack, State, Data } from '../../types/types';
 
 class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
   private state: State;
@@ -33,9 +31,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     };
     this.state = {
       ...this.state,
-      ...this.rangeFromToValidator(
-        this.stepValidator(values),
-      ),
+      ...this.rangeFromToValidator(this.stepValidator(values)),
     };
 
     this.dispatchEvent('ModelEvent', this.state);
@@ -69,11 +65,13 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     if (typeof data.step && data.step! > 0) settings.step = data.step;
     if (typeof data.min === 'number') settings.min = data.min;
     if (typeof data.max === 'number') settings.max = data.max;
-    if (typeof data.scaleDestiny === 'number') settings.scaleDestiny = data.scaleDestiny;
+    if (typeof data.scaleDestiny === 'number')
+      settings.scaleDestiny = data.scaleDestiny;
     if (typeof data.scale === 'boolean') settings.scale = data.scale;
     if (typeof data.range === 'boolean') settings.range = data.range;
     if (typeof data.tip === 'boolean') settings.tip = data.tip;
-    if (typeof data.horizontal === 'boolean') settings.horizontal = data.horizontal;
+    if (typeof data.horizontal === 'boolean')
+      settings.horizontal = data.horizontal;
     if (typeof data.progress === 'boolean') settings.progress = data.progress;
 
     return [values, settings];
@@ -98,7 +96,8 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     if (typeof copyOfData.from === 'number') {
       copyOfData.from = checkStep(copyOfData.from, this.state.step);
       if (copyOfData.from <= this.state.min) copyOfData.from = this.state.min;
-      else if (copyOfData.from >= this.state.max) copyOfData.from = this.state.max;
+      else if (copyOfData.from >= this.state.max)
+        copyOfData.from = this.state.max;
     }
 
     if (typeof copyOfData.to === 'number') {
@@ -116,7 +115,10 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
 
     const copyOfSData = { ...data };
 
-    if (typeof copyOfSData.from === 'number' && typeof copyOfSData.to === 'number') {
+    if (
+      typeof copyOfSData.from === 'number' &&
+      typeof copyOfSData.to === 'number'
+    ) {
       const isFromNotValidly = this.state.to - copyOfSData.from <= 0;
       const isToNotValidly = copyOfSData.to - this.state.from <= 0;
 

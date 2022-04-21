@@ -9,7 +9,10 @@ import SubView from './abstractSubView/abstractSubView';
 import EventCreator from '../EventCreator/EventCreator';
 import { convertPixelInPercent } from '../../utils/calcUtils';
 import {
-  SubViewEvent, Data, ViewEvent, ViewEventCallBack,
+  SubViewEvent,
+  Data,
+  ViewEvent,
+  ViewEventCallBack,
 } from '../../types/types';
 
 class View extends EventCreator<ViewEvent, ViewEventCallBack> {
@@ -48,9 +51,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   }
 
   private createComponents(state: Data) {
-    const {
-      range, tip, scale, horizontal,
-    } = state;
+    const { range, tip, scale, horizontal } = state;
 
     this.components.push(new Handle(this.slider));
     this.components.push(new Track(this.slider));
@@ -88,7 +89,9 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   }
 
   private subViewEventHandler(e: SubViewEvent) {
-    const size = this.state.horizontal ? this.slider.clientHeight : this.slider.clientWidth;
+    const size = this.state.horizontal
+      ? this.slider.clientHeight
+      : this.slider.clientWidth;
 
     if (e.target === 'handle') {
       this.dispatchEvent('ViewEvent', {
@@ -136,16 +139,15 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   }
 
   private checkIsChangedSettings(state: Data) {
-    const {
-      range, tip, scale, horizontal, progress, scaleDestiny,
-    } = state;
+    const { range, tip, scale, horizontal, progress, scaleDestiny } = state;
 
-    const isUpdateSettings = range !== this.state.range
-      || tip !== this.state.tip
-      || scale !== this.state.scale
-      || horizontal !== this.state.horizontal
-      || progress !== this.state.progress
-      || scaleDestiny !== this.state.scaleDestiny;
+    const isUpdateSettings =
+      range !== this.state.range ||
+      tip !== this.state.tip ||
+      scale !== this.state.scale ||
+      horizontal !== this.state.horizontal ||
+      progress !== this.state.progress ||
+      scaleDestiny !== this.state.scaleDestiny;
 
     if (isUpdateSettings) {
       this.components = [];
@@ -160,7 +162,9 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
     if (tip && range) {
       const tips = this.getArrOfConcreteSubView(Tip);
-      const size = horizontal ? tips[1].subView.clientHeight : tips[1].subView.offsetWidth;
+      const size = horizontal
+        ? tips[1].subView.clientHeight
+        : tips[1].subView.offsetWidth;
       const firstPosition = tips[0].getPosition();
       const secondPosition = tips[1].getPosition() - size;
 
@@ -182,7 +186,9 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   }
 
   private getArrOfConcreteSubView(instance: Function): Array<SubView> {
-    return this.components.filter((component) => component instanceof instance ?? component);
+    return this.components.filter(
+      (component) => component instanceof instance ?? component,
+    );
   }
 }
 
