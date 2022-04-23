@@ -1,4 +1,4 @@
-import SubView from '../../abstractSubView/abstractSubView';
+import SubView from '../abstractSubView/abstractSubView';
 import { State } from '../../../../types/types';
 import { convertValueInPercent } from '../../../../utils/calcUtils';
 

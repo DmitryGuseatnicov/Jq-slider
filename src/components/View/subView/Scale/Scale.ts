@@ -1,4 +1,4 @@
-import SubView from '../../abstractSubView/abstractSubView';
+import SubView from '../abstractSubView/abstractSubView';
 import { Data } from '../../../../types/types';
 import {
   convertPercentInValue,
