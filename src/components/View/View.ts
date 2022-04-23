@@ -1,9 +1,9 @@
-import Handle from './SubViewComponents/Handle/Handle';
-import SecondHandle from './SubViewComponents/Handle/SecondHandle';
-import Scale from './SubViewComponents/Scale/Scale';
-import Tip from './SubViewComponents/Tip/Tip';
-import SecondTip from './SubViewComponents/Tip/SecondTip';
-import Track from './SubViewComponents/Track/Track';
+import Handle from './subView/Handle/Handle';
+import SecondHandle from './subView/Handle/SecondHandle';
+import Scale from './subView/Scale/Scale';
+import Tip from './subView/Tip/Tip';
+import SecondTip from './subView/Tip/SecondTip';
+import Track from './subView/Track/Track';
 import SubView from './abstractSubView/abstractSubView';
 
 import EventCreator from '../EventCreator/EventCreator';

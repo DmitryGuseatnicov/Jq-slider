@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable func-names */
 
-import Presenter from './AppComponents/Presenter/Presenter';
+import Presenter from './components/Presenter/Presenter';
 import { Data, State } from './types/types';
 import './slider.scss';
 
