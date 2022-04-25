@@ -10,10 +10,10 @@ import './slider.scss';
 const methods = {
   init(this: JQuery, state?: Data) {
     return this.each(function () {
-      if (typeof state === 'object') {
-        if (!$(this).data('jqSlider')) {
-          $(this).data().jqSlider = new Presenter(this, state);
-        }
+      const isInit = typeof state === 'object' && !$(this).data('jqSlider');
+
+      if (isInit) {
+        $(this).data().jqSlider = new Presenter(this, state);
       }
     });
   },
@@ -41,11 +41,11 @@ const methods = {
 
 $.fn.jqSlider = function (...args): any {
   const isEmptyArgs = args.length === 0 || typeof args[0] === 'object';
-  const isUpdate =
-    args.length >= 2 && args[0] === 'update' && typeof args[1] === 'object';
   const isGetState = args.length === 1 && args[0] === 'getState';
   const isBindEventListener =
     args.length >= 2 && args[0] === 'onChange' && typeof args[1] === 'function';
+  const isUpdate =
+    args.length >= 2 && args[0] === 'update' && typeof args[1] === 'object';
 
   if (isEmptyArgs) {
     const state: Data = args[0] ? args[0] : {};

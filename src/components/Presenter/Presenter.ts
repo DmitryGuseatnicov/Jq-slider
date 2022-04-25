@@ -31,10 +31,12 @@ class Presenter extends EventCreator<State, State> {
 
   private viewEventHandler(e: ViewEvent) {
     const { min, max } = this.model.getState();
-    if (typeof min === 'number' && typeof max === 'number') {
-      if (e.from) e.from = +convertPercentInValue(min, max, e.from).toFixed(3);
-      if (e.to) e.to = +convertPercentInValue(min, max, e.to).toFixed(3);
-    }
+    const isNumbers = typeof min === 'number' && typeof max === 'number';
+
+    if (!isNumbers) return;
+    if (e.from) e.from = +convertPercentInValue(min, max, e.from).toFixed(3);
+    if (e.to) e.to = +convertPercentInValue(min, max, e.to).toFixed(3);
+
     this.model.setState(e);
   }
 

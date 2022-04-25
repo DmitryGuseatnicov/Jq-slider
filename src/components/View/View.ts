@@ -62,9 +62,10 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
     if (range) {
       this.components.push(new SecondHandle(this.slider));
-      if (tip) {
-        this.components.push(new SecondTip(this.slider));
-      }
+    }
+
+    if (range && tip) {
+      this.components.push(new SecondTip(this.slider));
     }
 
     if (scale) {
@@ -109,31 +110,23 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       const handles = this.getArrOfConcreteSubView(Handle);
 
       const from = handles[0].getPosition();
-      if (this.state.range) {
-        const to = handles[1].getPosition();
-
-        if (Math.abs(from - e.position) < to - e.position) {
-          this.dispatchEvent('ViewEvent', {
-            from: convertPixelInPercent(size, e.position),
-          });
-          return;
-        }
-
-        if (Math.abs(from - e.position) === to - e.position) {
-          this.dispatchEvent('ViewEvent', {
-            from: convertPixelInPercent(size, e.position),
-          });
-          return;
-        }
-
+      if (!this.state.range) {
         this.dispatchEvent('ViewEvent', {
-          to: convertPixelInPercent(size, e.position),
+          from: convertPixelInPercent(size, e.position),
+        });
+        return;
+      }
+
+      const to = handles[1].getPosition();
+      if (Math.abs(from - e.position) <= to - e.position) {
+        this.dispatchEvent('ViewEvent', {
+          from: convertPixelInPercent(size, e.position),
         });
         return;
       }
 
       this.dispatchEvent('ViewEvent', {
-        from: convertPixelInPercent(size, e.position),
+        to: convertPixelInPercent(size, e.position),
       });
     }
   }
@@ -160,24 +153,26 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   private checkTips() {
     const { tip, range, horizontal } = this.state;
 
-    if (tip && range) {
-      const tips = this.getArrOfConcreteSubView(Tip);
-      const size = horizontal
-        ? tips[1].subView.clientHeight
-        : tips[1].subView.offsetWidth;
-      const firstPosition = tips[0].getPosition();
-      const secondPosition = tips[1].getPosition() - size;
+    if (!(tip && range)) {
+      return;
+    }
 
-      if (firstPosition > secondPosition) {
-        tips.forEach((t: any) => {
-          t.changeIsDouble(true);
-          t.setState(this.state);
-        });
-      } else {
-        tips.forEach((t: any) => {
-          t.changeIsDouble(false);
-        });
-      }
+    const tips = this.getArrOfConcreteSubView(Tip);
+    const size = horizontal
+      ? tips[1].subView.clientHeight
+      : tips[1].subView.offsetWidth;
+    const firstPosition = tips[0].getPosition();
+    const secondPosition = tips[1].getPosition() - size;
+
+    if (firstPosition > secondPosition) {
+      tips.forEach((t: any) => {
+        t.changeIsDouble(true);
+        t.setState(this.state);
+      });
+    } else {
+      tips.forEach((t: any) => {
+        t.changeIsDouble(false);
+      });
     }
   }
 

@@ -50,16 +50,19 @@ class Tip extends SubView {
       typeof from === 'number' &&
       typeof from === 'number';
 
-    if (isNumbers) {
-      this.subView.textContent = this.isDouble
-        ? `${from} - ${to}`
-        : from.toString();
-      if (horizontal) {
-        this.subView.style.top = `${convertValueInPercent(min, max, from)}%`;
-        return;
-      }
-      this.subView.style.left = `${convertValueInPercent(min, max, from)}%`;
+    if (!isNumbers) {
+      return;
     }
+
+    this.subView.textContent = this.isDouble
+      ? `${from} - ${to}`
+      : from.toString();
+
+    if (horizontal) {
+      this.subView.style.top = `${convertValueInPercent(min, max, from)}%`;
+      return;
+    }
+    this.subView.style.left = `${convertValueInPercent(min, max, from)}%`;
   }
 }
 

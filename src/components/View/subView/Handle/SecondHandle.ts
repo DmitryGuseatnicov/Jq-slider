@@ -35,6 +35,10 @@ class SecondHandle extends Handle {
       typeof max === 'number' &&
       typeof to === 'number';
 
+    if (!isNumbers) {
+      return;
+    }
+
     const size = horizontal
       ? this.slider.clientHeight
       : this.slider.clientWidth;
@@ -45,13 +49,11 @@ class SecondHandle extends Handle {
       this.subView.style.zIndex = '3';
     }
 
-    if (isNumbers) {
-      if (horizontal) {
-        this.subView.style.top = `${convertValueInPercent(min, max, to)}%`;
-        return;
-      }
-      this.subView.style.left = `${convertValueInPercent(min, max, to)}%`;
+    if (horizontal) {
+      this.subView.style.top = `${convertValueInPercent(min, max, to)}%`;
+      return;
     }
+    this.subView.style.left = `${convertValueInPercent(min, max, to)}%`;
   }
 }
 

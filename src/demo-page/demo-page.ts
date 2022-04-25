@@ -87,27 +87,31 @@ class ControlPanel {
   }
 
   inputHandler(e: Event) {
-    if (e.target instanceof HTMLInputElement) {
-      if (e.target.type === 'number') {
-        this.$slider.jqSlider('update', { [e.target.name]: +e.target.value });
-      }
+    if (!(e.target instanceof HTMLInputElement)) {
+      return;
+    }
 
-      if (e.target.type === 'checkbox') {
-        this.$slider.jqSlider('update', { [e.target.name]: e.target.checked });
-      }
+    if (e.target.type === 'number') {
+      this.$slider.jqSlider('update', { [e.target.name]: +e.target.value });
+    }
+
+    if (e.target.type === 'checkbox') {
+      this.$slider.jqSlider('update', { [e.target.name]: e.target.checked });
     }
   }
 
   sliderHandler(e: State) {
     this.$inputs.each((i, el) => {
-      if (el instanceof HTMLInputElement) {
-        if (el.type === 'number') {
-          $(el).val(+e[el.name as keyof State]);
-        }
+      if (!(el instanceof HTMLInputElement)) {
+        return;
+      }
 
-        if (el.type === 'checkbox') {
-          $(el).prop('checked', e[el.name as keyof State]);
-        }
+      if (el.type === 'number') {
+        $(el).val(+e[el.name as keyof State]);
+      }
+
+      if (el.type === 'checkbox') {
+        $(el).prop('checked', e[el.name as keyof State]);
       }
     });
   }

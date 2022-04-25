@@ -83,12 +83,14 @@ class Handle extends SubView {
       typeof max === 'number' &&
       typeof from === 'number';
 
-    if (isNumbers) {
-      if (horizontal) {
-        this.subView.style.top = `${convertValueInPercent(min, max, from)}%`;
-      } else {
-        this.subView.style.left = `${convertValueInPercent(min, max, from)}%`;
-      }
+    if (!isNumbers) {
+      return;
+    }
+
+    if (horizontal) {
+      this.subView.style.top = `${convertValueInPercent(min, max, from)}%`;
+    } else {
+      this.subView.style.left = `${convertValueInPercent(min, max, from)}%`;
     }
   }
 }

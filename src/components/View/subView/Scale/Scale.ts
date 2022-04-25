@@ -50,30 +50,30 @@ class Scale extends SubView {
       typeof step === 'number' &&
       typeof horizontal === 'boolean';
 
-    if (isCorrectParams) {
-      let pips = this.createPipFragment(min, max, min);
-      for (let pip = min + 1; pip < max; pip += 1) {
-        if (pip % scaleDestiny === 0) {
-          pips += this.createPipFragment(min, max, pip);
-        }
-      }
-      pips += this.createPipFragment(min, max, max);
-
-      this.subView.innerHTML = pips;
-      this.bindEventListener();
+    if (!isCorrectParams) {
+      return;
     }
+
+    let pips = this.createPipFragment(min, max, min);
+    for (let pip = min + 1; pip < max; pip += 1) {
+      if (pip % scaleDestiny === 0) {
+        pips += this.createPipFragment(min, max, pip);
+      }
+    }
+    pips += this.createPipFragment(min, max, max);
+
+    this.subView.innerHTML = pips;
+    this.bindEventListener();
   }
 
   private createPipFragment(min: number, max: number, value: number) {
     if (this.state.horizontal) {
       return `
-      <div class="jq-slider__scale-pip" style="top:
-        ${convertPercentInValue(
-          0,
-          this.slider.clientHeight,
-          convertValueInPercent(min, max, value),
-        )}px"
-      >
+      <div class="jq-slider__scale-pip" style="top:${convertPercentInValue(
+        0,
+        this.slider.clientHeight,
+        convertValueInPercent(min, max, value),
+      )}px">
         <div class="jq-slider__scale-label">${value}</div>
       </div>`;
     }
@@ -97,28 +97,33 @@ class Scale extends SubView {
   }
 
   private clickHandler(e: MouseEvent) {
-    if (e.target instanceof HTMLElement) {
-      const { min, max, horizontal } = this.state;
+    const { min, max, horizontal } = this.state;
 
-      if (typeof min === 'number' && typeof max === 'number') {
-        const onePercent = horizontal
-          ? this.slider.clientHeight / 100
-          : this.slider.clientWidth / 100;
+    const isCorrectParams =
+      e.target instanceof HTMLElement &&
+      typeof min === 'number' &&
+      typeof max === 'number';
 
-        const percents = horizontal
-          ? convertValueInPercent(min, max, +e.target.innerHTML)
-          : convertValueInPercent(min, max, +e.target.innerHTML);
-
-        let position = onePercent * percents;
-        if (position === 0) {
-          const sliderSize = horizontal
-            ? this.slider.clientHeight
-            : this.slider.clientWidth;
-          position = this.getPosition() - sliderSize;
-        }
-        this.dispatchEvent('SubViewEvent', { target: 'scale', position });
-      }
+    if (!isCorrectParams) {
+      return;
     }
+
+    const onePercent = horizontal
+      ? this.slider.clientHeight / 100
+      : this.slider.clientWidth / 100;
+
+    const percents = horizontal
+      ? convertValueInPercent(min, max, +e.target.innerHTML)
+      : convertValueInPercent(min, max, +e.target.innerHTML);
+
+    let position = onePercent * percents;
+    if (position === 0) {
+      const sliderSize = horizontal
+        ? this.slider.clientHeight
+        : this.slider.clientWidth;
+      position = this.getPosition() - sliderSize;
+    }
+    this.dispatchEvent('SubViewEvent', { target: 'scale', position });
   }
 }
 

@@ -72,28 +72,32 @@ class Track extends SubView {
       typeof from === 'number' &&
       typeof to === 'number';
 
-    if (isNumbers) {
-      const start = convertValueInPercent(min, max, from);
-      const end = convertValueInPercent(min, max, to);
-      if (horizontal) {
-        if (range) {
-          const height = end - start;
-          const onePercent = this.slider.clientHeight / 100;
+    if (!isNumbers) {
+      return;
+    }
 
-          this.progress.style.height = `${height}%`;
-          this.progress.style.marginTop = `${onePercent * start}px`;
-        } else {
-          this.progress.style.height = `${start}%`;
-        }
-        return;
-      }
-      if (range) {
-        const width = end - start;
-        this.progress.style.width = `${width}%`;
-        this.progress.style.marginLeft = `${start}%`;
-      } else {
-        this.progress.style.width = `${start}%`;
-      }
+    const start = convertValueInPercent(min, max, from);
+    const end = convertValueInPercent(min, max, to);
+
+    if (horizontal && range) {
+      const height = end - start;
+      const onePercent = this.slider.clientHeight / 100;
+      this.progress.style.height = `${height}%`;
+      this.progress.style.marginTop = `${onePercent * start}px`;
+      return;
+    }
+
+    if (horizontal && !range) {
+      this.progress.style.height = `${start}%`;
+      return;
+    }
+
+    if (range) {
+      const width = end - start;
+      this.progress.style.width = `${width}%`;
+      this.progress.style.marginLeft = `${start}%`;
+    } else {
+      this.progress.style.width = `${start}%`;
     }
   }
 }

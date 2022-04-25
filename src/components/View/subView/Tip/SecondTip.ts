@@ -29,20 +29,22 @@ class SecondTip extends Tip {
       typeof max === 'number' &&
       typeof to === 'number';
 
-    if (isNumbers) {
-      if (this.isDouble) {
-        this.subView.style.opacity = '0';
-      } else {
-        this.subView.style.opacity = '1';
-      }
-      this.subView.textContent = to.toString();
-
-      if (horizontal) {
-        this.subView.style.top = `${convertValueInPercent(min, max, to)}%`;
-        return;
-      }
-      this.subView.style.left = `${convertValueInPercent(min, max, to)}%`;
+    if (!isNumbers) {
+      return;
     }
+
+    if (this.isDouble) {
+      this.subView.style.opacity = '0';
+    } else {
+      this.subView.style.opacity = '1';
+    }
+    this.subView.textContent = to.toString();
+
+    if (horizontal) {
+      this.subView.style.top = `${convertValueInPercent(min, max, to)}%`;
+      return;
+    }
+    this.subView.style.left = `${convertValueInPercent(min, max, to)}%`;
   }
 }
 
