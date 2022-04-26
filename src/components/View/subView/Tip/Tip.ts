@@ -33,12 +33,40 @@ class Tip extends SubView {
 
   protected init(): void {
     this.createSubView();
+    this.registerEvent('SubViewEvent');
+    this.bindEventListener();
   }
 
   protected createSubView(): void {
     this.subView = document.createElement('div');
     this.subView.classList.add('jq-slider__tip');
     this.slider.appendChild(this.subView);
+  }
+
+  private bindEventListener(): void {
+    this.pointerStart = this.pointerStart.bind(this);
+    this.subView.addEventListener('pointerdown', this.pointerStart);
+  }
+
+  private pointerStart(): void {
+    this.pointerHandler = this.pointerHandler.bind(this);
+    this.removePointStart = this.removePointStart.bind(this);
+    window.addEventListener('pointermove', this.pointerHandler);
+    window.addEventListener('pointerup', this.removePointStart);
+  }
+
+  private removePointStart() {
+    window.removeEventListener('pointermove', this.pointerHandler);
+    window.removeEventListener('pointermove', this.pointerHandler);
+  }
+
+  protected pointerHandler(e: PointerEvent): void {
+    this.dispatchEvent('SubViewEvent', {
+      target: 'tip',
+      position: this.state.horizontal
+        ? e.clientY - this.slider.getBoundingClientRect().top
+        : e.clientX - this.slider.getBoundingClientRect().left,
+    });
   }
 
   protected update(): void {

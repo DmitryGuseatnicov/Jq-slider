@@ -42,7 +42,7 @@ class Handle extends SubView {
     this.bindEventListener();
   }
 
-  public createSubView(): void {
+  protected createSubView(): void {
     this.subView = document.createElement('div');
     this.subView.classList.add('jq-slider__handle');
     this.slider.appendChild(this.subView);

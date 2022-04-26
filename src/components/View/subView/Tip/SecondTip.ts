@@ -21,6 +21,15 @@ class SecondTip extends Tip {
     this.update();
   }
 
+  protected pointerHandler(e: PointerEvent): void {
+    this.dispatchEvent('SubViewEvent', {
+      target: 'secondTip',
+      position: this.state.horizontal
+        ? e.clientY - this.slider.getBoundingClientRect().top
+        : e.clientX - this.slider.getBoundingClientRect().left,
+    });
+  }
+
   protected update(): void {
     const { min, max, to, horizontal } = this.state;
 

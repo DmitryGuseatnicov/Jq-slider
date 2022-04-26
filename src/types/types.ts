@@ -28,7 +28,7 @@ type Data = {
 };
 
 type SubViewEvent = {
-  target: 'track' | 'handle' | 'secondHandle' | 'scale' | 'tip';
+  target: 'track' | 'handle' | 'secondHandle' | 'scale' | 'tip' | 'secondTip';
   position: number;
 };
 
