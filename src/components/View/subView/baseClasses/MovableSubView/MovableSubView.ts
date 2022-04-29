@@ -1,5 +1,5 @@
-import { RoleSubView, State } from '../../../../types/types';
-import { convertValueInPercent } from '../../../../utils/calcUtils';
+import { RoleSubView, State } from '../../../../../types/types';
+import { convertValueInPercent } from '../../../../../utils/calcUtils';
 import SubView from '../abstractSubView/abstractSubView';
 
 class MovableSubView extends SubView {

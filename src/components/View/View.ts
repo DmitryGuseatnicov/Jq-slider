@@ -4,7 +4,7 @@ import Scale from './subView/Scale/Scale';
 import Tip from './subView/Tip/Tip';
 import SecondTip from './subView/Tip/SecondTip';
 import Track from './subView/Track/Track';
-import SubView from './subView/abstractSubView/abstractSubView';
+import SubView from './subView/baseClasses/abstractSubView/abstractSubView';
 
 import EventCreator from '../EventCreator/EventCreator';
 import { convertPixelInPercent } from '../../utils/calcUtils';

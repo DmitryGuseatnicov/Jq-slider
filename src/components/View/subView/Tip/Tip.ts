@@ -1,4 +1,4 @@
-import MovableSubView from '../MovableSubView/MovableSubView';
+import MovableSubView from '../baseClasses/MovableSubView/MovableSubView';
 
 class Tip extends MovableSubView {
   public subView!: HTMLElement;

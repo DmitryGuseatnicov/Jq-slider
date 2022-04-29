@@ -1,9 +1,9 @@
-import EventCreator from '../../../EventCreator/EventCreator';
+import EventCreator from '../../../../EventCreator/EventCreator';
 import {
   SubViewEventCallBack,
   SubViewEvent,
   Data,
-} from '../../../../types/types';
+} from '../../../../../types/types';
 
 abstract class SubView extends EventCreator<
   SubViewEvent,

@@ -1,4 +1,4 @@
-import MovableSubView from '../MovableSubView/MovableSubView';
+import MovableSubView from '../baseClasses/MovableSubView/MovableSubView';
 
 class Handle extends MovableSubView {
   public getPosition(): number {
