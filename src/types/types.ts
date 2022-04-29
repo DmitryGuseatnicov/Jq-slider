@@ -28,9 +28,19 @@ type Data = {
 };
 
 type SubViewEvent = {
-  target: 'track' | 'handle' | 'secondHandle' | 'scale' | 'tip' | 'secondTip';
+  target:
+    | 'track'
+    | 'handle'
+    | 'secondHandle'
+    | 'scale'
+    | 'tip'
+    | 'secondTip'
+    | 'from'
+    | 'to';
   position: number;
 };
+
+type RoleSubView = 'from' | 'to';
 
 type ModelEvent = State;
 
@@ -55,6 +65,7 @@ type ModelEventCallBack = {
 export {
   State,
   ModelEvent,
+  RoleSubView,
   SubViewEvent,
   ViewEvent,
   Data,
