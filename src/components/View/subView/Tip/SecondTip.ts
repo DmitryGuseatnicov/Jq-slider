@@ -1,44 +1,17 @@
 import Tip from './Tip';
-import { State } from '../../../../types/types';
-import { convertValueInPercent } from '../../../../utils/calcUtils';
 
 class SecondTip extends Tip {
-  public setState(state: State): void {
-    const {
-      min = this.state.min,
-      max = this.state.max,
-      to = this.state.to,
-      horizontal = this.state.horizontal,
-    } = state;
-
-    this.state = {
-      min,
-      max,
-      to,
-      horizontal,
-    };
-
-    this.update();
+  constructor(slider: HTMLElement) {
+    super(slider);
+    this.role = 'to';
   }
 
-  protected pointerHandler(e: PointerEvent): void {
-    this.dispatchEvent('SubViewEvent', {
-      target: 'secondTip',
-      position: this.state.horizontal
-        ? e.clientY - this.slider.getBoundingClientRect().top
-        : e.clientX - this.slider.getBoundingClientRect().left,
-    });
-  }
+  public update(): void {
+    super.update();
 
-  protected update(): void {
-    const { min, max, to, horizontal } = this.state;
+    const { to } = this.state;
 
-    const isNumbers =
-      typeof min === 'number' &&
-      typeof max === 'number' &&
-      typeof to === 'number';
-
-    if (!isNumbers) {
+    if (typeof to !== 'number') {
       return;
     }
 
@@ -48,12 +21,6 @@ class SecondTip extends Tip {
       this.subView.style.opacity = '1';
     }
     this.subView.textContent = to.toString();
-
-    if (horizontal) {
-      this.subView.style.top = `${convertValueInPercent(min, max, to)}%`;
-      return;
-    }
-    this.subView.style.left = `${convertValueInPercent(min, max, to)}%`;
   }
 }
 

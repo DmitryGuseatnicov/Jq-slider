@@ -94,13 +94,13 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       ? this.slider.clientHeight
       : this.slider.clientWidth;
 
-    if (e.target === 'handle' || e.target === 'tip') {
+    if (e.target === 'from' || e.target === 'tip') {
       this.dispatchEvent('ViewEvent', {
         from: convertPixelInPercent(size, e.position),
       });
     }
 
-    if (e.target === 'secondHandle' || e.target === 'secondTip') {
+    if (e.target === 'to' || e.target === 'secondTip') {
       this.dispatchEvent('ViewEvent', {
         to: convertPixelInPercent(size, e.position),
       });
