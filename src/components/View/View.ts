@@ -73,9 +73,9 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     }
 
     if (horizontal) {
-      this.slider.classList.add('jq-slider--horizontal');
+      this.slider.classList.add('jq-slider_horizontal');
     } else {
-      this.slider.classList.remove('jq-slider--horizontal');
+      this.slider.classList.remove('jq-slider_horizontal');
     }
   }
 
