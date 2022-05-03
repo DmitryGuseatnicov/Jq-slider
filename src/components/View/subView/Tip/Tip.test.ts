@@ -8,13 +8,13 @@ import { State } from '../../../../types/types';
 describe('Test Tip', () => {
   let tip: Tip;
   let slider: HTMLElement;
-  let newState: State;
+  let state: State;
 
   beforeEach(() => {
     slider = document.createElement('div');
     slider.style.width = '1000';
     tip = new Tip(slider);
-    newState = {
+    state = {
       min: 0,
       max: 100,
       from: 10,
@@ -34,7 +34,7 @@ describe('Test Tip', () => {
   });
 
   test('Should be correct className in tip', () => {
-    tip.setState(newState);
+    tip.setState(state);
     expect(tip.subView.classList.contains('jq-slider__tip')).toBeTruthy();
   });
 
@@ -46,13 +46,13 @@ describe('Test Tip', () => {
 
   test('Should be showed double value inside subView', () => {
     tip.changeIsDouble(true);
-    tip.setState(newState);
+    tip.setState(state);
     expect(tip.subView.textContent).toBe('10 - 90');
   });
 
   test('Dont must be update when set not correct value', () => {
-    newState = { ...newState, from: 'not are number' as any };
-    tip.setState(newState);
+    state = { ...state, from: 'not are number' as any };
+    tip.setState(state);
     expect(tip.subView.innerHTML).toBe('');
   });
 });

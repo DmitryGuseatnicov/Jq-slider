@@ -8,13 +8,13 @@ import { State } from '../../../../../types/types';
 describe('Test Handle', () => {
   let slider: HTMLElement;
   let subView: MovableSubView;
-  let newState: State;
+  let state: State;
 
   beforeEach(() => {
     slider = document.createElement('div');
     slider.style.width = '1000';
     subView = new MovableSubView(slider);
-    newState = {
+    state = {
       min: 0,
       max: 100,
       from: 10,
@@ -34,35 +34,35 @@ describe('Test Handle', () => {
   });
 
   test('Should be correct position on slider aria', () => {
-    subView.setState(newState);
+    subView.setState(state);
     expect(subView.subView).toBeInstanceOf(HTMLElement);
     expect(subView.subView.style.left).toBe('10%');
 
-    newState = {
-      ...newState,
+    state = {
+      ...state,
       min: 0,
       max: 200,
       from: 10,
     };
-    subView.setState(newState);
+    subView.setState(state);
     expect(subView.subView.style.left).toBe('5%');
 
-    newState = {
-      ...newState,
+    state = {
+      ...state,
       min: -100,
       max: 100,
       from: -90,
     };
-    subView.setState(newState);
+    subView.setState(state);
     expect(subView.subView.style.left).toBe('5%');
 
-    newState = {
-      ...newState,
+    state = {
+      ...state,
       min: -100,
       max: 100,
       from: 0,
     };
-    subView.setState(newState);
+    subView.setState(state);
     expect(subView.subView.style.left).toBe('50%');
   });
 

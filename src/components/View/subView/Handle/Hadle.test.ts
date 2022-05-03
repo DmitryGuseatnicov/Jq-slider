@@ -9,10 +9,10 @@ import { State } from '../../../../types/types';
 describe('Test Handle', () => {
   let slider: HTMLElement;
   let handle: Handle;
-  let newState: State;
+  let state: State;
 
   beforeEach(() => {
-    newState = {
+    state = {
       min: 0,
       max: 100,
       from: 10,
@@ -36,12 +36,12 @@ describe('Test Handle', () => {
   });
 
   test('Should be correct className in tip', () => {
-    handle.setState(newState);
+    handle.setState(state);
     expect(handle.subView.classList.contains('jq-slider__handle')).toBeTruthy();
   });
 
   test('Should be correct zIndex after init', () => {
-    handle.setState(newState);
+    handle.setState(state);
     expect(handle.subView.style.zIndex).toBe('2');
   });
 });

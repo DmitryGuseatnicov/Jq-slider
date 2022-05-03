@@ -62,9 +62,7 @@ describe('Test View', () => {
   test('Should be add modification then is horizontal', () => {
     state = { ...state, horizontal: true };
     view.setState(state);
-    expect(
-      view.slider.classList.contains('jq-slider--horizontal'),
-    ).toBeTruthy();
+    expect(view.slider.classList.contains('jq-slider_horizontal')).toBeTruthy();
   });
 
   test('Should be change inner slider then update settings', () => {
