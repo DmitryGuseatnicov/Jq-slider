@@ -1,6 +1,7 @@
 /**
  *  @jest-environment jsdom
  */
+
 import Handle from './Handle';
 
 import { State } from '../../../../types/types';
@@ -11,9 +12,6 @@ describe('Test Handle', () => {
   let newState: State;
 
   beforeEach(() => {
-    slider = document.createElement('div');
-    slider.style.width = '1000';
-    handle = new Handle(slider);
     newState = {
       min: 0,
       max: 100,
@@ -21,48 +19,29 @@ describe('Test Handle', () => {
       to: 90,
       step: 1,
       tip: true,
-      range: true,
+      range: false,
       progress: true,
       scale: true,
       scaleDestiny: 1,
       horizontal: false,
     };
+
+    slider = document.createElement('div');
+    slider.style.width = '1000';
+    handle = new Handle(slider);
   });
 
   test('Should be instance of Handle', () => {
     expect(handle).toBeInstanceOf(Handle);
   });
 
-  test('Should be correct position on slider aria', () => {
+  test('Should be correct className in tip', () => {
     handle.setState(newState);
-    expect(handle.subView).toBeInstanceOf(HTMLElement);
-    expect(handle.subView.style.left).toBe('10%');
+    expect(handle.subView.classList.contains('jq-slider__handle')).toBeTruthy();
+  });
 
-    newState = {
-      ...newState,
-      min: 0,
-      max: 200,
-      from: 10,
-    };
+  test('Should be correct zIndex after init', () => {
     handle.setState(newState);
-    expect(handle.subView.style.left).toBe('5%');
-
-    newState = {
-      ...newState,
-      min: -100,
-      max: 100,
-      from: -90,
-    };
-    handle.setState(newState);
-    expect(handle.subView.style.left).toBe('5%');
-
-    newState = {
-      ...newState,
-      min: -100,
-      max: 100,
-      from: 0,
-    };
-    handle.setState(newState);
-    expect(handle.subView.style.left).toBe('50%');
+    expect(handle.subView.style.zIndex).toBe('2');
   });
 });

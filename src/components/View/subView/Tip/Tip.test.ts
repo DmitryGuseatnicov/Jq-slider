@@ -2,6 +2,7 @@
  *  @jest-environment jsdom
  */
 import Tip from './Tip';
+
 import { State } from '../../../../types/types';
 
 describe('Test Tip', () => {
@@ -32,41 +33,26 @@ describe('Test Tip', () => {
     expect(tip).toBeInstanceOf(Tip);
   });
 
-  test('Should be correct position on slider aria', () => {
-    newState = {
-      ...newState,
-      min: 0,
-      max: 200,
-      from: 20,
-    };
+  test('Should be correct className in tip', () => {
     tip.setState(newState);
-    expect(tip.subView.style.left).toBe('10%');
+    expect(tip.subView.classList.contains('jq-slider__tip')).toBeTruthy();
+  });
 
-    newState = {
-      ...newState,
-      min: 0,
-      max: 200,
-      from: 10,
-    };
-    tip.setState(newState);
-    expect(tip.subView.style.left).toBe('5%');
+  test('Should be cant change isDoable', () => {
+    expect(tip.isDouble).toBeFalsy();
+    tip.changeIsDouble(true);
+    expect(tip.isDouble).toBeTruthy();
+  });
 
-    newState = {
-      ...newState,
-      min: -100,
-      max: 100,
-      from: -90,
-    };
+  test('Should be showed double value inside subView', () => {
+    tip.changeIsDouble(true);
     tip.setState(newState);
-    expect(tip.subView.style.left).toBe('5%');
+    expect(tip.subView.textContent).toBe('10 - 90');
+  });
 
-    newState = {
-      ...newState,
-      min: -100,
-      max: 100,
-      from: 0,
-    };
+  test('Dont must be update when set not correct value', () => {
+    newState = { ...newState, from: 'not are number' as any };
     tip.setState(newState);
-    expect(tip.subView.style.left).toBe('50%');
+    expect(tip.subView.innerHTML).toBe('');
   });
 });

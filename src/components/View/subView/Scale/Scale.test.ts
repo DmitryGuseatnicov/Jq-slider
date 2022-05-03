@@ -13,6 +13,7 @@ describe('Test scale', () => {
   beforeEach(() => {
     slider = document.createElement('div');
     slider.style.width = '1000';
+    slider.style.height = '1000';
     scale = new Scale(slider);
     state = {
       min: 0,
@@ -38,6 +39,11 @@ describe('Test scale', () => {
     expect(scale.subView).toBeInstanceOf(HTMLElement);
   });
 
+  test('Should be add correct class', () => {
+    scale.setState(state);
+    expect(scale.subView.classList.contains('jq-slider__scale')).toBeTruthy();
+  });
+
   test('Should be correct numbers of pip', () => {
     scale.setState(state);
     let pips = scale.subView.querySelectorAll('.jq-slider__scale-pip');
@@ -52,5 +58,58 @@ describe('Test scale', () => {
     scale.setState(state);
     pips = scale.subView.querySelectorAll('.jq-slider__scale-pip');
     expect(pips.length).toBe(101);
+  });
+
+  test('Should ve add in subView correct class', () => {
+    expect(scale.subView.classList.contains('jq-slider__scale')).toBeTruthy();
+  });
+
+  test('Should dont be update if set not correct params', () => {
+    state = { ...state, min: 'not a number' as any };
+    scale.setState(state);
+    const pips = scale.subView.querySelectorAll('.jq-slider__scale-pip');
+    expect(pips.length).toBe(0);
+  });
+
+  test('Should correct added percent in style', () => {
+    scale.setState(state);
+    const pips = scale.subView.querySelectorAll('.jq-slider__scale-pip');
+
+    if (pips[0] instanceof HTMLElement) {
+      expect(pips[0].style.left).toBe('0%');
+    }
+
+    if (pips[2] instanceof HTMLElement) {
+      expect(pips[2].style.left).toBe('20%');
+    }
+
+    if (pips[5] instanceof HTMLElement) {
+      expect(pips[5].style.left).toBe('50%');
+    }
+
+    if (pips[7] instanceof HTMLElement) {
+      expect(pips[7].style.left).toBe('70%');
+    }
+  });
+
+  test('Should dont be new render pips if state not chanced', () => {
+    scale.setState(state);
+    const oldInnerHTML = scale.subView.innerHTML;
+
+    scale.setState(state);
+    const newInnerHTML = scale.subView.innerHTML;
+
+    expect(oldInnerHTML === newInnerHTML).toBeTruthy();
+  });
+
+  test('Should be new render pips if state was chanced', () => {
+    scale.setState(state);
+    const oldInnerHTML = scale.subView.innerHTML;
+
+    state = { ...state, scaleDestiny: 20, horizontal: true };
+    scale.setState(state);
+    const newInnerHTML = scale.subView.innerHTML;
+
+    expect(oldInnerHTML === newInnerHTML).toBeFalsy();
   });
 });

@@ -1,8 +1,6 @@
 import MovableSubView from '../baseClasses/MovableSubView/MovableSubView';
 
 class Tip extends MovableSubView {
-  public subView!: HTMLElement;
-
   public isDouble: boolean;
 
   constructor(slider: HTMLElement) {

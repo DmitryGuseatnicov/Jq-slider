@@ -12,7 +12,7 @@ class Scale extends SubView {
   }
 
   public setState(state: Data): void {
-    const { min, max, step, horizontal, scaleDestiny } = state;
+    const { min, max, horizontal, scaleDestiny } = state;
 
     const oldState = JSON.stringify(this.state);
 
@@ -20,7 +20,6 @@ class Scale extends SubView {
       ...this.state,
       min,
       max,
-      step,
       horizontal,
       scaleDestiny,
     };
@@ -41,13 +40,12 @@ class Scale extends SubView {
   }
 
   protected update(): void {
-    const { min, max, step, horizontal, scaleDestiny } = this.state;
+    const { min, max, horizontal, scaleDestiny } = this.state;
 
     const isCorrectParams =
       typeof min === 'number' &&
       typeof max === 'number' &&
       typeof scaleDestiny === 'number' &&
-      typeof step === 'number' &&
       typeof horizontal === 'boolean';
 
     if (!isCorrectParams) {

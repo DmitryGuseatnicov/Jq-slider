@@ -3,8 +3,6 @@ import { convertValueInPercent } from '../../../../utils/calcUtils';
 import { State } from '../../../../types/types';
 
 class Track extends SubView {
-  public subView!: HTMLElement;
-
   public progress!: HTMLElement;
 
   constructor(slider: HTMLElement) {

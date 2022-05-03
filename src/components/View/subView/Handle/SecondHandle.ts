@@ -1,8 +1,6 @@
 import Handle from './Handle';
 
 class SecondHandle extends Handle {
-  public subView!: HTMLElement;
-
   constructor(slider: HTMLElement) {
     super(slider);
     this.role = 'to';

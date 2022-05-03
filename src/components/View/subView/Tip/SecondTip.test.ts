@@ -2,6 +2,7 @@
  *  @jest-environment jsdom
  */
 import SecondTip from './SecondTip';
+
 import { State } from '../../../../types/types';
 
 describe('Test Tip', () => {
@@ -32,41 +33,28 @@ describe('Test Tip', () => {
     expect(tip).toBeInstanceOf(SecondTip);
   });
 
-  test('Should be correct position on slider aria', () => {
-    newState = {
-      ...newState,
-      min: 0,
-      max: 200,
-      to: 20,
-    };
+  test('Should be correct value innerHTML', () => {
     tip.setState(newState);
-    expect(tip.subView.style.left).toBe('10%');
+    expect(tip.subView.innerHTML).toBe('90');
 
-    newState = {
-      ...newState,
-      min: 0,
-      max: 200,
-      to: 10,
-    };
+    newState = { ...newState, to: 30 };
     tip.setState(newState);
-    expect(tip.subView.style.left).toBe('5%');
+    expect(tip.subView.innerHTML).toBe('30');
+  });
 
-    newState = {
-      ...newState,
-      min: -100,
-      max: 100,
-      to: -90,
-    };
+  test('Should be subView not sizable then isDouble true', () => {
+    tip.changeIsDouble(true);
     tip.setState(newState);
-    expect(tip.subView.style.left).toBe('5%');
+    expect(tip.subView.style.opacity).toBe('0');
 
-    newState = {
-      ...newState,
-      min: -100,
-      max: 100,
-      to: 0,
-    };
+    tip.changeIsDouble(false);
     tip.setState(newState);
-    expect(tip.subView.style.left).toBe('50%');
+    expect(tip.subView.style.opacity).toBe('1');
+  });
+
+  test('Dont must be update when set not correct value', () => {
+    newState = { ...newState, to: 'not are number' as any };
+    tip.setState(newState);
+    expect(tip.subView.innerHTML).toBe('');
   });
 });
