@@ -133,7 +133,7 @@ $('#slider').jqSlider('onChange', (e) => {
 Представление как и все его компоненты имеют свое состояние и когда оно обновляется происходит отображение.
 
 ### UML
-![UML](/UML/slider.drawio.png)
+![UML](/UML/js-slider.drawio.png)
 
 
 
