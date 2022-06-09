@@ -6,6 +6,7 @@ const styles = require('./webpack/style');
 const typeScript = require('./webpack/typeScript');
 const devServer = require('./webpack/devServer');
 const devtool = require('./webpack/devtool');
+const images = require('./webpack/images')
 const pug = require('./webpack/pug');
 
 let mode = 'development';
@@ -62,6 +63,7 @@ const common = merge([
   styles(),
   pug(),
   devtool(),
+  images(),
   typeScript(),
 ]);
 
