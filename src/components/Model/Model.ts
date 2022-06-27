@@ -68,16 +68,15 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
       : (values.to = this.state.to);
 
     if (data.step !== undefined && data.step > 0) settings.step = data.step;
-    if (typeof data.min === 'number') settings.min = data.min;
-    if (typeof data.max === 'number') settings.max = data.max;
-    if (typeof data.scale === 'boolean') settings.scale = data.scale;
-    if (typeof data.range === 'boolean') settings.range = data.range;
-    if (typeof data.tip === 'boolean') settings.tip = data.tip;
-    if (typeof data.progress === 'boolean') settings.progress = data.progress;
-    if (typeof data.scaleDestiny === 'number')
+    if (data.min !== undefined) settings.min = data.min;
+    if (data.max !== undefined) settings.max = data.max;
+    if (data.scale !== undefined) settings.scale = data.scale;
+    if (data.range !== undefined) settings.range = data.range;
+    if (data.tip !== undefined) settings.tip = data.tip;
+    if (data.progress !== undefined) settings.progress = data.progress;
+    if (data.horizontal !== undefined) settings.horizontal = data.horizontal;
+    if (data.scaleDestiny !== undefined)
       settings.scaleDestiny = data.scaleDestiny;
-    if (typeof data.horizontal === 'boolean')
-      settings.horizontal = data.horizontal;
 
     return [values, settings];
   }
@@ -98,7 +97,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
       return +(Math.round(value / step) * step).toFixed(2);
     }
 
-    if (typeof copyOfData.from === 'number') {
+    if (copyOfData.from !== undefined) {
       copyOfData.from = checkStep(copyOfData.from, this.state.step);
 
       if (copyOfData.from <= this.state.min) {
@@ -108,7 +107,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
       }
     }
 
-    if (typeof copyOfData.to === 'number') {
+    if (copyOfData.to !== undefined) {
       copyOfData.to = checkStep(copyOfData.to, this.state.step);
 
       if (copyOfData.to <= this.state.min) {
@@ -127,10 +126,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
 
     const copyOfSData = { ...data };
 
-    if (
-      typeof copyOfSData.from === 'number' &&
-      typeof copyOfSData.to === 'number'
-    ) {
+    if (copyOfSData.from !== undefined && copyOfSData.to !== undefined) {
       const isFromNotValidly = this.state.to - copyOfSData.from <= 0;
       const isToNotValidly = copyOfSData.to - this.state.from <= 0;
 
