@@ -60,7 +60,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
       ? (values.to = data.to) 
       : (values.to = this.state.to);
 
-    if (data.step && data.step! > 0) settings.step = data.step;
+    if (data.step !== undefined && data.step > 0) settings.step = data.step;
     if (typeof data.min === 'number') settings.min = data.min;
     if (typeof data.max === 'number') settings.max = data.max;
     if (typeof data.scale === 'boolean') settings.scale = data.scale;
