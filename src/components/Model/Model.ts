@@ -1,5 +1,12 @@
 import EventCreator from '../EventCreator/EventCreator';
-import { ModelEvent, ModelEventCallBack, State, Data } from '../../types/types';
+import {
+  ModelEvent,
+  ModelEventCallBack,
+  State,
+  Data,
+  Values,
+  Settings,
+} from '../../types/types';
 
 class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
   private state: State;
@@ -47,8 +54,8 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
   }
 
   private splitParams(data: Data): Array<Data> {
-    const values: Data = {};
-    const settings: Data = {};
+    const values: Values = {};
+    const settings: Settings = {};
 
     // eslint-disable-next-line no-unused-expressions
     'from' in data

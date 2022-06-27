@@ -62,6 +62,23 @@ type ModelEventCallBack = {
   (eventArgs: State): void;
 };
 
+type Values = {
+  from?: number;
+  to?: number;
+};
+
+type Settings = {
+  min?: number;
+  max?: number;
+  step?: number;
+  tip?: boolean;
+  range?: boolean;
+  progress?: boolean;
+  scale?: boolean;
+  scaleDestiny?: number;
+  horizontal?: boolean;
+};
+
 export {
   State,
   ModelEvent,
@@ -73,4 +90,6 @@ export {
   PresenterEventCallBack,
   ViewEventCallBack,
   ModelEventCallBack,
+  Values,
+  Settings,
 };
