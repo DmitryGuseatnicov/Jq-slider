@@ -38,8 +38,9 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     super();
     this.nodeElem = nodeElem;
     this.components = [];
-    // истользовал as потому что знаем точно что после инициализации из Model прийдет state типа State
-    // не знаю на сколько уместно так делать но решил рискнуть
+    /** истользовал as потому что знаем точно что после инициализации из Model прийдет state типа State,
+     * не знаю на сколько уместно так делать но решил рискнуть.
+     */
     this.state = {} as State;
     this.init();
   }
@@ -198,6 +199,11 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     return this.components.filter(
       (component) => component instanceof instance,
     ) as T[];
+    /** Идея данного метода была в том чтобы вернуть массив инстансов определеного класса.
+     * у всех этих классов много схожих свойст и методов, но есть и свои особенные. Хотелоть бы
+     * просто как агрумент указывать Класс и чтобы TS после этого видел все его свойтва и методы.
+     * в итоге после долгих попыток не чего как сделать так через as T[] я к сожелению не придумал.
+     */
   }
 }
 
