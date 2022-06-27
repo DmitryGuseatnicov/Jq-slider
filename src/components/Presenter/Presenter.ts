@@ -4,7 +4,8 @@ import EventCreator from '../EventCreator/EventCreator';
 import { Data, State, ViewEvent } from '../../types/types';
 import { convertPercentInValue } from '../../utils/calcUtils';
 
-class Presenter extends EventCreator<State, State> {
+// eslint-disable-next-line no-unused-vars
+class Presenter extends EventCreator<State, (state: State) => void> {
   public model: Model;
 
   private view: View;

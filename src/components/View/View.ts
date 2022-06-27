@@ -13,26 +13,38 @@ import {
   Data,
   ViewEvent,
   ViewEventCallBack,
+  State,
 } from '../../types/types';
+
+type SubViewComponents =
+  | Handle
+  | SecondHandle
+  | Tip
+  | SecondTip
+  | Scale
+  | Track
+  | SubView;
 
 class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   public nodeElem: HTMLElement;
 
   public slider!: HTMLElement;
 
-  public components: Array<SubView>;
+  public components: Array<SubViewComponents>;
 
-  private state: Data;
+  private state: State;
 
   constructor(nodeElem: HTMLElement) {
     super();
     this.nodeElem = nodeElem;
     this.components = [];
-    this.state = {};
+    // истользовал as потому что знаем точно что после инициализации из Model прийдет state типа State
+    // не знаю на сколько уместно так делать но решил рискнуть
+    this.state = {} as State;
     this.init();
   }
 
-  public setState(state: Data) {
+  public setState(state: State) {
     this.checkIsChangedSettings(state);
     this.state = { ...this.state, ...state };
     this.update(this.state);
@@ -131,7 +143,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     }
   }
 
-  private checkIsChangedSettings(state: Data) {
+  private checkIsChangedSettings(state: State) {
     const { range, tip, scale, horizontal, progress, scaleDestiny } = state;
 
     const isUpdateSettings =
@@ -157,7 +169,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       return;
     }
 
-    const tips = this.getArrOfConcreteSubView(Tip);
+    const tips = this.getArrOfConcreteSubView<Tip>(Tip);
     const size = horizontal
       ? tips[1].subView.clientHeight
       : tips[1].subView.offsetWidth;
@@ -165,25 +177,27 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     const secondPosition = tips[1].getPosition() - size;
 
     if (firstPosition > secondPosition) {
-      tips.forEach((t: any) => {
+      tips.forEach((t) => {
         t.changeIsDouble(true);
         t.setState(this.state);
       });
     } else {
-      tips.forEach((t: any) => {
+      tips.forEach((t) => {
         t.changeIsDouble(false);
       });
     }
   }
 
-  private update(state: Data) {
+  private update(state: State) {
     this.components.forEach((component) => component.setState(state));
   }
 
-  private getArrOfConcreteSubView(instance: Function): Array<SubView> {
+  private getArrOfConcreteSubView<T extends SubViewComponents = SubView>(
+    instance: Function,
+  ): Array<T> {
     return this.components.filter(
-      (component) => component instanceof instance ?? component,
-    );
+      (component) => component instanceof instance,
+    ) as T[];
   }
 }
 

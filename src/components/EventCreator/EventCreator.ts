@@ -1,6 +1,7 @@
 import MyEvent from './MyEvent';
 
-class EventCreator<T, R> {
+// eslint-disable-next-line no-unused-vars
+class EventCreator<T, R extends (eventArgs: T) => void> {
   events: {
     [key: string]: MyEvent<R>;
   };
@@ -15,7 +16,7 @@ class EventCreator<T, R> {
   }
 
   public dispatchEvent(eventName: string, eventArgs: T) {
-    this.events[eventName].callbacks.forEach((callback: any) => {
+    this.events[eventName].callbacks.forEach((callback) => {
       callback(eventArgs);
     });
   }
