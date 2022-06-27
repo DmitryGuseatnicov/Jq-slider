@@ -29,10 +29,6 @@ describe('Test Tip', () => {
     };
   });
 
-  test('Should be instance of Tip', () => {
-    expect(tip).toBeInstanceOf(Tip);
-  });
-
   test('Should be correct className in tip', () => {
     tip.setState(state);
     expect(tip.subView.classList.contains('jq-slider__tip')).toBeTruthy();
@@ -50,7 +46,7 @@ describe('Test Tip', () => {
     expect(tip.subView.textContent).toBe('10 - 90');
   });
 
-  test('Dont must be update when set not correct value', () => {
+  test('Don`t must be update when set not correct value', () => {
     state = { ...state, from: 'not are number' as any };
     tip.setState(state);
     expect(tip.subView.innerHTML).toBe('');

@@ -29,10 +29,6 @@ describe('Test Handle', () => {
     };
   });
 
-  test('Should be instance of Handle', () => {
-    expect(subView).toBeInstanceOf(MovableSubView);
-  });
-
   test('Should be correct position on slider aria', () => {
     subView.setState(state);
     expect(subView.subView).toBeInstanceOf(HTMLElement);

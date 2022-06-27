@@ -31,10 +31,6 @@ describe('Test SecondHandel', () => {
     handle = new SecondHandle(slider);
   });
 
-  test('Should be instance of Handle', () => {
-    expect(handle).toBeInstanceOf(SecondHandle);
-  });
-
   test('Should be correct className in tip', () => {
     handle.setState(state);
     expect(handle.subView.classList.contains('jq-slider__handle')).toBeTruthy();

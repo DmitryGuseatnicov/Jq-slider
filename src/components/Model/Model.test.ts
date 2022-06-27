@@ -24,10 +24,6 @@ describe('Test Model', () => {
     model = new Model(state);
   });
 
-  test('Should be instance of Model', () => {
-    expect(model).toBeInstanceOf(Model);
-  });
-
   test('Should be correct state after init', () => {
     expect(model.getState()).toEqual(state);
   });

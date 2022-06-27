@@ -29,10 +29,6 @@ describe('Test Tip', () => {
     };
   });
 
-  test('Should be instance of Tip', () => {
-    expect(tip).toBeInstanceOf(SecondTip);
-  });
-
   test('Should be correct value innerHTML', () => {
     tip.setState(state);
     expect(tip.subView.innerHTML).toBe('90');
@@ -42,7 +38,7 @@ describe('Test Tip', () => {
     expect(tip.subView.innerHTML).toBe('30');
   });
 
-  test('Should be subView not sizable then isDouble true', () => {
+  test('Should be subView not visible then isDouble true', () => {
     tip.changeIsDouble(true);
     tip.setState(state);
     expect(tip.subView.style.opacity).toBe('0');

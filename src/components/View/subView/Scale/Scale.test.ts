@@ -30,10 +30,6 @@ describe('Test scale', () => {
     };
   });
 
-  test('Should be instance of Scale', () => {
-    expect(scale).toBeInstanceOf(Scale);
-  });
-
   test('Should be created scale HTML', () => {
     scale.setState(state);
     expect(scale.subView).toBeInstanceOf(HTMLElement);

@@ -28,10 +28,6 @@ describe('Test Track', () => {
     };
   });
 
-  test('Should be instance of Track', () => {
-    expect(track).toBeInstanceOf(Track);
-  });
-
   test('should be created Track width progress', () => {
     track.setState(state);
     expect(track.subView).toBeInstanceOf(HTMLElement);

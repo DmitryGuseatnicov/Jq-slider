@@ -9,10 +9,6 @@ describe('test EventCreator', () => {
     eventCreator = new EventCreator();
   });
 
-  test('Should be cant create instance of EventCreator', () => {
-    expect(eventCreator).toBeInstanceOf(EventCreator);
-  });
-
   test('Should be cant register event', () => {
     eventCreator.registerEvent('someEvent');
     expect(eventCreator.events.someEvent).toEqual({

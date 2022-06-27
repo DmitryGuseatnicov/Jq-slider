@@ -28,11 +28,6 @@ describe('Test View', () => {
     };
   });
 
-  test('Should be instance of View', () => {
-    view.setState(state);
-    expect(view).toBeInstanceOf(View);
-  });
-
   test('Should be create correct numbers of components with different params', () => {
     view.setState(state);
     expect(view.components.length).toBe(6);
