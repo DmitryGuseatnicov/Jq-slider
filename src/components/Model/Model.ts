@@ -1,4 +1,3 @@
-import EventCreator from '../EventCreator/EventCreator';
 import {
   ModelEvent,
   ModelEventCallBack,
@@ -6,7 +5,9 @@ import {
   Data,
   Values,
   Settings,
-} from '../../types/types';
+} from 'types/types';
+
+import EventCreator from '../EventCreator/EventCreator';
 
 class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
   private state: State;
@@ -66,8 +67,6 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     'to' in data
       ? (values.to = data.to) 
       : (values.to = this.state.to);
-
-    
 
     if (data.step !== undefined && data.step > 0) settings.step = data.step;
     if (data.min !== undefined) settings.min = data.min;

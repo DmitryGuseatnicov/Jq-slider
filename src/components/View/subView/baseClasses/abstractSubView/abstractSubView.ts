@@ -1,10 +1,6 @@
+import { SubViewEventCallBack, SubViewEvent, State, Data } from 'types/types';
+
 import EventCreator from '../../../../EventCreator/EventCreator';
-import {
-  SubViewEventCallBack,
-  SubViewEvent,
-  State,
-  Data,
-} from '../../../../../types/types';
 
 abstract class SubView<T extends Data = Data> extends EventCreator<
   SubViewEvent,

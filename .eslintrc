@@ -21,7 +21,8 @@
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "import/extensions": "off",
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "import/no-unresolved": [0, { "caseSensitiveStrict": true }]
   },
   "settings": {
     "import/resolver": {

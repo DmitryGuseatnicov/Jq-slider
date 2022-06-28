@@ -1,3 +1,12 @@
+import { convertPixelInPercent } from 'utils/calcUtils';
+import {
+  SubViewEvent,
+  Data,
+  ViewEvent,
+  ViewEventCallBack,
+  State,
+} from 'types/types';
+
 import Handle from './subView/Handle/Handle';
 import SecondHandle from './subView/Handle/SecondHandle';
 import Scale from './subView/Scale/Scale';
@@ -7,14 +16,6 @@ import Track from './subView/Track/Track';
 import SubView from './subView/baseClasses/abstractSubView/abstractSubView';
 
 import EventCreator from '../EventCreator/EventCreator';
-import { convertPixelInPercent } from '../../utils/calcUtils';
-import {
-  SubViewEvent,
-  Data,
-  ViewEvent,
-  ViewEventCallBack,
-  State,
-} from '../../types/types';
 
 type SubViewComponents =
   | Handle

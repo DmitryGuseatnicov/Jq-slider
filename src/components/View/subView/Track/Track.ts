@@ -1,6 +1,7 @@
+import { convertValueInPercent } from 'utils/calcUtils';
+import { State } from 'types/types';
+
 import SubView from '../baseClasses/abstractSubView/abstractSubView';
-import { convertValueInPercent } from '../../../../utils/calcUtils';
-import { State } from '../../../../types/types';
 
 interface ITrack {
   min: number;

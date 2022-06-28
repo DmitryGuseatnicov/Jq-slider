@@ -1,9 +1,7 @@
+import { State } from 'types/types';
+import { convertPercentInValue, convertValueInPercent } from 'utils/calcUtils';
+
 import SubView from '../baseClasses/abstractSubView/abstractSubView';
-import { State } from '../../../../types/types';
-import {
-  convertPercentInValue,
-  convertValueInPercent,
-} from '../../../../utils/calcUtils';
 
 interface IScale {
   min: number;

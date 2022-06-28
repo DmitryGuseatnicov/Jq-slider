@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { Data, State } from '../types/types';
+import { Data, State } from 'types/types';
 import './demo-page.scss';
 
 const arrOfStates = [

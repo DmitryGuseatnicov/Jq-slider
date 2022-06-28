@@ -1,6 +1,7 @@
+import { RoleSubView, State } from 'types/types';
+import { convertValueInPercent } from 'utils/calcUtils';
+
 import SubView from '../abstractSubView/abstractSubView';
-import { RoleSubView, State } from '../../../../../types/types';
-import { convertValueInPercent } from '../../../../../utils/calcUtils';
 
 interface IMovableSubView {
   min: number;

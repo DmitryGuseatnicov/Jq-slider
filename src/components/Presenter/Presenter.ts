@@ -1,8 +1,9 @@
+import { Data, State, ViewEvent } from 'types/types';
+import { convertPercentInValue } from 'utils/calcUtils';
+
 import Model from '../Model/Model';
 import View from '../View/View';
 import EventCreator from '../EventCreator/EventCreator';
-import { Data, State, ViewEvent } from '../../types/types';
-import { convertPercentInValue } from '../../utils/calcUtils';
 
 // eslint-disable-next-line no-unused-vars
 class Presenter extends EventCreator<State, (state: State) => void> {
