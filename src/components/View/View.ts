@@ -46,7 +46,9 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   }
 
   public setState(state: State) {
-    this.checkIsChangedSettings(state);
+    if (this.checkIsChangedSettings(state)) {
+      this.rebuildSlider(state);
+    }
     this.state = { ...this.state, ...state };
     this.update(this.state);
     this.checkTips();
@@ -146,23 +148,20 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   private checkIsChangedSettings(state: State) {
     const { from, to, step, ...settings } = state;
 
-    const isUpdateSettings = Object.entries(settings).reduce(
-      (flag, entries) => {
-        const [key, value] = entries;
-        if (this.state[key as keyof State] !== value) {
-          return true;
-        }
-        return flag;
-      },
-      false,
-    );
+    return Object.entries(settings).reduce((flag, entries) => {
+      const [key, value] = entries;
+      if (this.state[key as keyof State] !== value) {
+        return true;
+      }
+      return flag;
+    }, false);
+  }
 
-    if (isUpdateSettings) {
-      this.components = [];
-      this.slider.innerHTML = '';
-      this.createComponents(state);
-      this.bindEventListener();
-    }
+  private rebuildSlider(state: State) {
+    this.components = [];
+    this.slider.innerHTML = '';
+    this.createComponents(state);
+    this.bindEventListener();
   }
 
   private checkTips() {
