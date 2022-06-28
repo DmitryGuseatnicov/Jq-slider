@@ -13,7 +13,7 @@ class Handle extends MovableSubView {
     return subViewLeft - sliderLeft + this.subView.offsetWidth / 2;
   }
 
-  protected createSubView(): void {
+  public createSubView(): void {
     super.createSubView();
     this.subView.classList.add('jq-slider__handle');
     this.subView.style.zIndex = '2';

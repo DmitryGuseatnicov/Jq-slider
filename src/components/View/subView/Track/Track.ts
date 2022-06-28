@@ -37,7 +37,7 @@ class Track extends SubView<ITrack> {
     this.update();
   }
 
-  protected createSubView(): void {
+  public createSubView(): void {
     this.subView = document.createElement('div');
     this.subView.classList.add('jq-slider__track');
     this.progress = document.createElement('div');
@@ -46,7 +46,7 @@ class Track extends SubView<ITrack> {
     this.slider.appendChild(this.subView);
   }
 
-  protected init(): void {
+  public init(): void {
     this.createSubView();
     this.registerEvent('SubViewEvent');
     this.bindEventListener();
@@ -66,7 +66,7 @@ class Track extends SubView<ITrack> {
     });
   }
 
-  protected update(): void {
+  public update(): void {
     const { min, max, from, to, horizontal, range, progress } = this.state;
 
     if (!progress) {

@@ -6,7 +6,7 @@ class SecondHandle extends Handle {
     this.role = 'to';
   }
 
-  protected update(): void {
+  public update(): void {
     const size = this.state.horizontal
       ? this.slider.clientHeight
       : this.slider.clientWidth;

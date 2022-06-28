@@ -35,18 +35,18 @@ class Scale extends SubView<IScale> {
     }
   }
 
-  protected init(): void {
+  public init(): void {
     this.createSubView();
     this.registerEvent('SubViewEvent');
   }
 
-  protected createSubView(): void {
+  public createSubView(): void {
     this.subView = document.createElement('div');
     this.subView.classList.add('jq-slider__scale');
     this.slider.appendChild(this.subView);
   }
 
-  protected update(): void {
+  public update(): void {
     const { min, max, scaleDestiny } = this.state;
 
     let pips = this.createPipFragment(min, max, min);

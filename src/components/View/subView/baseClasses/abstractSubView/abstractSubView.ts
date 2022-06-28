@@ -14,7 +14,7 @@ abstract class SubView<T extends Data = Data> extends EventCreator<
 
   public subView!: HTMLElement;
 
-  protected state: T;
+  public state: T;
 
   constructor(slider: HTMLElement) {
     super();
@@ -37,11 +37,11 @@ abstract class SubView<T extends Data = Data> extends EventCreator<
   // eslint-disable-next-line no-unused-vars
   public abstract setState(state: State): void;
 
-  protected abstract init(): void;
+  public abstract init(): void;
 
-  protected abstract createSubView(): void;
+  public abstract createSubView(): void;
 
-  protected abstract update(): void;
+  public abstract update(): void;
 }
 
 export default SubView;

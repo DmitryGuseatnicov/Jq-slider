@@ -34,7 +34,7 @@ class MovableSubView extends SubView<IMovableSubView> {
     this.update();
   }
 
-  protected init(): void {
+  public init(): void {
     this.createSubView();
     this.registerEvent('SubViewEvent');
     this.bindEventListener();
@@ -57,7 +57,7 @@ class MovableSubView extends SubView<IMovableSubView> {
     window.removeEventListener('pointermove', this.pointerHandler);
   }
 
-  protected pointerHandler(e: PointerEvent): void {
+  public pointerHandler(e: PointerEvent): void {
     this.dispatchEvent('SubViewEvent', {
       target: this.role,
       position: this.state.horizontal
@@ -66,12 +66,12 @@ class MovableSubView extends SubView<IMovableSubView> {
     });
   }
 
-  protected createSubView(): void {
+  public createSubView(): void {
     this.subView = document.createElement('div');
     this.slider.appendChild(this.subView);
   }
 
-  protected update(): void {
+  public update(): void {
     const { min, max, from, to, horizontal } = this.state;
 
     const value = this.role === 'from' ? from : to;
