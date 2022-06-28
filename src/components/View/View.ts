@@ -144,15 +144,18 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   }
 
   private checkIsChangedSettings(state: State) {
-    const { range, tip, scale, horizontal, progress, scaleDestiny } = state;
+    const { from, to, step, ...settings } = state;
 
-    const isUpdateSettings =
-      range !== this.state.range ||
-      tip !== this.state.tip ||
-      scale !== this.state.scale ||
-      horizontal !== this.state.horizontal ||
-      progress !== this.state.progress ||
-      scaleDestiny !== this.state.scaleDestiny;
+    const isUpdateSettings = Object.entries(settings).reduce(
+      (flag, entries) => {
+        const [key, value] = entries;
+        if (this.state[key as keyof State] !== value) {
+          return true;
+        }
+        return flag;
+      },
+      false,
+    );
 
     if (isUpdateSettings) {
       this.components = [];
