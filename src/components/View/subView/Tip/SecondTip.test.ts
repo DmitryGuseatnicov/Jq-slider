@@ -47,10 +47,4 @@ describe('Test Tip', () => {
     tip.setState(state);
     expect(tip.subView.style.opacity).toBe('1');
   });
-
-  test('Dont must be update when set not correct value', () => {
-    state = { ...state, to: 'not are number' as any };
-    tip.setState(state);
-    expect(tip.subView.innerHTML).toBe('');
-  });
 });

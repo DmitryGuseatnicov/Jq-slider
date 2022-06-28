@@ -45,10 +45,4 @@ describe('Test Tip', () => {
     tip.setState(state);
     expect(tip.subView.textContent).toBe('10 - 90');
   });
-
-  test('Don`t must be update when set not correct value', () => {
-    state = { ...state, from: 'not are number' as any };
-    tip.setState(state);
-    expect(tip.subView.innerHTML).toBe('');
-  });
 });

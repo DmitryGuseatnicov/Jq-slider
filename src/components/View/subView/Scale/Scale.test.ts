@@ -60,13 +60,6 @@ describe('Test scale', () => {
     expect(scale.subView.classList.contains('jq-slider__scale')).toBeTruthy();
   });
 
-  test('Should dont be update if set not correct params', () => {
-    state = { ...state, min: 'not a number' as any };
-    scale.setState(state);
-    const pips = scale.subView.querySelectorAll('.jq-slider__scale-pip');
-    expect(pips.length).toBe(0);
-  });
-
   test('Should correct added percent in style', () => {
     scale.setState(state);
     const pips = scale.subView.querySelectorAll('.jq-slider__scale-pip');

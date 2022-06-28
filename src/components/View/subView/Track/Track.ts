@@ -2,7 +2,17 @@ import SubView from '../baseClasses/abstractSubView/abstractSubView';
 import { convertValueInPercent } from '../../../../utils/calcUtils';
 import { State } from '../../../../types/types';
 
-class Track extends SubView {
+interface ITrack {
+  min: number;
+  max: number;
+  from: number;
+  to: number;
+  horizontal: boolean;
+  range: boolean;
+  progress: boolean;
+}
+
+class Track extends SubView<ITrack> {
   public progress!: HTMLElement;
 
   constructor(slider: HTMLElement) {
@@ -61,16 +71,6 @@ class Track extends SubView {
 
     if (!progress) {
       this.progress.remove();
-      return;
-    }
-
-    const isNumbers =
-      typeof min === 'number' &&
-      typeof max === 'number' &&
-      typeof from === 'number' &&
-      typeof to === 'number';
-
-    if (!isNumbers) {
       return;
     }
 

@@ -1,17 +1,24 @@
 import SubView from '../baseClasses/abstractSubView/abstractSubView';
-import { Data } from '../../../../types/types';
+import { State } from '../../../../types/types';
 import {
   convertPercentInValue,
   convertValueInPercent,
 } from '../../../../utils/calcUtils';
 
-class Scale extends SubView {
+interface IScale {
+  min: number;
+  max: number;
+  horizontal: boolean;
+  scaleDestiny: number;
+}
+
+class Scale extends SubView<IScale> {
   constructor(slider: HTMLElement) {
     super(slider);
     this.init();
   }
 
-  public setState(state: Data): void {
+  public setState(state: State): void {
     const { min, max, horizontal, scaleDestiny } = state;
 
     const oldState = JSON.stringify(this.state);
@@ -40,17 +47,7 @@ class Scale extends SubView {
   }
 
   protected update(): void {
-    const { min, max, horizontal, scaleDestiny } = this.state;
-
-    const isCorrectParams =
-      typeof min === 'number' &&
-      typeof max === 'number' &&
-      typeof scaleDestiny === 'number' &&
-      typeof horizontal === 'boolean';
-
-    if (!isCorrectParams) {
-      return;
-    }
+    const { min, max, scaleDestiny } = this.state;
 
     let pips = this.createPipFragment(min, max, min);
     for (let pip = min + 1; pip < max; pip += 1) {

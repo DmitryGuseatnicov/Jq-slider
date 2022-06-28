@@ -11,10 +11,6 @@ class SecondTip extends Tip {
 
     const { to } = this.state;
 
-    if (typeof to !== 'number') {
-      return;
-    }
-
     if (this.isDouble) {
       this.subView.style.opacity = '0';
     } else {

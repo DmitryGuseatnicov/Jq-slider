@@ -22,12 +22,6 @@ class Tip extends MovableSubView {
 
     const { from, to } = this.state;
 
-    const isNumbers = typeof from === 'number' && typeof to === 'number';
-
-    if (!isNumbers) {
-      return;
-    }
-
     this.subView.textContent = this.isDouble
       ? `${from} - ${to}`
       : from.toString();

@@ -2,7 +2,15 @@ import SubView from '../abstractSubView/abstractSubView';
 import { RoleSubView, State } from '../../../../../types/types';
 import { convertValueInPercent } from '../../../../../utils/calcUtils';
 
-class MovableSubView extends SubView {
+interface IMovableSubView {
+  min: number;
+  max: number;
+  from: number;
+  to: number;
+  horizontal: boolean;
+}
+
+class MovableSubView extends SubView<IMovableSubView> {
   role: RoleSubView;
 
   constructor(slider: HTMLElement) {
@@ -65,16 +73,6 @@ class MovableSubView extends SubView {
 
   protected update(): void {
     const { min, max, from, to, horizontal } = this.state;
-
-    const isNumbers =
-      typeof min === 'number' &&
-      typeof max === 'number' &&
-      typeof from === 'number' &&
-      typeof to === 'number';
-
-    if (!isNumbers) {
-      return;
-    }
 
     const value = this.role === 'from' ? from : to;
 

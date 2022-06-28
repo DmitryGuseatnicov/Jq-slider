@@ -2,10 +2,11 @@ import EventCreator from '../../../../EventCreator/EventCreator';
 import {
   SubViewEventCallBack,
   SubViewEvent,
+  State,
   Data,
 } from '../../../../../types/types';
 
-abstract class SubView extends EventCreator<
+abstract class SubView<T extends Data = Data> extends EventCreator<
   SubViewEvent,
   SubViewEventCallBack
 > {
@@ -13,12 +14,17 @@ abstract class SubView extends EventCreator<
 
   public subView!: HTMLElement;
 
-  protected state: Data;
+  protected state: T;
 
   constructor(slider: HTMLElement) {
     super();
     this.slider = slider;
-    this.state = {};
+    /**
+     * Хотелось бы иметь возможность типизировать state каждого subView,
+     * чтобы не делать в них лишних проверок поэтому истользовал as зная что сюда
+     * точно прийдут правельные данные после инициадизации
+     * */
+    this.state = {} as T;
   }
 
   public getPosition(): number {
@@ -29,7 +35,7 @@ abstract class SubView extends EventCreator<
   }
 
   // eslint-disable-next-line no-unused-vars
-  public abstract setState(state: Data): void;
+  public abstract setState(state: State): void;
 
   protected abstract init(): void;
 

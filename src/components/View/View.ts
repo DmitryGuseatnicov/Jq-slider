@@ -121,7 +121,6 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
     if (e.target === 'track' || e.target === 'scale') {
       const handles = this.getArrOfConcreteSubView(Handle);
-
       const from = handles[0].getPosition();
       if (!this.state.range) {
         this.dispatchEvent('ViewEvent', {
