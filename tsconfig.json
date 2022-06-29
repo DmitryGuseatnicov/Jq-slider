@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "src",
+    "paths": {
+        "components/*": ["components/*"],
+        "types/*": ["types/*"],
+        "utils": ["utils/calcUtils.ts"],
+    },
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Projects */

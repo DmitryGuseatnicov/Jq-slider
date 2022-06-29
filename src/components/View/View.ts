@@ -1,4 +1,3 @@
-import { convertPixelInPercent } from 'utils/calcUtils';
 import {
   SubViewEvent,
   Data,
@@ -6,6 +5,7 @@ import {
   ViewEventCallBack,
   State,
 } from 'types/types';
+import { convertPixelInPercent } from 'utils/calcUtils';
 
 import Handle from './subView/Handle/Handle';
 import SecondHandle from './subView/Handle/SecondHandle';
