@@ -3,17 +3,7 @@ import { State } from 'types/types';
 
 import SubView from '../baseClasses/abstractSubView/abstractSubView';
 
-interface ITrack {
-  min: number;
-  max: number;
-  from: number;
-  to: number;
-  horizontal: boolean;
-  range: boolean;
-  progress: boolean;
-}
-
-class Track extends SubView<ITrack> {
+class Track extends SubView {
   public progress!: HTMLElement;
 
   constructor(slider: HTMLElement) {

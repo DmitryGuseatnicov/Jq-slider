@@ -1,7 +1,7 @@
-import { SubViewEventCallBack, SubViewEvent, State, Data } from 'types/types';
+import { SubViewEventCallBack, SubViewEvent, State } from 'types/types';
 import EventCreator from 'components/EventCreator/EventCreator';
 
-abstract class SubView<T extends Data = Data> extends EventCreator<
+abstract class SubView extends EventCreator<
   SubViewEvent,
   SubViewEventCallBack
 > {
@@ -9,7 +9,7 @@ abstract class SubView<T extends Data = Data> extends EventCreator<
 
   public subView!: HTMLElement;
 
-  public state: T;
+  public state: State;
 
   constructor(slider: HTMLElement) {
     super();
@@ -19,7 +19,7 @@ abstract class SubView<T extends Data = Data> extends EventCreator<
      * чтобы не делать в них лишних проверок поэтому истользовал as зная что сюда
      * точно прийдут правельные данные после инициадизации
      * */
-    this.state = {} as T;
+    this.state = {} as State;
   }
 
   public getPosition(): number {

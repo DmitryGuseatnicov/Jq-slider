@@ -3,15 +3,7 @@ import { convertValueInPercent } from 'utils/calcUtils';
 
 import SubView from '../abstractSubView/abstractSubView';
 
-interface IMovableSubView {
-  min: number;
-  max: number;
-  from: number;
-  to: number;
-  horizontal: boolean;
-}
-
-class MovableSubView extends SubView<IMovableSubView> {
+class MovableSubView extends SubView {
   role: RoleSubView;
 
   constructor(slider: HTMLElement) {

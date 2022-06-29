@@ -3,14 +3,7 @@ import { convertPercentInValue, convertValueInPercent } from 'utils/calcUtils';
 
 import SubView from '../baseClasses/abstractSubView/abstractSubView';
 
-interface IScale {
-  min: number;
-  max: number;
-  horizontal: boolean;
-  scaleDestiny: number;
-}
-
-class Scale extends SubView<IScale> {
+class Scale extends SubView {
   constructor(slider: HTMLElement) {
     super(slider);
     this.init();
