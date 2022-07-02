@@ -147,7 +147,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   }
 
   private checkIsChangedSettings(state: State) {
-    const { from, to, step, ...settings } = state;
+    const { from, to, ...settings } = state;
 
     return Object.entries(settings).reduce((flag, entries) => {
       const [key, value] = entries;

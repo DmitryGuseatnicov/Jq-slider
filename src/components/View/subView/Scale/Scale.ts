@@ -10,7 +10,7 @@ class Scale extends SubView {
   }
 
   public setState(state: State): void {
-    const { min, max, horizontal, scaleDestiny } = state;
+    const { min, max, horizontal, scaleDestiny, step } = state;
 
     const oldState = JSON.stringify(this.state);
 
@@ -20,6 +20,7 @@ class Scale extends SubView {
       max,
       horizontal,
       scaleDestiny,
+      step,
     };
     if (oldState !== JSON.stringify(this.state)) {
       this.update();
@@ -38,17 +39,33 @@ class Scale extends SubView {
   }
 
   public update(): void {
-    const { min, max, scaleDestiny } = this.state;
+    const { min, max, step, horizontal, scaleDestiny } = this.state;
 
-    let pips = this.createPipFragment(min, max, min);
-    for (let pip = min + 1; pip < max; pip += 1) {
-      if (pip % scaleDestiny === 0) {
-        pips += this.createPipFragment(min, max, pip);
-      }
+    let pips = [];
+
+    for (let pip = min; pip < max; pip += step < 1 ? 1 : step) {
+      pips.push(this.createPipFragment(min, max, pip));
     }
-    pips += this.createPipFragment(min, max, max);
 
-    this.subView.innerHTML = pips;
+    const maxSymbolsInPip =
+      Math.abs(min) > Math.abs(max)
+        ? min.toString().length
+        : max.toString().length;
+
+    const sizeOfPip = horizontal
+      ? this.slider.clientHeight / 20
+      : this.slider.clientWidth / (maxSymbolsInPip * 10);
+
+    if (pips.length > sizeOfPip) {
+      pips = pips.filter(
+        (_pip, i) => i % Math.round(pips.length / sizeOfPip) === 0,
+      );
+    }
+    pips = pips.filter((_pip, i) => i % scaleDestiny === 0);
+
+    pips.push(this.createPipFragment(min, max, max));
+
+    this.subView.innerHTML = pips.join('');
     this.bindEventListener();
   }
 
@@ -60,7 +77,7 @@ class Scale extends SubView {
         this.slider.clientHeight,
         convertValueInPercent(min, max, value),
       )}px">
-        <div class="jq-slider__scale-label">${value}</div>
+        <div class="jq-slider__scale-label">${value.toFixed(0)}</div>
       </div>`;
     }
     return `
@@ -69,7 +86,7 @@ class Scale extends SubView {
         max,
         value,
       )}%">
-        <div class="jq-slider__scale-label">${value}</div>
+        <div class="jq-slider__scale-label">${value.toFixed(0)}</div>
       </div>`;
   }
 
@@ -85,12 +102,7 @@ class Scale extends SubView {
   private clickHandler(e: MouseEvent) {
     const { min, max, horizontal } = this.state;
 
-    const isCorrectParams =
-      e.target instanceof HTMLElement &&
-      typeof min === 'number' &&
-      typeof max === 'number';
-
-    if (!isCorrectParams) {
+    if (!(e.target instanceof HTMLElement)) {
       return;
     }
 

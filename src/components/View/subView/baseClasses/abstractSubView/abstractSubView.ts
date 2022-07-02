@@ -14,11 +14,6 @@ abstract class SubView extends EventCreator<
   constructor(slider: HTMLElement) {
     super();
     this.slider = slider;
-    /**
-     * Хотелось бы иметь возможность типизировать state каждого subView,
-     * чтобы не делать в них лишних проверок поэтому истользовал as зная что сюда
-     * точно прийдут правельные данные после инициадизации
-     * */
     this.state = {} as State;
   }
 
