@@ -6,6 +6,7 @@ import {
   Values,
   Settings,
 } from 'types/types';
+import { convertPercentInValue, convertValueInPercent } from 'utils/calcUtils';
 
 import EventCreator from '../EventCreator/EventCreator';
 
@@ -77,7 +78,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     if (data.progress !== undefined) settings.progress = data.progress;
     if (data.horizontal !== undefined) settings.horizontal = data.horizontal;
     if (data.scaleDestiny !== undefined)
-      settings.scaleDestiny = data.scaleDestiny;
+      settings.scaleDestiny = data.scaleDestiny <= 0 ? 1 : data.scaleDestiny;
 
     return [values, settings];
   }
@@ -94,12 +95,8 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
   private stepValidator(data: Data): Data {
     const copyOfData = { ...data };
 
-    function checkStep(value: number, step: number): number {
-      return +(Math.round(value / step) * step).toFixed(2);
-    }
-
     if (copyOfData.from !== undefined) {
-      copyOfData.from = checkStep(copyOfData.from, this.state.step);
+      copyOfData.from = this.checkStep(copyOfData.from);
 
       if (copyOfData.from <= this.state.min) {
         copyOfData.from = this.state.min;
@@ -109,7 +106,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     }
 
     if (copyOfData.to !== undefined) {
-      copyOfData.to = checkStep(copyOfData.to, this.state.step);
+      copyOfData.to = this.checkStep(copyOfData.to);
 
       if (copyOfData.to <= this.state.min) {
         copyOfData.to = this.state.min;
@@ -118,6 +115,20 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
       }
     }
     return copyOfData;
+  }
+
+  private checkStep(value: number): number {
+    const { min, max, step } = this.state;
+
+    const interval = max - min;
+    const stepInPercent = 100 / (interval / step);
+    const valueInPercent = convertValueInPercent(min, max, value);
+
+    return +convertPercentInValue(
+      min,
+      max,
+      Math.round(valueInPercent / stepInPercent) * stepInPercent,
+    ).toFixed(2);
   }
 
   private rangeFromToValidator(data: Data): Data {

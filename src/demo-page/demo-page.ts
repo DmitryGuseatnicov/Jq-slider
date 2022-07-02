@@ -13,7 +13,7 @@ const arrOfStates = [
     range: false,
     progress: true,
     scale: false,
-    scaleDestiny: 50,
+    scaleDestiny: 1,
     horizontal: false,
   },
   {
@@ -26,7 +26,7 @@ const arrOfStates = [
     range: true,
     progress: true,
     scale: true,
-    scaleDestiny: 50,
+    scaleDestiny: 1,
     horizontal: false,
   },
   {
@@ -34,12 +34,12 @@ const arrOfStates = [
     max: 100,
     from: 0,
     to: 90,
-    step: 0.1,
+    step: 1,
     tip: true,
     range: true,
     progress: true,
     scale: true,
-    scaleDestiny: 50,
+    scaleDestiny: 2,
     horizontal: false,
   },
 
@@ -53,7 +53,7 @@ const arrOfStates = [
     range: false,
     progress: true,
     scale: true,
-    scaleDestiny: 1500,
+    scaleDestiny: 4,
     horizontal: true,
   },
 ];
