@@ -24,6 +24,13 @@ abstract class SubView extends EventCreator<
     return this.subView.getBoundingClientRect().left;
   }
 
+  public getSize(): number {
+    if (this.state.horizontal) {
+      return this.subView.clientHeight;
+    }
+    return this.subView.clientWidth;
+  }
+
   // eslint-disable-next-line no-unused-vars
   public abstract setState(state: State): void;
 

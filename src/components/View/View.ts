@@ -53,6 +53,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     this.state = { ...this.state, ...state };
     this.update(this.state);
     this.checkTips();
+    this.checkScale();
   }
 
   private init() {
@@ -189,6 +190,28 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
         t.changeIsDouble(false);
       });
     }
+  }
+
+  private checkScale() {
+    const { scale: s, tip, range } = this.state;
+
+    if (!(s && tip)) return;
+
+    const [scale] = this.getArrOfConcreteSubView<Scale>(Scale);
+    const tips = this.getArrOfConcreteSubView<Tip>(Tip);
+    const scaleStart = scale.getPosition();
+    const scaleEnd = scaleStart + scale.getSize();
+
+    const isFromNearbyStart =
+      scaleStart - tips[0].getPosition() + tips[0].getSize() > 0;
+    const isFromNearbyEnd =
+      scaleEnd - tips[0].getPosition() - tips[0].getSize() * 2 <= 0;
+    const isToNearbyEnd =
+      range && scaleEnd - tips[1].getPosition() - tips[1].getSize() * 2 < 0;
+
+    scale.visibilitySwitcher('first', isFromNearbyStart);
+    scale.visibilitySwitcher('last', isFromNearbyEnd);
+    scale.visibilitySwitcher('last', isToNearbyEnd);
   }
 
   private update(state: State) {

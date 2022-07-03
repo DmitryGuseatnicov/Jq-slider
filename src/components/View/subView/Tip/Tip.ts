@@ -15,6 +15,7 @@ class Tip extends MovableSubView {
   public createSubView(): void {
     super.createSubView();
     this.subView.classList.add('jq-slider__tip');
+    this.subView.style.zIndex = '5';
   }
 
   public update(): void {

@@ -16,7 +16,7 @@ class Handle extends MovableSubView {
   public createSubView(): void {
     super.createSubView();
     this.subView.classList.add('jq-slider__handle');
-    this.subView.style.zIndex = '2';
+    this.subView.style.zIndex = '5';
   }
 }
 

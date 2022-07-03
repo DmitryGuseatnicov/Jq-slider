@@ -78,6 +78,7 @@ $blockName: 'jq-slider';
 
   &__scale-pip {
     position: absolute;
+    z-index: 2;
     box-sizing: border-box;
     width: 1px;
     height: 7px;
@@ -85,6 +86,19 @@ $blockName: 'jq-slider';
     cursor: pointer;
     user-select: none;
     touch-action: none;
+  }
+
+  &__scale-pip:first-child,
+  &__scale-pip:last-child{
+    top: -4px;
+    height: 4px;
+
+    cursor: pointer;
+
+    .#{$blockName}__scale-label {
+      top: -33px;
+      font-size: 16px;
+    }
   }
 
   &__scale-label {
@@ -97,6 +111,10 @@ $blockName: 'jq-slider';
     transform: translate(50%, 0);
     user-select: none;
     touch-action: none;
+
+    &_hided {
+      opacity: 0;
+    }
   }
 }
 
@@ -134,6 +152,20 @@ $blockName: 'jq-slider';
       cursor: pointer;
     }
 
+    &__scale-pip:first-child,
+    &__scale-pip:last-child {
+      left: 0;
+      width: 4px;
+      height: 1px;
+      cursor: pointer;
+
+      .#{$blockName}__scale-label {
+        top: 0;
+        left: 25px;
+        font-size: 16px;
+      }
+    }
+
     &__scale-label {
       position: absolute;
       top: 50%;
@@ -142,4 +174,8 @@ $blockName: 'jq-slider';
       transform: translate(0%, -50%);
     }
   }
+}
+
+.js-slider__scale-label_hidden {
+  opacity: 0;
 }

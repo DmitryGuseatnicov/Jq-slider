@@ -12,9 +12,9 @@ class SecondHandle extends Handle {
       : this.slider.clientWidth;
 
     if (this.getPosition() > size / 2) {
-      this.subView.style.zIndex = '1';
+      this.subView.style.zIndex = '4';
     } else {
-      this.subView.style.zIndex = '3';
+      this.subView.style.zIndex = '6';
     }
 
     super.update();
