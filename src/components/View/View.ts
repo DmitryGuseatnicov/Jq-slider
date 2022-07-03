@@ -108,8 +108,8 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
   private subViewEventHandler(e: SubViewEvent) {
     const size = this.state.horizontal
-      ? this.slider.clientHeight
-      : this.slider.clientWidth;
+      ? this.slider.getBoundingClientRect().height
+      : this.slider.getBoundingClientRect().width;
 
     if (e.target === 'from') {
       this.dispatchEvent('ViewEvent', {

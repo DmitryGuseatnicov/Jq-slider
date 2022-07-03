@@ -53,8 +53,8 @@ class Scale extends SubView {
         : max.toString().length;
 
     const sizeOfPip = horizontal
-      ? this.slider.clientHeight / 20
-      : this.slider.clientWidth / (maxSymbolsInPip * 10);
+      ? this.slider.getBoundingClientRect().height / 20
+      : this.slider.getBoundingClientRect().width / (maxSymbolsInPip * 10);
 
     if (pips.length > sizeOfPip) {
       pips = pips.filter(
@@ -65,7 +65,8 @@ class Scale extends SubView {
 
     pips.push(this.createPipFragment(min, max, max));
 
-    this.subView.innerHTML = pips.join('');
+    this.subView.innerHTML = pips.join(' ');
+
     this.bindEventListener();
   }
 
@@ -74,7 +75,6 @@ class Scale extends SubView {
     visible: boolean,
   ) {
     const pips = this.subView.querySelectorAll('.jq-slider__scale-label');
-    console.log(positionInScale, visible);
     if (positionInScale === 'first' && pips[0] instanceof HTMLElement) {
       // eslint-disable-next-line no-unused-expressions
       visible
@@ -134,8 +134,8 @@ class Scale extends SubView {
     }
 
     const onePercent = horizontal
-      ? this.slider.clientHeight / 100
-      : this.slider.clientWidth / 100;
+      ? this.slider.getBoundingClientRect().height / 100
+      : this.slider.getBoundingClientRect().width / 100;
 
     const percents = horizontal
       ? convertValueInPercent(min, max, +e.target.innerHTML)
@@ -144,8 +144,8 @@ class Scale extends SubView {
     let position = onePercent * percents;
     if (position === 0) {
       const sliderSize = horizontal
-        ? this.slider.clientHeight
-        : this.slider.clientWidth;
+        ? this.slider.getBoundingClientRect().height
+        : this.slider.getBoundingClientRect().width;
       position = this.getPosition() - sliderSize;
     }
     this.dispatchEvent('SubViewEvent', { target: 'scale', position });

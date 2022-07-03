@@ -38,6 +38,6 @@ describe('Test SecondHandel', () => {
 
   test('Should be correct zIndex', () => {
     handle.setState(state);
-    expect(handle.subView.style.zIndex).toBe('3');
+    expect(handle.subView.style.zIndex).toBe('6');
   });
 });

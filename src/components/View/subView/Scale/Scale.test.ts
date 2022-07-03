@@ -12,20 +12,33 @@ describe('Test scale', () => {
 
   beforeEach(() => {
     slider = document.createElement('div');
-    slider.style.width = '1000';
-    slider.style.height = '1000';
+    slider.style.width = '720';
+    slider.style.height = '720';
+
+    // @ts-ignore
+    Element.prototype.getBoundingClientRect = jest.fn(() => {
+      return {
+        width: 720,
+        height: 720,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+      };
+    });
+
     scale = new Scale(slider);
     state = {
       min: 0,
       max: 100,
       from: 0,
       to: 100,
-      step: 5,
+      step: 1,
       tip: true,
       range: true,
       progress: true,
       scale: true,
-      scaleDestiny: 10,
+      scaleDestiny: 1,
       horizontal: false,
     };
   });
@@ -43,17 +56,17 @@ describe('Test scale', () => {
   test('Should be correct numbers of pip', () => {
     scale.setState(state);
     let pips = scale.subView.querySelectorAll('.jq-slider__scale-pip');
-    expect(pips.length).toBe(11);
+    expect(pips.length).toBe(26);
 
-    state = { ...state, scaleDestiny: 20 };
+    state = { ...state, scaleDestiny: 2 };
     scale.setState(state);
     pips = scale.subView.querySelectorAll('.jq-slider__scale-pip');
-    expect(pips.length).toBe(6);
+    expect(pips.length).toBe(14);
 
-    state = { ...state, scaleDestiny: 1 };
+    state = { ...state, scaleDestiny: 4 };
     scale.setState(state);
     pips = scale.subView.querySelectorAll('.jq-slider__scale-pip');
-    expect(pips.length).toBe(101);
+    expect(pips.length).toBe(8);
   });
 
   test('Should ve add in subView correct class', () => {
@@ -69,15 +82,15 @@ describe('Test scale', () => {
     }
 
     if (pips[2] instanceof HTMLElement) {
-      expect(pips[2].style.left).toBe('20%');
+      expect(pips[2].style.left).toBe('8%');
     }
 
     if (pips[5] instanceof HTMLElement) {
-      expect(pips[5].style.left).toBe('50%');
+      expect(pips[5].style.left).toBe('20%');
     }
 
-    if (pips[7] instanceof HTMLElement) {
-      expect(pips[7].style.left).toBe('70%');
+    if (pips[25] instanceof HTMLElement) {
+      expect(pips[25].style.left).toBe('100%');
     }
   });
 

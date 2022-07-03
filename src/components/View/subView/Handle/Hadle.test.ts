@@ -38,6 +38,6 @@ describe('Test Handle', () => {
 
   test('Should be correct zIndex after init', () => {
     handle.setState(state);
-    expect(handle.subView.style.zIndex).toBe('2');
+    expect(handle.subView.style.zIndex).toBe('5');
   });
 });
