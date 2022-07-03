@@ -205,13 +205,16 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     const isFromNearbyStart =
       scaleStart - tips[0].getPosition() + tips[0].getSize() > 0;
     const isFromNearbyEnd =
-      scaleEnd - tips[0].getPosition() - tips[0].getSize() * 2 <= 0;
-    const isToNearbyEnd =
-      range && scaleEnd - tips[1].getPosition() - tips[1].getSize() * 2 < 0;
+      scaleEnd - tips[0].getPosition() - tips[0].getSize() * 2 < 0;
 
     scale.visibilitySwitcher('first', isFromNearbyStart);
     scale.visibilitySwitcher('last', isFromNearbyEnd);
-    scale.visibilitySwitcher('last', isToNearbyEnd);
+
+    if (range) {
+      const isToNearbyEnd =
+        scaleEnd - tips[1].getPosition() - tips[1].getSize() * 2 < 0;
+      scale.visibilitySwitcher('last', isToNearbyEnd);
+    }
   }
 
   private update(state: State) {

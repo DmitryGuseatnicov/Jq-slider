@@ -74,7 +74,7 @@ class Scale extends SubView {
     visible: boolean,
   ) {
     const pips = this.subView.querySelectorAll('.jq-slider__scale-label');
-
+    console.log(positionInScale, visible);
     if (positionInScale === 'first' && pips[0] instanceof HTMLElement) {
       // eslint-disable-next-line no-unused-expressions
       visible
