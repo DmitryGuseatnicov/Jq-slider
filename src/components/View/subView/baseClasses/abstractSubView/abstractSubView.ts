@@ -9,7 +9,7 @@ abstract class SubView extends EventCreator<
 
   public subView!: HTMLElement;
 
-  public state: State;
+  protected state: State;
 
   constructor(slider: HTMLElement) {
     super();
@@ -34,11 +34,11 @@ abstract class SubView extends EventCreator<
   // eslint-disable-next-line no-unused-vars
   public abstract setState(state: State): void;
 
-  public abstract init(): void;
+  protected abstract init(): void;
 
-  public abstract createSubView(): void;
+  protected abstract createSubView(): void;
 
-  public abstract update(): void;
+  protected abstract update(): void;
 }
 
 export default SubView;

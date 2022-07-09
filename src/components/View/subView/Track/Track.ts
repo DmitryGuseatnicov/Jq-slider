@@ -28,7 +28,7 @@ class Track extends SubView {
     this.update();
   }
 
-  public createSubView(): void {
+  protected createSubView(): void {
     this.subView = document.createElement('div');
     this.subView.classList.add('jq-slider__track');
     this.progress = document.createElement('div');
@@ -37,27 +37,13 @@ class Track extends SubView {
     this.slider.appendChild(this.subView);
   }
 
-  public init(): void {
+  protected init(): void {
     this.createSubView();
     this.registerEvent('SubViewEvent');
     this.bindEventListener();
   }
 
-  private bindEventListener() {
-    this.clickHandler = this.clickHandler.bind(this);
-    this.subView.addEventListener('click', this.clickHandler);
-  }
-
-  private clickHandler(e: MouseEvent) {
-    this.dispatchEvent('SubViewEvent', {
-      target: 'track',
-      position: this.state.horizontal
-        ? e.clientY - this.slider.getBoundingClientRect().top
-        : e.clientX - this.slider.getBoundingClientRect().left,
-    });
-  }
-
-  public update(): void {
+  protected update(): void {
     const { min, max, from, to, horizontal, range, progress } = this.state;
 
     if (!progress) {
@@ -88,6 +74,20 @@ class Track extends SubView {
     } else {
       this.progress.style.width = `${start}%`;
     }
+  }
+
+  private bindEventListener() {
+    this.clickHandler = this.clickHandler.bind(this);
+    this.subView.addEventListener('click', this.clickHandler);
+  }
+
+  private clickHandler(e: MouseEvent) {
+    this.dispatchEvent('SubViewEvent', {
+      target: 'track',
+      position: this.state.horizontal
+        ? e.clientY - this.slider.getBoundingClientRect().top
+        : e.clientX - this.slider.getBoundingClientRect().left,
+    });
   }
 }
 

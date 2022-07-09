@@ -6,7 +6,7 @@ class SecondTip extends Tip {
     this.role = 'to';
   }
 
-  public update(): void {
+  protected update(): void {
     super.update();
 
     const { to } = this.state;

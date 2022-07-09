@@ -32,13 +32,39 @@ class Scale extends SubView {
     this.registerEvent('SubViewEvent');
   }
 
-  public createSubView(): void {
+  public visibilitySwitcher(
+    positionInScale: 'first' | 'last',
+    visible: boolean,
+  ) {
+    const pips = this.subView.querySelectorAll('.jq-slider__scale-label');
+    if (positionInScale === 'first' && pips[0] instanceof HTMLElement) {
+      // eslint-disable-next-line no-unused-expressions
+      visible
+        ? pips[0].classList.add('js-slider__scale-label_hidden')
+        : pips[0].classList.remove('js-slider__scale-label_hidden');
+    }
+
+    const numberOfLastPip = pips.length - 1;
+    if (
+      positionInScale === 'last' &&
+      pips[numberOfLastPip] instanceof HTMLElement
+    ) {
+      // eslint-disable-next-line no-unused-expressions
+      visible
+        ? pips[numberOfLastPip].classList.add('js-slider__scale-label_hidden')
+        : pips[numberOfLastPip].classList.remove(
+            'js-slider__scale-label_hidden',
+          );
+    }
+  }
+
+  protected createSubView(): void {
     this.subView = document.createElement('div');
     this.subView.classList.add('jq-slider__scale');
     this.slider.appendChild(this.subView);
   }
 
-  public update(): void {
+  protected update(): void {
     const { min, max, step, horizontal, scaleDestiny } = this.state;
 
     let pips = [];
@@ -68,32 +94,6 @@ class Scale extends SubView {
     this.subView.innerHTML = pips.join(' ');
 
     this.bindEventListener();
-  }
-
-  public visibilitySwitcher(
-    positionInScale: 'first' | 'last',
-    visible: boolean,
-  ) {
-    const pips = this.subView.querySelectorAll('.jq-slider__scale-label');
-    if (positionInScale === 'first' && pips[0] instanceof HTMLElement) {
-      // eslint-disable-next-line no-unused-expressions
-      visible
-        ? pips[0].classList.add('js-slider__scale-label_hidden')
-        : pips[0].classList.remove('js-slider__scale-label_hidden');
-    }
-
-    const numberOfLastPip = pips.length - 1;
-    if (
-      positionInScale === 'last' &&
-      pips[numberOfLastPip] instanceof HTMLElement
-    ) {
-      // eslint-disable-next-line no-unused-expressions
-      visible
-        ? pips[numberOfLastPip].classList.add('js-slider__scale-label_hidden')
-        : pips[numberOfLastPip].classList.remove(
-            'js-slider__scale-label_hidden',
-          );
-    }
   }
 
   private createPipFragment(min: number, max: number, value: number) {

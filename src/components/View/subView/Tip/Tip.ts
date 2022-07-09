@@ -12,13 +12,13 @@ class Tip extends MovableSubView {
     this.isDouble = value;
   }
 
-  public createSubView(): void {
+  protected createSubView(): void {
     super.createSubView();
     this.subView.classList.add('jq-slider__tip');
     this.subView.style.zIndex = '5';
   }
 
-  public update(): void {
+  protected update(): void {
     super.update();
 
     const { from, to } = this.state;
