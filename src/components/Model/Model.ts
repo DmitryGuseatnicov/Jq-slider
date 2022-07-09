@@ -59,15 +59,17 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
     const values: Values = {};
     const settings: Settings = {};
 
-    // eslint-disable-next-line no-unused-expressions
-    'from' in data
-      ? (values.from = data.from)
-      : (values.from = this.state.from);
+    if ('from' in data) {
+      values.from = data.from;
+    } else {
+      values.from = this.state.from;
+    }
 
-    // eslint-disable-next-line no-unused-expressions, prettier/prettier
-    'to' in data
-      ? (values.to = data.to) 
-      : (values.to = this.state.to);
+    if ('to' in data) {
+      values.to = data.to;
+    } else {
+      values.to = this.state.to;
+    }
 
     if (data.step !== undefined && data.step > 0) settings.step = data.step;
     if (data.min !== undefined) settings.min = data.min;
