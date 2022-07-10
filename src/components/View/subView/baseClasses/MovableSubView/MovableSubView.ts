@@ -1,4 +1,4 @@
-import { RoleSubView, State } from 'types/types';
+import { RoleSubView } from 'types/types';
 import { convertValueInPercent } from 'utils/calcUtils';
 
 import SubView from '../abstractSubView/abstractSubView';
@@ -10,21 +10,6 @@ class MovableSubView extends SubView {
     super(slider);
     this.role = 'from';
     this.init();
-  }
-
-  public setState(state: State): void {
-    const { min, max, from, to, horizontal } = state;
-
-    this.state = {
-      ...this.state,
-      min,
-      max,
-      from,
-      to,
-      horizontal,
-    };
-
-    this.update();
   }
 
   protected init(): void {

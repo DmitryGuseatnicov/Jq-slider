@@ -10,20 +10,22 @@ class Scale extends SubView {
   }
 
   public setState(state: State): void {
-    const { min, max, horizontal, scaleDestiny, step } = state;
+    const scaleStetting: Array<keyof State> = [
+      'min',
+      'max',
+      'horizontal',
+      'scaleDestiny',
+      'step',
+    ];
 
-    const oldState = JSON.stringify(this.state);
-
-    this.state = {
-      ...this.state,
-      min,
-      max,
-      horizontal,
-      scaleDestiny,
-      step,
-    };
-    if (oldState !== JSON.stringify(this.state)) {
-      this.update();
+    const isChangedScaleSettings = scaleStetting.reduce((flag, key) => {
+      if (state[key] !== this.state[key]) {
+        return true;
+      }
+      return flag;
+    }, false);
+    if (isChangedScaleSettings) {
+      super.setState(state);
     }
   }
 

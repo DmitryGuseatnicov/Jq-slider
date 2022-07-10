@@ -1,3 +1,4 @@
+import defaultState from 'defaultState/defaultState';
 import {
   ModelEvent,
   ModelEventCallBack,
@@ -16,17 +17,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
   constructor(state: Data) {
     super();
     this.state = {
-      min: 0,
-      max: 100,
-      from: 0,
-      to: 100,
-      step: 1,
-      tip: true,
-      range: true,
-      progress: true,
-      scale: true,
-      scaleDestiny: 10,
-      horizontal: false,
+      ...defaultState,
     };
     this.init(state);
   }

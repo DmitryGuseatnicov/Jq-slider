@@ -7,6 +7,7 @@ import {
 } from 'types/types';
 import { convertPixelInPercent } from 'utils/calcUtils';
 
+import defaultState from 'defaultState/defaultState';
 import Handle from './subView/Handle/Handle';
 import SecondHandle from './subView/Handle/SecondHandle';
 import Scale from './subView/Scale/Scale';
@@ -37,12 +38,9 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
   constructor(nodeElem: HTMLElement) {
     super();
+    this.state = { ...defaultState };
     this.nodeElem = nodeElem;
     this.components = [];
-    /** истользовал as потому что знаем точно что после инициализации из Model прийдет state типа State,
-     * не знаю на сколько уместно так делать но решил рискнуть.
-     */
-    this.state = {} as State;
     this.init();
   }
 
@@ -149,7 +147,6 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
   private checkIsChangedSettings(state: State) {
     const { from, to, ...settings } = state;
-
     return Object.entries(settings).reduce((flag, entries) => {
       const [key, value] = entries;
       if (this.state[key as keyof State] !== value) {
@@ -168,7 +165,6 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
   private checkTips() {
     const { tip, range, horizontal } = this.state;
-
     if (!(tip && range)) {
       return;
     }

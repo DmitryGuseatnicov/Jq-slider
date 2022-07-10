@@ -1,5 +1,4 @@
 import { convertValueInPercent } from 'utils/calcUtils';
-import { State } from 'types/types';
 
 import SubView from '../baseClasses/abstractSubView/abstractSubView';
 
@@ -9,23 +8,6 @@ class Track extends SubView {
   constructor(slider: HTMLElement) {
     super(slider);
     this.init();
-  }
-
-  public setState(state: State): void {
-    const { min, max, from, to, horizontal, range, progress } = state;
-
-    this.state = {
-      ...this.state,
-      min,
-      max,
-      from,
-      to,
-      horizontal,
-      range,
-      progress,
-    };
-
-    this.update();
   }
 
   protected createSubView(): void {

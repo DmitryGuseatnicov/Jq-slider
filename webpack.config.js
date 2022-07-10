@@ -60,6 +60,7 @@ const common = merge([
         'components': path.resolve(__dirname, './src/components'),
         'utils': path.resolve(__dirname, './src/utils'),
         'types': path.resolve(__dirname, './src/types'),
+        'defaultState': path.resolve(__dirname, './src/defaultState'),
       },
     },
     plugins,

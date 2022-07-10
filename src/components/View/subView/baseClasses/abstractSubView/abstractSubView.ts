@@ -1,5 +1,6 @@
 import { SubViewEventCallBack, SubViewEvent, State } from 'types/types';
 import EventCreator from 'components/EventCreator/EventCreator';
+import defaultState from 'defaultState/defaultState';
 
 abstract class SubView extends EventCreator<
   SubViewEvent,
@@ -14,7 +15,7 @@ abstract class SubView extends EventCreator<
   constructor(slider: HTMLElement) {
     super();
     this.slider = slider;
-    this.state = {} as State;
+    this.state = { ...defaultState };
   }
 
   public getPosition(): number {
@@ -31,8 +32,12 @@ abstract class SubView extends EventCreator<
     return this.subView.getBoundingClientRect().width;
   }
 
+  public setState(state: State): void {
+    this.state = { ...state };
+    this.update();
+  }
   // eslint-disable-next-line no-unused-vars
-  public abstract setState(state: State): void;
+  // public abstract setState(state: State): void;
 
   protected abstract init(): void;
 
