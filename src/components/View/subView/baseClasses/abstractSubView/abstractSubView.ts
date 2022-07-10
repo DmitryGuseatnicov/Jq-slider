@@ -36,8 +36,6 @@ abstract class SubView extends EventCreator<
     this.state = { ...state };
     this.update();
   }
-  // eslint-disable-next-line no-unused-vars
-  // public abstract setState(state: State): void;
 
   protected abstract init(): void;
 

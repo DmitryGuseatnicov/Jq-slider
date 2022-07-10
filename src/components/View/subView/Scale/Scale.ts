@@ -24,6 +24,7 @@ class Scale extends SubView {
       }
       return flag;
     }, false);
+
     if (isChangedScaleSettings) {
       super.setState(state);
     }
