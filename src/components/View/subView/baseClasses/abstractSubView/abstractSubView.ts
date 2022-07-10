@@ -33,7 +33,7 @@ abstract class SubView extends EventCreator<
   }
 
   public setState(state: State): void {
-    this.state = { ...state };
+    this.state = { ...this.state, ...state };
     this.update();
   }
 
