@@ -59,11 +59,11 @@ class Track extends SubView {
   }
 
   private bindEventListener() {
-    this.clickHandler = this.clickHandler.bind(this);
-    this.subView.addEventListener('click', this.clickHandler);
+    this.handleTrackClick = this.handleTrackClick.bind(this);
+    this.subView.addEventListener('click', this.handleTrackClick);
   }
 
-  private clickHandler(e: MouseEvent) {
+  private handleTrackClick(e: MouseEvent) {
     this.dispatchEvent('SubViewEvent', {
       target: 'track',
       position: this.state.horizontal

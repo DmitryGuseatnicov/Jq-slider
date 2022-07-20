@@ -121,15 +121,15 @@ class Scale extends SubView {
   }
 
   private bindEventListener() {
-    this.clickHandler = this.clickHandler.bind(this);
+    this.handleScaleLabelCLick = this.handleScaleLabelCLick.bind(this);
     this.subView.querySelectorAll('.jq-slider__scale-label').forEach((pip) => {
       if (pip instanceof HTMLElement) {
-        pip.addEventListener('click', this.clickHandler);
+        pip.addEventListener('click', this.handleScaleLabelCLick);
       }
     });
   }
 
-  private clickHandler(e: MouseEvent) {
+  private handleScaleLabelCLick(e: MouseEvent) {
     const { min, max, horizontal } = this.state;
 
     if (!(e.target instanceof HTMLElement)) {

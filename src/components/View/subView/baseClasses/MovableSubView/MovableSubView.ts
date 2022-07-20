@@ -18,7 +18,7 @@ class MovableSubView extends SubView {
     this.bindEventListener();
   }
 
-  protected pointerHandler(e: PointerEvent): void {
+  protected handleSubViewPointermove(e: PointerEvent): void {
     this.dispatchEvent('SubViewEvent', {
       target: this.role,
       position: this.state.horizontal
@@ -45,20 +45,20 @@ class MovableSubView extends SubView {
   }
 
   private bindEventListener(): void {
-    this.pointerStart = this.pointerStart.bind(this);
-    this.subView.addEventListener('pointerdown', this.pointerStart);
+    this.handleSubViewPointerdown = this.handleSubViewPointerdown.bind(this);
+    this.subView.addEventListener('pointerdown', this.handleSubViewPointerdown);
   }
 
-  private pointerStart(): void {
-    this.pointerHandler = this.pointerHandler.bind(this);
-    this.removePointStart = this.removePointStart.bind(this);
-    window.addEventListener('pointermove', this.pointerHandler);
-    window.addEventListener('pointerup', this.removePointStart);
+  private handleSubViewPointerdown(): void {
+    this.handleSubViewPointermove = this.handleSubViewPointermove.bind(this);
+    this.handleSubViewPointerup = this.handleSubViewPointerup.bind(this);
+
+    window.addEventListener('pointermove', this.handleSubViewPointermove);
+    window.addEventListener('pointerup', this.handleSubViewPointerup);
   }
 
-  private removePointStart() {
-    window.removeEventListener('pointermove', this.pointerHandler);
-    window.removeEventListener('pointermove', this.pointerHandler);
+  private handleSubViewPointerup() {
+    window.removeEventListener('pointermove', this.handleSubViewPointermove);
   }
 }
 
