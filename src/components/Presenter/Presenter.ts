@@ -25,13 +25,13 @@ class Presenter extends EventCreator<State, (state: State) => void> {
   }
 
   private bindEventListeners() {
-    this.viewEventHandler = this.viewEventHandler.bind(this);
-    this.modelEventHandler = this.modelEventHandler.bind(this);
-    this.view.addEventListener('ViewEvent', this.viewEventHandler);
-    this.model.addEventListener('ModelEvent', this.modelEventHandler);
+    this.handleViewEvent = this.handleViewEvent.bind(this);
+    this.handleModelEvent = this.handleModelEvent.bind(this);
+    this.view.addEventListener('ViewEvent', this.handleViewEvent);
+    this.model.addEventListener('ModelEvent', this.handleModelEvent);
   }
 
-  private viewEventHandler(e: ViewEvent) {
+  private handleViewEvent(e: ViewEvent) {
     const { min, max } = this.model.getState();
     const isNumbers = typeof min === 'number' && typeof max === 'number';
 
@@ -42,7 +42,7 @@ class Presenter extends EventCreator<State, (state: State) => void> {
     this.model.setState(e);
   }
 
-  private modelEventHandler(e: State) {
+  private handleModelEvent(e: State) {
     this.dispatchEvent('onChange', e);
     this.view.setState(e);
   }

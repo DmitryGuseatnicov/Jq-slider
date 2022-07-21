@@ -95,16 +95,16 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   }
 
   private bindEventListener() {
-    this.subViewEventHandler = this.subViewEventHandler.bind(this);
+    this.handleSubViewEvent = this.handleSubViewEvent.bind(this);
 
     this.components.forEach((component) => {
       if (component.events.SubViewEvent) {
-        component.addEventListener('SubViewEvent', this.subViewEventHandler);
+        component.addEventListener('SubViewEvent', this.handleSubViewEvent);
       }
     });
   }
 
-  private subViewEventHandler(e: SubViewEvent) {
+  private handleSubViewEvent(e: SubViewEvent) {
     const size = this.state.horizontal
       ? this.slider.getBoundingClientRect().height
       : this.slider.getBoundingClientRect().width;
