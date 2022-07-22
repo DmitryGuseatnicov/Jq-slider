@@ -79,7 +79,6 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
   private minMaxValidator(data: Data): Data {
     let { min = this.state.min } = data;
     const { max = this.state.max } = data;
-
     if (min > max) min = max;
 
     return { ...data, min, max };
@@ -112,6 +111,10 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
 
   private checkStep(value: number): number {
     const { min, max, step } = this.state;
+
+    if (max - min <= 0) {
+      return 0;
+    }
 
     const interval = max - min;
     const stepInPercent = 100 / (interval / step);
