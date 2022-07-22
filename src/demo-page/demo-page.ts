@@ -92,7 +92,9 @@ class ControlPanel {
     }
 
     if (e.target.type === 'number') {
-      this.$slider.jqSlider('update', { [e.target.name]: +e.target.value });
+      this.$slider.jqSlider('update', {
+        [e.target.name]: Number(e.target.value),
+      });
     }
 
     if (e.target.type === 'checkbox') {
@@ -107,7 +109,7 @@ class ControlPanel {
       }
 
       if (el.type === 'number') {
-        $(el).val(+e[el.name as keyof State]);
+        $(el).val(Number(e[el.name as keyof State]));
       }
 
       if (el.type === 'checkbox') {
