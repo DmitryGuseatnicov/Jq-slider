@@ -79,6 +79,7 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
   private minMaxValidator(data: Data): Data {
     let { min = this.state.min } = data;
     const { max = this.state.max } = data;
+
     if (min > max) min = max;
 
     return { ...data, min, max };
@@ -138,9 +139,10 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
       const isFromNotValidly = this.state.to - copyOfSData.from <= 0;
       const isToNotValidly = copyOfSData.to - this.state.from <= 0;
 
-      if (this.state.from > this.state.to) this.state.from = this.state.to;
       if (isFromNotValidly) copyOfSData.from = this.state.to;
       if (isToNotValidly) copyOfSData.to = this.state.from;
+      if (copyOfSData.to > this.state.max) copyOfSData.to = this.state.max;
+      if (copyOfSData.from < this.state.min) copyOfSData.from = this.state.min;
     }
 
     return copyOfSData;
