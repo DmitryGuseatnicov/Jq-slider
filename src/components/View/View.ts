@@ -5,7 +5,7 @@ import {
   ViewEventCallBack,
   State,
 } from 'types/types';
-import { convertPixelInPercent } from 'utils/calcUtils';
+import { convertPixelInValue } from 'utils/calcUtils';
 
 import defaultState from 'defaultState/defaultState';
 import Handle from './subView/Handle/Handle';
@@ -109,15 +109,17 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       ? this.slider.getBoundingClientRect().height
       : this.slider.getBoundingClientRect().width;
 
+    const { min, max } = this.state;
+
     if (e.target === 'from') {
       this.dispatchEvent('ViewEvent', {
-        from: convertPixelInPercent(size, e.position),
+        from: convertPixelInValue(min, max, size, e.position),
       });
     }
 
     if (e.target === 'to') {
       this.dispatchEvent('ViewEvent', {
-        to: convertPixelInPercent(size, e.position),
+        to: convertPixelInValue(min, max, size, e.position),
       });
     }
 
@@ -126,7 +128,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       const from = handles[0].getPosition();
       if (!this.state.range) {
         this.dispatchEvent('ViewEvent', {
-          from: convertPixelInPercent(size, e.position),
+          from: convertPixelInValue(min, max, size, e.position),
         });
         return;
       }
@@ -134,13 +136,13 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       const to = handles[1].getPosition();
       if (Math.abs(from - e.position) <= to - e.position) {
         this.dispatchEvent('ViewEvent', {
-          from: convertPixelInPercent(size, e.position),
+          from: convertPixelInValue(min, max, size, e.position),
         });
         return;
       }
 
       this.dispatchEvent('ViewEvent', {
-        to: convertPixelInPercent(size, e.position),
+        to: convertPixelInValue(min, max, size, e.position),
       });
     }
   }

@@ -19,4 +19,18 @@ function convertPercentInValue(
   return ((max - min) / 100) * percent + min;
 }
 
-export { convertValueInPercent, convertPixelInPercent, convertPercentInValue };
+function convertPixelInValue(
+  min: number,
+  max: number,
+  width: number,
+  value: number,
+): number {
+  return convertPercentInValue(min, max, convertPixelInPercent(width, value));
+}
+
+export {
+  convertValueInPercent,
+  convertPixelInPercent,
+  convertPercentInValue,
+  convertPixelInValue,
+};

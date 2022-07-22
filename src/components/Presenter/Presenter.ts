@@ -1,5 +1,4 @@
 import { Data, State, ViewEvent } from 'types/types';
-import { convertPercentInValue } from 'utils/calcUtils';
 
 import Model from '../Model/Model';
 import View from '../View/View';
@@ -32,13 +31,6 @@ class Presenter extends EventCreator<State, (state: State) => void> {
   }
 
   private handleViewEvent(e: ViewEvent) {
-    const { min, max } = this.model.getState();
-    const isNumbers = typeof min === 'number' && typeof max === 'number';
-
-    if (!isNumbers) return;
-    if (e.from) e.from = +convertPercentInValue(min, max, e.from).toFixed(3);
-    if (e.to) e.to = +convertPercentInValue(min, max, e.to).toFixed(3);
-
     this.model.setState(e);
   }
 
