@@ -45,18 +45,22 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
   }
 
   public setState(state: State) {
-    if (this.checkIsChangedSettings(state)) {
-      this.rebuildSlider(state);
-    }
     this.state = { ...this.state, ...state };
     this.update(this.state);
     this.checkTips();
     this.checkScale();
   }
 
+  public rebuildSlider(state: State) {
+    this.components = [];
+    this.slider.innerHTML = '';
+    this.createComponents(state);
+    this.bindEventListener();
+  }
+
   private init() {
     this.createSlider();
-    this.registerEvent('ViewEvent');
+    this.registerEvent('updateView');
   }
 
   private createSlider() {
@@ -98,8 +102,8 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     this.handleSubViewEvent = this.handleSubViewEvent.bind(this);
 
     this.components.forEach((component) => {
-      if (component.events.SubViewEvent) {
-        component.addEventListener('SubViewEvent', this.handleSubViewEvent);
+      if (component.events.updateSubView) {
+        component.addEventListener('updateSubView', this.handleSubViewEvent);
       }
     });
   }
@@ -112,13 +116,13 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     const { min, max } = this.state;
 
     if (e.target === 'from') {
-      this.dispatchEvent('ViewEvent', {
+      this.dispatchEvent('updateView', {
         from: convertPixelInValue(min, max, size, e.position),
       });
     }
 
     if (e.target === 'to') {
-      this.dispatchEvent('ViewEvent', {
+      this.dispatchEvent('updateView', {
         to: convertPixelInValue(min, max, size, e.position),
       });
     }
@@ -127,7 +131,7 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
       const handles = this.getArrOfConcreteSubView(Handle);
       const from = handles[0].getPosition();
       if (!this.state.range) {
-        this.dispatchEvent('ViewEvent', {
+        this.dispatchEvent('updateView', {
           from: convertPixelInValue(min, max, size, e.position),
         });
         return;
@@ -135,34 +139,16 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
 
       const to = handles[1].getPosition();
       if (Math.abs(from - e.position) <= to - e.position) {
-        this.dispatchEvent('ViewEvent', {
+        this.dispatchEvent('updateView', {
           from: convertPixelInValue(min, max, size, e.position),
         });
         return;
       }
 
-      this.dispatchEvent('ViewEvent', {
+      this.dispatchEvent('updateView', {
         to: convertPixelInValue(min, max, size, e.position),
       });
     }
-  }
-
-  private checkIsChangedSettings(state: State) {
-    const { from, to, ...settings } = state;
-    return Object.entries(settings).reduce((flag, entries) => {
-      const [key, value] = entries;
-      if (this.state[key as keyof State] !== value) {
-        return true;
-      }
-      return flag;
-    }, false);
-  }
-
-  private rebuildSlider(state: State) {
-    this.components = [];
-    this.slider.innerHTML = '';
-    this.createComponents(state);
-    this.bindEventListener();
   }
 
   private checkTips() {

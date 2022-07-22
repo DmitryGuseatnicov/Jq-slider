@@ -14,12 +14,12 @@ class MovableSubView extends SubView {
 
   protected init(): void {
     this.createSubView();
-    this.registerEvent('SubViewEvent');
+    this.registerEvent('updateSubView');
     this.bindEventListener();
   }
 
   protected handleSubViewPointermove(e: PointerEvent): void {
-    this.dispatchEvent('SubViewEvent', {
+    this.dispatchEvent('updateSubView', {
       target: this.role,
       position: this.state.horizontal
         ? e.clientY - this.slider.getBoundingClientRect().top

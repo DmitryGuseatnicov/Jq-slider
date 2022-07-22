@@ -24,17 +24,21 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
 
   public setState(state: Data) {
     const [values, settings] = this.splitParams(state);
+    const isUpdateSettings = Object.keys(settings).length > 0;
 
-    this.state = {
-      ...this.state,
-      ...this.minMaxValidator(settings),
-    };
+    if (isUpdateSettings) {
+      this.state = {
+        ...this.state,
+        ...this.minMaxValidator(settings),
+      };
+      this.dispatchEvent('updateSettings', this.state);
+    }
+
     this.state = {
       ...this.state,
       ...this.rangeFromToValidator(this.stepValidator(values)),
     };
-
-    this.dispatchEvent('ModelEvent', this.state);
+    this.dispatchEvent('updateValues', this.state);
   }
 
   public getState(): State {
@@ -42,7 +46,8 @@ class Model extends EventCreator<ModelEvent, ModelEventCallBack> {
   }
 
   private init(state: Data) {
-    this.registerEvent('ModelEvent');
+    this.registerEvent('updateValues');
+    this.registerEvent('updateSettings');
     this.setState(state);
   }
 

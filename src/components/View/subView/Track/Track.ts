@@ -21,7 +21,7 @@ class Track extends SubView {
 
   protected init(): void {
     this.createSubView();
-    this.registerEvent('SubViewEvent');
+    this.registerEvent('updateSubView');
     this.bindEventListener();
   }
 
@@ -64,7 +64,7 @@ class Track extends SubView {
   }
 
   private handleTrackClick(e: MouseEvent) {
-    this.dispatchEvent('SubViewEvent', {
+    this.dispatchEvent('updateSubView', {
       target: 'track',
       position: this.state.horizontal
         ? e.clientY - this.slider.getBoundingClientRect().top

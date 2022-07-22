@@ -32,7 +32,7 @@ class Scale extends SubView {
 
   public init(): void {
     this.createSubView();
-    this.registerEvent('SubViewEvent');
+    this.registerEvent('updateSubView');
   }
 
   public visibilitySwitcher(
@@ -151,7 +151,7 @@ class Scale extends SubView {
         : this.slider.getBoundingClientRect().width;
       position = this.getPosition() - sliderSize;
     }
-    this.dispatchEvent('SubViewEvent', { target: 'scale', position });
+    this.dispatchEvent('updateSubView', { target: 'scale', position });
   }
 }
 

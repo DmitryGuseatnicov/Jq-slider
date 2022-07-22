@@ -25,18 +25,29 @@ class Presenter extends EventCreator<State, (state: State) => void> {
 
   private bindEventListeners() {
     this.handleViewEvent = this.handleViewEvent.bind(this);
-    this.handleModelEvent = this.handleModelEvent.bind(this);
-    this.view.addEventListener('ViewEvent', this.handleViewEvent);
-    this.model.addEventListener('ModelEvent', this.handleModelEvent);
+    this.handleModelUpdateValues = this.handleModelUpdateValues.bind(this);
+    this.handleModelUpdateSettings = this.handleModelUpdateSettings.bind(this);
+
+    this.view.addEventListener('updateView', this.handleViewEvent);
+    this.model.addEventListener('updateValues', this.handleModelUpdateValues);
+    this.model.addEventListener(
+      'updateSettings',
+      this.handleModelUpdateSettings,
+    );
   }
 
   private handleViewEvent(e: ViewEvent) {
     this.model.setState(e);
   }
 
-  private handleModelEvent(e: State) {
+  private handleModelUpdateValues(e: State) {
     this.dispatchEvent('onChange', e);
     this.view.setState(e);
+  }
+
+  private handleModelUpdateSettings(e: State) {
+    this.dispatchEvent('onChange', e);
+    this.view.rebuildSlider(e);
   }
 }
 
