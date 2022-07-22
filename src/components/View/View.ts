@@ -170,22 +170,22 @@ class View extends EventCreator<ViewEvent, ViewEventCallBack> {
     }
 
     const tips = this.getArrOfConcreteSubView<Tip>(Tip);
-    const size = horizontal
-      ? tips[1].subView.clientHeight
-      : tips[1].subView.offsetWidth;
-    const firstPosition = tips[0].getPosition();
-    const secondPosition = tips[1].getPosition() - size;
 
-    if (firstPosition > secondPosition) {
-      tips.forEach((t) => {
-        t.changeIsDouble(true);
-        t.setState(this.state);
-      });
-    } else {
-      tips.forEach((t) => {
-        t.changeIsDouble(false);
-      });
-    }
+    const sizeOfFirstTip = horizontal
+      ? tips[0].subView.getBoundingClientRect().height
+      : tips[1].subView.getBoundingClientRect().width;
+    const sizeOfSecondTip = horizontal
+      ? tips[1].subView.getBoundingClientRect().height
+      : tips[1].subView.getBoundingClientRect().width;
+
+    const firstPosition = tips[0].getPosition() + sizeOfFirstTip;
+    const secondPosition = tips[1].getPosition();
+    const isTouched = secondPosition - firstPosition < sizeOfSecondTip;
+
+    tips.forEach((t) => {
+      t.changeIsDouble(isTouched);
+      t.setState(this.state);
+    });
   }
 
   private checkScale() {
